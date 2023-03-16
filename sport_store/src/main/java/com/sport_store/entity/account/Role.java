@@ -1,4 +1,4 @@
-package com.c0822g1primaryschoolbe.entity.account;
+package com.sport_store.entity.account;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;

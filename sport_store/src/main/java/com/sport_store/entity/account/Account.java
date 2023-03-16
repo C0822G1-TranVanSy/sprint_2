@@ -1,6 +1,5 @@
-package com.c0822g1primaryschoolbe.entity.account;
+package com.sport_store.entity.account;
 
-import com.c0822g1primaryschoolbe.entity.teacher.Teacher;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,6 +25,10 @@ public class Account {
     private String password;
     @Column(columnDefinition = "varchar(45)",unique = true)
     private String email;
+    @Column(columnDefinition = "varchar(45)",unique = true)
+    private String phoneNumber;
+    @Column(columnDefinition = "varchar(45)")
+    private String address;
     private String name;
     @ManyToMany(fetch = FetchType.EAGER)
     @JsonBackReference
@@ -85,13 +88,21 @@ public class Account {
         this.name = name;
     }
 
-//    public Teacher getTeacher() {
-//        return teacher;
-//    }
-//
-//    public void setTeacher(Teacher teacher) {
-//        this.teacher = teacher;
-//    }
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public Set<Role> getRoles() {
         return roles;

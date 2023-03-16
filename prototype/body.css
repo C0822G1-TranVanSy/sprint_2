@@ -483,4 +483,17 @@ footer textarea, input{
     transform:scale(1.2);
 }/*.item img*/
 
-
+.istock-colored-sale-notification-banner {
+    background-image: url("images/footer2.png");
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 5px;
+    box-shadow: 0 5px 8px rgba(12, 13, 13, .25);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto 4px;
+    padding-bottom: 10px;
+    padding-top: 14px;
+}
