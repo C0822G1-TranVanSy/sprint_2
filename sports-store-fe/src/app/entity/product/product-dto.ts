@@ -1,11 +1,10 @@
 import {Category} from './category';
 
-export interface Product {
+export interface ProductDto {
   productId: number;
   productName: string;
-  description?: string;
-  flagDelete?: boolean;
+  description: string;
   price: number;
   avatar: string;
-  category?: Category;
+  categoryId: number;
 }

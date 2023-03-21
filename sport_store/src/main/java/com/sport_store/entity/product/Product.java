@@ -12,9 +12,12 @@ public class Product {
     @Column(name = "product_id")
     private Long productId;
     private String productName;
+    @Column(columnDefinition = "LONGTEXT")
     private String description;
+    @Column(columnDefinition = "bit default 0")
     private Boolean flagDelete;
     private Double price;
+    @Column(columnDefinition = "TEXT")
     private String avatar;
     @ManyToOne()
     @JoinColumn(name = "category_id", nullable = false, referencedColumnName = "category_id")

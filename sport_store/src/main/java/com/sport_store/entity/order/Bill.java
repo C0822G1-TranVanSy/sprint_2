@@ -12,12 +12,16 @@ public class Bill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "bill_id")
     private Long billId;
+    @Column(columnDefinition = "bit default 0")
     private Boolean flagDelete;
     @Column(columnDefinition = "date")
     private String orderDate;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id")
     private Account account;
+    @ManyToOne
+    @JoinColumn(name = "payment_id", nullable = false, referencedColumnName = "payment_id")
+    private Payment payment;
 
     public Long getBillId() {
         return billId;
@@ -49,5 +53,13 @@ public class Bill {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 }

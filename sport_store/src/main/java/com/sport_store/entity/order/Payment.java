@@ -6,12 +6,10 @@ import javax.persistence.*;
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "payment_id")
     private Long paymentId;
     private String paymentMethod;
     private Boolean paymentStatus;
-    @ManyToOne
-    @JoinColumn(name = "bill_id", nullable = false, referencedColumnName = "bill_id")
-    private Bill bill;
 
     public Long getPaymentId() {
         return paymentId;
@@ -27,14 +25,6 @@ public class Payment {
 
     public void setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
-    }
-
-    public Bill getBill() {
-        return bill;
-    }
-
-    public void setBill(Bill bill) {
-        this.bill = bill;
     }
 
     public Boolean getPaymentStatus() {

@@ -61,7 +61,7 @@
 <div class="container mt-5 mb-5">
   <div class="gallary-header text-center">
     <h1 style="width: 100%;background-color: #f7e296;height: 20px;"><p class="spbc"
-      style="background-color: white;width: 50%;line-height: 3px;padding: 5px 5px 13px 5px;margin: auto">
+                                                                       style="background-color: white;width: 50%;line-height: 3px;padding: 5px 5px 13px 5px;margin: auto">
       Sản phẩm bán chạy
     </p></h1>
   </div>
@@ -124,7 +124,7 @@
 <div class="container mt-5 mb-5">
   <div class="gallary-header text-center">
     <h1 style="width: 100%;background-color: #f7e296;height: 20px;"><p class="cmtt"
-      style="background-color: white;width: 50%;line-height: 2px;padding: 5px 5px 13px 5px;margin: auto">
+                                                                       style="background-color: white;width: 50%;line-height: 2px;padding: 5px 5px 13px 5px;margin: auto">
       Các môn thể thao
     </p></h1>
   </div>
@@ -145,74 +145,53 @@
   </div>
 </div>
 
+
 <section id="pack" class="packages">
   <div class="container">
     <div class="gallary-header text-center">
-      <h1  style="width: 100%;background-color: #f7e296;height: 20px;"><p class="phukien"
-        style="background-color: white;width: 50%;line-height: 3px;padding: 5px 5px 13px 5px;margin: auto">
+      <h1 style="width: 100%;background-color: #f7e296;height: 20px;"><p class="phukien"
+                                                                         style="background-color: white;width: 50%;line-height: 3px;padding: 5px 5px 13px 5px;margin: auto">
         Phụ kiện thể thao
       </p></h1>
     </div>
     <div class="packages-content">
       <div class="row">
-        <div class="col-md-4 col-sm-6">
-          <div class="single-package-item" style="background-color: #f7e296">
-            <img src="/assets/images/bong1.webp"
+        <div class="col-md-4 col-sm-6" *ngFor="let item of productList">
+          <div class="single-package-item item1" style="background-color: #295d76; border-radius: 15%">
+            <img [src]="item.avatar" class="image" style="height: 340px; border-radius: 15%"
                  alt="package-place">
-            <div class="single-package-item-txt">
-              <h3>Huế <span class="pull-right" style="color: blue">1,800,000đ</span></h3>
-              <div class="packages-para">
-                <p>
-                  Mẫu bóng đá sân cỏ FIFA Quality Pro SEA Games UHV 2.07 Victor lấy màu sắc của quốc
-                  kỳ nước chủ nhà Việt Nam (đỏ và vàng) làm chủ đạo, thể hiện sự mạnh mẽ, năng động
-                  .
-                </p>
-              </div>
-              <div class="text-center">
-                <a class="btn btn-primary room-qview" target="_blank">THÊM VÀO GIỎ</a>
-              </div>
+            <div class="middle">
+              <button class="btn btn-warning room-qview mb-3" [routerLink]="['/body/detail',item.productId]" target="_blank"><img src="https://img.icons8.com/ios-glyphs/30/null/view-file.png" style="width: 20%"/> Chi tiết
+              </button>
+              <button *ngIf="role!='ROLE_ADMIN'; else elseAdmin" class="btn btn-warning room-qview" (click)="addToCard(item)" target="_blank"><img
+                src="https://img.icons8.com/pastel-glyph/64/null/briefcase--v2.png" style="width: 20%"/> Thêm vào giỏ
+              </button>
+              <ng-template #elseAdmin>
+              <button class="btn btn-warning room-qview"  target="_blank"><img src="https://img.icons8.com/external-tanah-basah-glyph-tanah-basah/48/null/external-edit-social-media-ui-tanah-basah-glyph-tanah-basah.png" style="width: 20%"/> Chỉnh sửa
+              </button>
+              </ng-template>
+            </div>
+            <div class="single-package-item-txt text-center">
+              <h3 class="text-uppercase" style="height: 100px;">{{item.productName}}</h3>
+              <b class="pull-right" style="color: #fa8824">Giá: {{item.price | currency:'VND':''}} đ</b>
+              <!--              <div class="packages-para">-->
+              <!--                <p>{{item.description}}</p>-->
+              <!--              </div>-->
             </div>
           </div>
         </div>
-
-        <div class="col-md-4 col-sm-6">
-          <div class="single-package-item" style="background-color: #f7e296">
-            <img src="/assets/images/bong2.webp"
-                 alt="package-place">
-            <div class="single-package-item-txt">
-              <h3>Bóng Offical <span class="pull-right" style="color: blue">1,500,000đ</span></h3>
-              <div class="packages-para">
-                <p>Trái banh đá bóng OFFICIAL sử dụng cho thi đấu và tập luyện. Sử dụng da PU cao cấp chống
-                  thấm nước, độ bền cao. Màu sắc đa dạng, độ nảy ổn định</p>
-              </div>
-              <div class="text-center">
-                <a class="btn btn-primary room-qview" target="_blank">THÊM VÀO GIỎ</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-4 col-sm-6">
-          <div class="single-package-item" style="background-color: #f7e296">
-            <img src="/assets/images/gangtay1.webp"
-                 alt="package-place">
-            <div class="single-package-item-txt">
-              <h3>Găng tay Neuer <span class="pull-right" style="color: blue">500,000đ</span></h3>
-              <div class="packages-para">
-                <p>
-                  Găng tay thủ môn Predator Pro Manuel Neuer
-                  - Mút 4mm siêu dính
-                  - Cut : Negative
-                  - Chống trầy : Có
-                  - Backhand : Silicon hỗ trợ đấm bóng
-                  - Handstrap : 2 vòng chắc chắn
-                </p>
-              </div>
-              <div class="text-center">
-                <a class="btn btn-primary room-qview" target="_blank">THÊM VÀO GIỎ</a>
-              </div>
-            </div>
-          </div>
+        <div class="text-center">
+          <a style="cursor: pointer; color: #0076ad; text-decoration: none" type="button"
+             (click)="getPageAllProduct(size+3)" *ngIf="!last">
+            <img src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/null/external-arrow-down-web-flaticons-lineal-color-flat-icons-4.png"/><br>
+            Xem thêm
+          </a>
+          <a style="cursor: pointer; color: #0076ad; text-decoration: none" type="button"
+             (click)="getPageAllProduct(size=3)" (change)="scrollToBlog()" *ngIf="last">
+            <img src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/null/external-arrow-up-web-flaticons-lineal-color-flat-icons-4.png"/>
+            <br>
+            Ẩn bớt
+          </a>
         </div>
       </div>
     </div>

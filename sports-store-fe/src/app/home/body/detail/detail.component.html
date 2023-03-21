@@ -6,13 +6,13 @@
 
           <div class="preview-pic tab-content">
             <div class="tab-pane active" id="pic-1">
-              <img src="/assets/images/giay1.png"/>
+              <img [src]="product.avatar"/>
             </div>
           </div>
 
         </div>
         <div class="details col-md-6">
-          <h3 class="product-title">Giày Nike</h3>
+          <h3 class="product-title">{{product.productName}}</h3>
           <div class="rating">
             <div class="stars">
               <span class="fa fa-star checked"></span>
@@ -23,9 +23,8 @@
             </div>
             <span class="review-no">41 đánh giá</span>
           </div>
-          <p class="product-description">Suspendisse quos? Tempus cras iure temporibus? Eu laudantium cubilia
-            sem sem! Repudiandae et! Massa senectus enim minim sociosqu delectus posuere.</p>
-          <h4 class="price">Giá: <span>295.000₫</span></h4>
+          <p class="product-description">{{product.description}}</p>
+          <h4 class="price">Giá: <span>{{product.price | currency:'VND':''}} đ</span></h4>
           <p class="vote"><strong>91%</strong> người mua thích sản phẩm này! <strong>(87 phiếu)</strong></p>
           <h5 class="sizes">Kích cỡ:
             <span class="size" data-toggle="tooltip" title="small">s</span>
@@ -35,18 +34,22 @@
           </h5>
 
           <h5 class="colors" style="display: inline" >Số lượng:
-            <button class="btn btn-link px-2" style="display: inline">
+            <button class="btn btn-link px-2" style="display: inline"
+                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
               <i class="fas fa-minus"></i>
             </button>
-            <input id="form1" min="0" style="width: 60px;display: inline" name="quantity" value="1" type="number"
+            <input id="form1" min="0" style="width: 60px;display: inline" name="quantity" [value]="quantity" type="number"
                    class="form-control form-control-sm" />
 
-            <button class="btn btn-link px-2"  style="display: inline">
+            <button class="btn btn-link px-2"  style="display: inline"
+                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
               <i class="fas fa-plus"></i>
             </button>
           </h5>
           <h5 class="colors">
-            <button style="width: 100%;" class="add-to-cart btn btn-default" type="button">Thêm vào giỏ hàng</button>
+            <button class="add-to-cart btn btn-default" type="button" (click)="addToCard(product)">
+              <img src="https://img.icons8.com/pastel-glyph/64/null/briefcase--v2.png" style="width: 15%"/>
+              Thêm vào giỏ</button>
           </h5>
         </div>
       </div>

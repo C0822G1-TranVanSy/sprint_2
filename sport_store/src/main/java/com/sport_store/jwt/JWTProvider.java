@@ -13,7 +13,7 @@ import java.util.Date;
 public class JWTProvider {
     private static final Logger logger = LoggerFactory.getLogger(JWTProvider.class);
 
-    private String jwtSecret = "sports_store";
+    private String jwtSecret = "tranvansy_sport";
     private int jwtExpiration = 86400;
 
     public String createToken(Authentication authentication) {

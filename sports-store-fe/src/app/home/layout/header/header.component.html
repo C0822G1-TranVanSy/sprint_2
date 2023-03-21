@@ -1,29 +1,58 @@
 
-<section class="header">
-  <nav>
+<section class="header" style="position: sticky; top: 0; z-index: 99">
+  <nav >
     <div class="logo">
       <a routerLink="/">
       <img class="animationTop delay-01" src="/assets/images/logo.png" style=" background-size: cover"/></a>
     </div>
-    <div class="nav-links">
+    <div class="nav-links" >
       <ul>
-<!--        <li>-->
-<!--          <form class="d-flex">-->
-<!--              <input class="form-control me-2" type="search" placeholder="Search"-->
-<!--                     aria-label="Search">-->
+        <li class="animationTop delay-03" style="z-index: 999">
+          <a style="margin-left: 20px;text-decoration: none;color: #FFCE1B" class="dropdown">
+            <span style="cursor: pointer">DANH MỤC SẢN PHẨM</span>
+            <div class="dropdown-content" style="text-align: left">
+              <p routerLink="/list/search/1/null"  class="category-item"><i style="margin-right: 5px" class="fa-brands fa-teamspeak"></i> Tất
+                cả</p>
 
-<!--              <button class="btn btn-outline-success" type="submit"><i class="fa-brands fa-searchengin"></i></button>-->
-<!--          </form>-->
-<!--        </li>-->
+              <p routerLink="/list/search/2/null" class="category-item">
+                <i style="margin-right: 5px" class="fa-solid fa-futbol"></i>Bóng đá</p>
+              <p routerLink="/list/search/2/null" class="category-item">
+                <i style="margin-right: 5px" class="fa-sharp fa-solid fa-volleyball"></i>Bóng chuyền</p>
+              <p routerLink="/list/search/2/null" class="category-item">
+                <i style="margin-right: 5px" class="fa-sharp fa-solid fa-basketball"></i>Bóng chuyền</p>
+
+            </div>
+          </a>
+        </li>
         <li class="animationTop delay-03"><a>QUẢN LÝ ĐẶT SÂN</a>
         </li>
         <li class="animationTop delay-03"><a>CUSTOMER</a>
         </li>
-        <li class="animationTop delay-03"><a routerLink="/security/login">ĐĂNG NHẬP</a>
+        <li class="animationTop delay-03" *ngIf="role!='ROLE_ADMIN'">
+          <a routerLink="/body/cart"><img class="img12" style="width: 50px; height: 50px" src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/null/external-cart-web-flaticons-lineal-color-flat-icons-7.png"/></a>
         </li>
-        <li class="animationTop delay-03">
-          <a routerLink="/body/cart"><img src="https://img.icons8.com/external-wanicon-lineal-color-wanicon/64/null/external-cart-supermarket-wanicon-lineal-color-wanicon.png"
-                  style="width: 70px"/></a>
+        <li class="animationTop delay-03" style="z-index: 998"><a *ngIf="!isLoggedIn;else elseBlock" routerLink="/security/login">ĐĂNG NHẬP</a>
+          <ng-template #elseBlock>
+            <div>
+            <div class="dropdown animationTop delay-11">
+              <a class="m-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="{{user?.avatar}}" class="rounded-circle" style="width: 40px; background-image: none; height: 40px" height="24" width="24"
+                     alt="avc"/>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" style="background-color: #0076ad; cursor: pointer; width: 180px">
+                <li class="animationTop delay-01" style="color: white">
+                  <i class="fa-solid fa-user me-3" ></i><strong>{{user?.username}}</strong>
+                </li>
+                <li class="animationTop delay-02" ><a  class="dropdown" routerLink="/teacher/editInfoTeacher" (click)="scrollToTopLogin()"> <i class="fa-solid fa-gear me-1"></i>
+                  Sửa thông tin cá nhân</a></li>
+                <li class="animationTop delay-03"><a class="dropdown" routerLink="/security/changePassword" (click)="scrollToTopLogin()"><i class="fa-sharp fa-solid fa-key me-1" ></i> Sửa mật khẩu</a></li><br>
+
+                <li class="animationTop delay-04"><a class="dropdown" data-bs-toggle="modal" data-bs-target="#logout" (click)="logout()"
+                                                     type="button"><i class="fa-sharp fa-solid fa-right-to-bracket me-1" ></i> Đăng xuất </a></li>
+              </ul>
+            </div>
+          </div>
+          </ng-template>
         </li>
 
       </ul>
@@ -31,9 +60,10 @@
   </nav>
   <form>
     <div class="d-flex offset-3 col-4 zoom">
-    <input class="form-control me-2 " type="search" placeholder="Search"
+    <input class="form-control me-2" type="search" placeholder="Search"
            aria-label="Search">
     <button class="btn btn-outline-warning" type="submit" style="border-radius: 50%; width: 30px"><i class="fa-brands fa-searchengin"></i></button>
     </div>
   </form>
+
 </section>
