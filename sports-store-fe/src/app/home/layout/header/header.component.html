@@ -7,26 +7,26 @@
     </div>
     <div class="nav-links" >
       <ul>
-        <li class="animationTop delay-03" style="z-index: 999">
-          <a style="margin-left: 20px;text-decoration: none;color: #FFCE1B" class="dropdown">
+        <li class="animationTop delay-03" style="z-index: 999;">
+          <a style="margin-left: 20px;text-decoration: none;color: #FFCE1B;" class="dropdown animationTop delay-11">
             <span style="cursor: pointer">DANH MỤC SẢN PHẨM</span>
             <div class="dropdown-content" style="text-align: left">
-              <p routerLink="/list/search/1/null"  class="category-item"><i style="margin-right: 5px" class="fa-brands fa-teamspeak"></i> Tất
-                cả</p>
+              <a [routerLink]="['/product/search',0]" style="display: block" class="category-item animationTop delay-4"><i style="margin-right: 5px" class="fa-brands fa-teamspeak"></i> Tất
+                cả</a>
 
-              <p routerLink="/list/search/2/null" class="category-item">
-                <i style="margin-right: 5px" class="fa-solid fa-futbol"></i>Bóng đá</p>
-              <p routerLink="/list/search/2/null" class="category-item">
-                <i style="margin-right: 5px" class="fa-sharp fa-solid fa-volleyball"></i>Bóng chuyền</p>
-              <p routerLink="/list/search/2/null" class="category-item">
-                <i style="margin-right: 5px" class="fa-sharp fa-solid fa-basketball"></i>Bóng chuyền</p>
+              <a [routerLink]="['/product/search',1]" style="display: block" class="category-item animationTop delay-3">
+                <i style="margin-right: 5px" class="fa-solid fa-futbol"></i>Bóng đá</a>
+              <a [routerLink]="['/product/search',2]" style="display: block" class="category-item animationTop delay-3">
+                <i style="margin-right: 5px" class="fa-sharp fa-solid fa-volleyball"></i>Bóng chuyền</a>
+              <a [routerLink]="['/product/search',3]" style="display: block" class="category-item animationTop delay-3">
+                <i style="margin-right: 5px" class="fa-sharp fa-solid fa-basketball"></i>Bóng rổ</a>
 
             </div>
           </a>
         </li>
         <li class="animationTop delay-03"><a>QUẢN LÝ ĐẶT SÂN</a>
         </li>
-        <li class="animationTop delay-03"><a>CUSTOMER</a>
+        <li class="animationTop delay-03" *ngIf="role=='ROLE_ADMIN'"><a routerLink="product/create">THÊM SẢN PHẨM</a>
         </li>
         <li class="animationTop delay-03" *ngIf="role!='ROLE_ADMIN'">
           <a routerLink="/body/cart"><img class="img12" style="width: 50px; height: 50px" src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/null/external-cart-web-flaticons-lineal-color-flat-icons-7.png"/></a>
@@ -39,7 +39,7 @@
                 <img src="{{user?.avatar}}" class="rounded-circle" style="width: 40px; background-image: none; height: 40px" height="24" width="24"
                      alt="avc"/>
               </a>
-              <ul class="dropdown-menu dropdown-menu-end" style="background-color: #0076ad; cursor: pointer; width: 180px">
+              <ul class="dropdown-menu dropdown-menu-end" style="background: radial-gradient(#0b75c7, #0a307d); cursor: pointer; width: 180px">
                 <li class="animationTop delay-01" style="color: white">
                   <i class="fa-solid fa-user me-3" ></i><strong>{{user?.username}}</strong>
                 </li>

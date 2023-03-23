@@ -4,6 +4,9 @@ import {SecurityService} from '../../../service/security/security.service';
 import {Router} from '@angular/router';
 import {ViewportScroller} from '@angular/common';
 import {ShareService} from '../../../service/security/share.service';
+import Swal from "sweetalert2";
+import {CategoryService} from '../../../service/product/category.service';
+import {Category} from '../../../entity/product/category';
 
 @Component({
   selector: 'app-header',
@@ -16,12 +19,17 @@ export class HeaderComponent implements OnInit {
   user: any;
   username = '';
   role = '';
+  category: Category[] =[];
 
   constructor(private scroll: ViewportScroller,
               private tokenStorageService: TokenStorageService,
               private securityService: SecurityService,
               private router: Router,
-              private shareService: ShareService) {
+              private shareService: ShareService,
+              private categoryService: CategoryService) {
+     this.categoryService.getAllCategory().subscribe(next => {
+       this.category = next;
+    })
     this.securityService.getIsLoggedIn().subscribe(next => {
       this.isLoggedIn = next;
     });
@@ -31,6 +39,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.role = this.getRole();
       this.shareService.getClickEvent().subscribe(next => {
         this.role = this.getRole();
       })
@@ -69,6 +78,14 @@ export class HeaderComponent implements OnInit {
     this.securityService.setIsLoggedIn(null, false);
     this.router.navigateByUrl('security/login');
     this.shareService.sendClickEvent();
+    Swal.fire({
+      position: 'center',
+      icon: 'info',
+      title: 'Thông báo!',
+      text: 'Đăng xuất thành công',
+      showConfirmButton: false,
+      timer: 2000
+    });
   }
 
 }

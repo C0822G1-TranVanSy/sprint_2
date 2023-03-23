@@ -15,4 +15,15 @@ public interface IProductService {
     Page<IProductDto> getAllProduct(Pageable pageable);
 
     Optional<Product> findById( Long productId);
+
+    void createProduct(String productName, String description,
+                       Double price, String avatar, Long categoryId);
+
+    void updateProduct(String productName, String description,
+                       Double price, String avatar,
+                       Long categoryId, Long productId);
+
+    void deleteProduct( Long productId);
+
+    Page<IProductDto> searchByCategory(Long categoryId,Pageable pageable);
 }

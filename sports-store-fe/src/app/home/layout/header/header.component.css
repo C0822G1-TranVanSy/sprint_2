@@ -5,9 +5,9 @@
 }
 
 .header {
-  min-height: 25vh;
+  min-height: 23vh;
   width: 100%;
-  background-image: linear-gradient(rgba(4, 9, 30, 0.4), rgba(4, 9, 30, 0.4)), url(/assets/images/img-bg-01.jpg);
+  background-image: linear-gradient(rgba(102, 123, 213, 0.4), rgba(50, 76, 179, 0.4)), url(/assets/images/img-bg-01.jpg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -232,7 +232,7 @@ ul.dropdown-menu li a.dropdown {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #0076ad;
+  background: radial-gradient(#0b75c7, #0a307d);
   min-width: 150px;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   z-index: 999;
@@ -243,7 +243,7 @@ ul.dropdown-menu li a.dropdown {
 }
 
 .category-item {
-  padding: 5px 16px;
+  padding: 10px 16px;
 
 }
 

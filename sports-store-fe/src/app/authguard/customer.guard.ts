@@ -24,12 +24,12 @@ export class CustomerGuard implements CanActivate {
         return true;
       } else {
         this.toast.error('Bạn không đủ quyền. Vui lòng đăng nhập để tiếp tục.', 'Thất bại', {positionClass: 'toast-top-center'});
-        this.router.navigateByUrl('/error');
+        this.router.navigateByUrl('/body/error');
         return false;
       }
     } else {
       this.toast.error('Bạn phải đăng nhập để tiếp tục. Vui lòng đăng nhập!', 'Thất bại', {positionClass: 'toast-top-center'});
-      this.router.navigateByUrl('/error');
+      this.router.navigateByUrl('/body/error');
       return false;
     }
   }

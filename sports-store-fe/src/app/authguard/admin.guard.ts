@@ -28,12 +28,12 @@ export class AdminGuard implements CanActivate {
         return true;
       }else {
         this.toast.error('Bạn không đủ quyền.Vui lòng đăng nhập để tiếp tục.', 'Thất bại', {positionClass: 'toast-top-center'});
-        this.router.navigateByUrl('/error');
+        this.router.navigateByUrl('/body/error');
         return false;
       }
     } else {
       this.toast.error('Bạn chưa đăng nhập,Vui lòng đăng nhập để tiếp tục.', 'Thất bại', {positionClass: 'toast-top-center'});
-      this.router.navigateByUrl('/error');
+      this.router.navigateByUrl('/body/error');
       return false;
     }
   }

@@ -6,6 +6,7 @@ import {SecurityService} from '../../service/security/security.service';
 import {ToastrService} from 'ngx-toastr';
 import {ViewportScroller} from '@angular/common';
 import {ShareService} from '../../service/security/share.service';
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-login',
@@ -37,6 +38,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    window.scrollTo(0, 10);
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/body';
 
     if (this.tokenStorageService.getToken()) {
@@ -82,12 +84,28 @@ export class LoginComponent implements OnInit {
           this.toast.success('Đăng nhập thành công.', 'Thông báo', {
             timeOut: 2000, positionClass: 'toast-top-center'
           });
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Thông báo!',
+            text: 'Đăng nhập thành công',
+            showConfirmButton: false,
+            timer: 2000
+          });
         }, error => {
 
           if (error.status == 406) {
             this.errorMessage = error.error.message;
             this.toast.error(this.errorMessage, 'Thất bại'
               , {positionClass: 'toast-top-center'});
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'Thông báo!',
+              text: 'Đăng nhập thất bại',
+              showConfirmButton: false,
+              timer: 2000
+            });
           }
           this.securityService.isLoggedIn = false;
           if (error.error.errors) {

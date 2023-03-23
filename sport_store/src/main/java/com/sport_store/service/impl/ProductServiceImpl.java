@@ -31,4 +31,24 @@ public class ProductServiceImpl implements IProductService {
     public Optional<Product> findById(Long productId) {
         return iProductRepository.findById(productId);
     }
+
+    @Override
+    public void createProduct(String productName, String description, Double price, String avatar, Long categoryId) {
+        iProductRepository.createProduct(productName,description,price,avatar,categoryId);
+    }
+
+    @Override
+    public void updateProduct(String productName, String description, Double price, String avatar, Long categoryId, Long productId) {
+        iProductRepository.updateProduct(productName,description,price,avatar,categoryId,productId);
+    }
+
+    @Override
+    public void deleteProduct(Long productId) {
+        iProductRepository.deleteProduct(productId);
+    }
+
+    @Override
+    public Page<IProductDto> searchByCategory(Long categoryId, Pageable pageable) {
+        return iProductRepository.searchByCategory(categoryId,pageable);
+    }
 }

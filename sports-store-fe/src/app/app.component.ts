@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {TokenStorageService} from './service/security/token-storage.service';
 import {SecurityService} from './service/security/security.service';
+import {ShareService} from './service/security/share.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,8 @@ export class AppComponent {
   user: any;
 
   constructor(private tokenStorageService: TokenStorageService,
-              private securityService: SecurityService) {
+              private securityService: SecurityService,
+              private shareService: ShareService) {
   }
 
   /**
@@ -32,5 +34,6 @@ export class AppComponent {
       this.user = this.tokenStorageService.getUser();
       this.securityService.setIsLoggedIn(this.user, true);
     }
+    // this.shareService.sendClickEvent();
   }
 }

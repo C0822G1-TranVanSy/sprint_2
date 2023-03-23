@@ -1,0 +1,78 @@
+<body>
+<div class="wrapper mb-3">
+  <div class="title">
+    Thêm mới sản phẩm
+  </div>
+  <form class="form" [formGroup]="formAdd" (ngSubmit)="addProduct()">
+    <div class="row inputfield " style="margin-bottom: 40px">
+      <div class="col-4 col-md-3">
+      <label for="name" >Tên sản phẩm<span style="color: red">*()</span>:</label>
+      </div>
+      <div class="col-8 col-md-9">
+      <input id="name" type="text" class="input" formControlName="productName">
+        <div style="position: absolute">
+          <p class=" text-danger" *ngIf="formAdd.controls.productName.hasError('required')">Yêu cầu phải nhập.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row inputfield " style="margin-bottom: 40px">
+      <div class="col-4 col-md-3">
+      <label for="img">Ảnh sản phẩm<span style="color: red">*()</span>:</label>
+      </div>
+      <div class="col-8 col-md-9">
+      <input id="img" type="file" class="input" formControlName="abc" (change)="showPreview($event)">
+      </div>
+      <div class="text-center mt-3">
+        <img [src]="selectedFileUrl" *ngIf="selectedFileUrl" style="width: 100px">
+      </div>
+    </div>
+
+    <div class="row inputfield " style="margin-bottom: 40px">
+      <div class="col-4 col-md-3">
+      <label for="description">Mô tả<span style="color: red">*()</span>:</label>
+    </div>
+    <div class="col-8 col-md-9">
+      <input id="description" type="text" class="input" formControlName="description">
+      <div style="position: absolute">
+        <p class=" text-danger" *ngIf="formAdd.controls.description.hasError('required')">Yêu cầu phải nhập.</p>
+      </div>
+    </div>
+    </div>
+
+    <div class="row inputfield " style="margin-bottom: 40px">
+      <div class="col-4 col-md-3">
+      <label for="price">Giá sản phẩm<span style="color: red">*()</span>:</label>
+      </div>
+      <div class="col-8 col-md-9">
+      <input id="price" type="text" class="input" formControlName="price">
+        <div style="position: absolute">
+          <p class=" text-danger" *ngIf="formAdd.controls.description.hasError('required')">Yêu cầu phải nhập.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row inputfield " style="margin-bottom: 40px">
+      <div class="col-4 col-md-3">
+      <label for="category">Danh mục:</label>
+      </div>
+      <div class="col-8 col-md-9">
+      <div class="custom_select">
+        <select id="category" formControlName="categoryId">
+          <option value="">Danh mục sản phẩm</option>
+          <option *ngFor="let item of categoryList"
+                  [ngValue]="item.categoryId">{{item.categoryName}}</option>
+        </select>
+      </div>
+        <div style="position: absolute">
+          <p class=" text-danger" *ngIf="formAdd.controls.description.hasError('required')">Yêu cầu phải nhập.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="inputfield text-center">
+      <input style="width: 40%" type="submit" value="Lưu thay đổi" class="btn">
+    </div>
+  </form>
+</div>
+</body>

@@ -17,7 +17,7 @@
 }
 
 .bg-grey {
-  background-color: #eae8e8;
+  background: radial-gradient(#0b75c7, #0a307d);
 }
 
 @media (min-width: 992px) {

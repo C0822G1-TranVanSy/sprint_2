@@ -1,5 +1,8 @@
+*{
+  color: #FFCE1B;
+}
 footer{
-  background-color: #282825;
+  background: radial-gradient(#2e4455, #1d2e50);
   margin-top:50px;
   padding:100px 0;
   /*font-family: system-ui;*/
@@ -20,12 +23,12 @@ footer ul{
 footer .content .item li{
   padding: 10px;
   list-style: none;
-  color: #FFF;
+  color: #FFCE1B;
   text-align: left;
 
 }
 footer .content .item li:nth-child(1){
-  color: #FFF;
+  color: #FFCE1B;
   font-weight: bold;
 }
 

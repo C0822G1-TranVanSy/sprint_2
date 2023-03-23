@@ -1,0 +1,81 @@
+<body >
+<div class="wrapper mb-3">
+  <div class="title mt-3">
+    Chỉnh sửa sản phẩm
+  </div>
+  <form class="form" [formGroup]="formUpdate" (ngSubmit)="updateProduct()">
+    <div class="row inputfield " style="margin-bottom: 40px">
+      <div class="col-4 col-md-3">
+        <label for="name" >Tên sản phẩm<span style="color: red">*()</span>:</label>
+      </div>
+      <div class="col-8 col-md-9">
+        <input id="name" type="text" class="input" formControlName="productName">
+        <div style="position: absolute">
+          <p class=" text-danger" *ngIf="formUpdate.controls.productName.hasError('required')">Yêu cầu phải nhập.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row inputfield " style="margin-bottom: 40px">
+      <div class="col-4 col-md-3">
+        <label>Ảnh sản phẩm<span style="color: red">*()</span>:</label>
+      </div>
+      <div class="col-8 col-md-9">
+          <label class="hoverable" for="fileInput">
+            <img (change)="showPreview($event)" class="input" src="{{src}}">
+            <input id="fileInput" type="file" class="input" (change)="showPreview($event)">
+            <div class="hover-text">Choose file</div>
+            <div class="background"></div>
+          </label>
+          <br/>
+      </div>
+    </div>
+
+    <div class="row inputfield " style="margin-bottom: 40px">
+      <div class="col-4 col-md-3">
+        <label for="description">Mô tả<span style="color: red">*()</span>:</label>
+      </div>
+      <div class="col-8 col-md-9">
+        <input id="description" type="text" class="input" formControlName="description">
+        <div style="position: absolute">
+          <p class=" text-danger" *ngIf="formUpdate.controls.description.hasError('required')">Yêu cầu phải nhập.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row inputfield " style="margin-bottom: 40px">
+      <div class="col-4 col-md-3">
+        <label for="price">Giá sản phẩm<span style="color: red">*()</span>:</label>
+      </div>
+      <div class="col-8 col-md-9">
+        <input id="price" type="text" class="input" formControlName="price">
+        <div style="position: absolute">
+          <p class=" text-danger" *ngIf="formUpdate.controls.price.hasError('required')">Yêu cầu phải nhập.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row inputfield " style="margin-bottom: 40px">
+      <div class="col-4 col-md-3">
+        <label for="category">Danh mục:</label>
+      </div>
+      <div class="col-8 col-md-9">
+        <div class="custom_select">
+          <select id="category" formControlName="category" [compareWith]="compareFn">
+<!--            <option value="">Danh mục sản phẩm</option>-->
+            <option *ngFor="let item of categoryList" [ngValue]="item">{{item.categoryName}}</option>
+          </select>
+        </div>
+        <div style="position: absolute">
+          <p class=" text-danger" *ngIf="formUpdate.controls.category.hasError('required')">Yêu cầu phải nhập.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="inputfield text-center">
+      <input style="width: 40%" type="submit" value="Lưu thay đổi" class="btn">
+    </div>
+  </form>
+</div>
+</body>
+

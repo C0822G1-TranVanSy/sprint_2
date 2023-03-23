@@ -1,27 +1,27 @@
 <div class="row m-2 run">
   <ul class="d-flex justify-content-between" style="list-style: none">
-    <li><a href="/runnerinn/en/asics/284/m" title="Asics">
+    <li><a href="" title="Asics">
       <img alt="Asics" src="https://storage.googleapis.com/tradeinn-images/images/logos_proveidors/284.jpg"></a>
     </li>
-    <li><a href="/runnerinn/en/adidas/263/m" title="adidas">
+    <li><a href="" title="adidas">
       <img alt="adidas" src="https://storage.googleapis.com/tradeinn-images/images/logos_proveidors/263.jpg"></a>
     </li>
-    <li><a href="/runnerinn/en/nike/365/m" title="Nike">
+    <li><a href="" title="Nike">
       <img alt="Nike" src="https://storage.googleapis.com/tradeinn-images/images/logos_proveidors/365.jpg"></a>
     </li>
-    <li><a href="/runnerinn/en/altra/1648/m" title="Altra">
+    <li><a href="" title="Altra">
       <img alt="Altra" src="https://storage.googleapis.com/tradeinn-images/images/logos_proveidors/1648.jpg"></a>
     </li>
-    <li><a href="/runnerinn/en/new-balance/1312/m" title="New balance">
+    <li><a href="" title="New balance">
       <img alt="New balance" src="https://storage.googleapis.com/tradeinn-images/images/logos_proveidors/1312.jpg"
       ></a></li>
-    <li><a href="/runnerinn/en/la-sportiva/482/m" title="La sportiva">
+    <li><a href="" title="La sportiva">
       <img alt="La sportiva" src="https://storage.googleapis.com/tradeinn-images/images/logos_proveidors/482.jpg"></a>
     </li>
-    <li><a href="/runnerinn/en/mizuno/132/m" title="Mizuno">
+    <li><a href="" title="Mizuno">
       <img alt="Mizuno" src="https://storage.googleapis.com/tradeinn-images/images/logos_proveidors/132.jpg"></a>
     </li>
-    <li><a href="/runnerinn/en/puma/514/m" title="Puma">
+    <li><a href="" title="Puma">
       <img alt="Puma" src="https://storage.googleapis.com/tradeinn-images/images/logos_proveidors/514.jpg"></a>
     </li>
   </ul>
@@ -60,8 +60,7 @@
 
 <div class="container mt-5 mb-5">
   <div class="gallary-header text-center">
-    <h1 style="width: 100%;background-color: #f7e296;height: 20px;"><p class="spbc"
-                                                                       style="background-color: white;width: 50%;line-height: 3px;padding: 5px 5px 13px 5px;margin: auto">
+    <h1 style="width: 100%;background-color: #f7e296;height: 20px;"><p class="spbc" style="background-color: white;width: 50%;line-height: 3px;padding: 5px 5px 13px 5px;margin: auto">
       Sản phẩm bán chạy
     </p></h1>
   </div>
@@ -156,39 +155,48 @@
     </div>
     <div class="packages-content">
       <div class="row">
-        <div class="col-md-4 col-sm-6" *ngFor="let item of productList">
+        <div class="col-md-4 col-sm-6 col-6 col-lg-3" *ngFor="let item of productList">
           <div class="single-package-item item1" style="background-color: #295d76; border-radius: 15%">
-            <img [src]="item.avatar" class="image" style="height: 340px; border-radius: 15%"
+            <div *ngIf="role=='ROLE_ADMIN'" style="position: absolute; top: 10px ; right: 15px; z-index: 1">
+              <a type="button" (click)="getItemProduct(item.productId, item.productName)" style="border-radius: 50%" class=" btn btn-danger" data-bs-toggle="modal"
+                 data-bs-target="#exampleModal"><i
+                class="fas fa-times"></i></a>
+            </div>
+            <img [src]="item.avatar" class="image" style="height: 240px; border-radius: 15%"
                  alt="package-place">
             <div class="middle">
-              <button class="btn btn-warning room-qview mb-3" [routerLink]="['/body/detail',item.productId]" target="_blank"><img src="https://img.icons8.com/ios-glyphs/30/null/view-file.png" style="width: 20%"/> Chi tiết
+<!--              <button class="btn btn-warning mb-3" [routerLink]="['/body/detail',item.productId]"-->
+<!--                      style="font-size: small" target="_blank"><img-->
+<!--                src="https://img.icons8.com/ios-glyphs/30/null/view-file.png" style="width: 20%"/> Chi tiết-->
+<!--              </button>-->
+              <button class="btn btn-warning mb-2" [routerLink]="['/body/detail',item.productId]"
+                      target="_blank" style="font-size: small; width: 150px"><img
+                src="https://img.icons8.com/pastel-glyph/64/null/briefcase--v2.png" style="width: 15%"/> Thêm vào giỏ
               </button>
-              <button *ngIf="role!='ROLE_ADMIN'; else elseAdmin" class="btn btn-warning room-qview" (click)="addToCard(item)" target="_blank"><img
-                src="https://img.icons8.com/pastel-glyph/64/null/briefcase--v2.png" style="width: 20%"/> Thêm vào giỏ
-              </button>
-              <ng-template #elseAdmin>
-              <button class="btn btn-warning room-qview"  target="_blank"><img src="https://img.icons8.com/external-tanah-basah-glyph-tanah-basah/48/null/external-edit-social-media-ui-tanah-basah-glyph-tanah-basah.png" style="width: 20%"/> Chỉnh sửa
-              </button>
-              </ng-template>
+                <button [routerLink]="['/product/update',item.productId]" *ngIf="role=='ROLE_ADMIN'" class="btn btn-warning mb-2" target="_blank" style="font-size: small"><img
+                  src="https://img.icons8.com/external-tanah-basah-glyph-tanah-basah/48/null/external-edit-social-media-ui-tanah-basah-glyph-tanah-basah.png"
+                  style="width: 15%"/> Chỉnh sửa
+                </button>
             </div>
             <div class="single-package-item-txt text-center">
-              <h3 class="text-uppercase" style="height: 100px;">{{item.productName}}</h3>
+              <h3 class="text-uppercase name" style="height: 100px;">{{item.productName}}</h3>
               <b class="pull-right" style="color: #fa8824">Giá: {{item.price | currency:'VND':''}} đ</b>
-              <!--              <div class="packages-para">-->
-              <!--                <p>{{item.description}}</p>-->
-              <!--              </div>-->
             </div>
           </div>
         </div>
         <div class="text-center">
-          <a style="cursor: pointer; color: #0076ad; text-decoration: none" type="button"
-             (click)="getPageAllProduct(size+3)" *ngIf="!last">
-            <img src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/null/external-arrow-down-web-flaticons-lineal-color-flat-icons-4.png"/><br>
+          <a style="cursor: pointer; color: #0076ad; text-decoration: none; font-size: large" type="button"
+             (click)="getPageAllProduct(size+4)" *ngIf="!last">
+            <img
+              src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/null/external-arrow-down-web-flaticons-lineal-color-flat-icons-4.png"
+              style="width: 30px"/><br>
             Xem thêm
           </a>
-          <a style="cursor: pointer; color: #0076ad; text-decoration: none" type="button"
-             (click)="getPageAllProduct(size=3)" (change)="scrollToBlog()" *ngIf="last">
-            <img src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/null/external-arrow-up-web-flaticons-lineal-color-flat-icons-4.png"/>
+          <a style="cursor: pointer; color: #0076ad; text-decoration: none;font-size: large" type="button"
+             (click)="getPageAllProduct(size=4)" (change)="scrollToBlog()" *ngIf="last">
+            <img
+              src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/null/external-arrow-up-web-flaticons-lineal-color-flat-icons-4.png"
+              style="width: 30px"/>
             <br>
             Ẩn bớt
           </a>
@@ -207,4 +215,24 @@
       &gt;</a></div>
     <figure class="close"></figure>
   </aside>
+</div>
+
+
+<!---------------------------------------------- Modal Delete ------------------------------------------>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Xóa sản phẩm!!!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Bạn có muốn xóa sản phẩm có tên <b class="text-danger text-uppercase">{{productNameDelete}}</b> không?
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" style="width: 20%" data-bs-dismiss="modal">Hủy</button>
+        <button type="button" (click)="removeProduct(productIdDelete)" style="width: 20%" class="btn btn-success" data-bs-dismiss="modal">Đồng ý</button>
+      </div>
+    </div>
+  </div>
 </div>

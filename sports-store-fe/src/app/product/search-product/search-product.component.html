@@ -1,0 +1,88 @@
+<section id="pack" class="packages">
+  <div class="container" *ngIf="productList.length!=0; else elseBlock">
+    <div class="gallary-header text-center">
+      <h1 style="width: 100%;background-color: #f7e296;height: 20px;">
+        <p class="phukien"
+           style="background-color: white;width: 50%;line-height: 3px;padding: 5px 5px 13px 5px;margin: auto">
+          {{categoryName}}
+        </p></h1>
+    </div>
+    <div class="packages-content">
+      <div class="row">
+        <div class="col-md-4 col-sm-6 col-6 col-lg-3" *ngFor="let item of productList">
+          <div class="single-package-item item1" style="background-color: #295d76; border-radius: 15%">
+            <div *ngIf="role=='ROLE_ADMIN'" style="position: absolute; top: 10px ; right: 15px; z-index: 1">
+              <a type="button" (click)="getItemProduct(item.productId, item.productName)" style="border-radius: 50%"
+                 class=" btn btn-danger" data-bs-toggle="modal"
+                 data-bs-target="#exampleModal"><i
+                class="fas fa-times"></i></a>
+            </div>
+            <img [src]="item.avatar" class="image" style="height: 240px; border-radius: 15%"
+                 alt="package-place">
+            <div class="middle">
+              <!--              <button class="btn btn-warning mb-3" [routerLink]="['/body/detail',item.productId]"-->
+              <!--                      style="font-size: small" target="_blank"><img-->
+              <!--                src="https://img.icons8.com/ios-glyphs/30/null/view-file.png" style="width: 20%"/> Chi tiết-->
+              <!--              </button>-->
+              <button class="btn btn-warning mb-2" [routerLink]="['/body/detail',item.productId]"
+                      target="_blank" style="font-size: small; width: 150px"><img
+                src="https://img.icons8.com/pastel-glyph/64/null/briefcase--v2.png" style="width: 15%"/> Thêm vào giỏ
+              </button>
+              <button *ngIf="role=='ROLE_ADMIN'" class="btn btn-warning mb-2" target="_blank" style="font-size: small">
+                <img
+                  src="https://img.icons8.com/external-tanah-basah-glyph-tanah-basah/48/null/external-edit-social-media-ui-tanah-basah-glyph-tanah-basah.png"
+                  style="width: 15%"/> Chỉnh sửa
+              </button>
+            </div>
+            <div class="single-package-item-txt text-center">
+              <h3 class="text-uppercase name" style="height: 100px;">{{item.productName}}</h3>
+              <b class="pull-right" style="color: #fa8824">Giá: {{item.price | currency:'VND':''}} đ</b>
+            </div>
+          </div>
+        </div>
+        <div class="text-center">
+          <a style="cursor: pointer; color: #0076ad; text-decoration: none; font-size: large" type="button"
+             (click)="searchProductByCategory(size+4, categoryId)" *ngIf="!last">
+            <img
+              src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/null/external-arrow-down-web-flaticons-lineal-color-flat-icons-4.png"
+              style="width: 30px"/><br>
+            Xem thêm
+          </a>
+          <a style="cursor: pointer; color: #0076ad; text-decoration: none;font-size: large" type="button"
+             (click)="searchProductByCategory(size=4, categoryId)" (change)="scrollToBlog()"
+             *ngIf="last && productList.length > 4">
+            <img
+              src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/null/external-arrow-up-web-flaticons-lineal-color-flat-icons-4.png"
+              style="width: 30px"/>
+            <br>
+            Ẩn bớt
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #elseBlock>
+    <div class="text-center">
+    <img style="width: 80%" src="/assets/images/notfound.png"/>
+    </div>
+  </ng-template>
+</section>
+
+<!---------------------------------------------- Modal Delete ------------------------------------------>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Xóa sản phẩm!!!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Bạn có muốn xóa sản phẩm có tên <b class="text-danger text-uppercase">{{productName}}</b> không?
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" style="width: 20%" data-bs-dismiss="modal">Hủy</button>
+        <button type="button" (click)="removeProduct(productId)" style="width: 20%" class="btn btn-success" data-bs-dismiss="modal">Đồng ý</button>
+      </div>
+    </div>
+  </div>
+</div>

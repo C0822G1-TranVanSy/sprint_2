@@ -1,20 +1,20 @@
-<section class="container pb-5" style="background-color: #f3d8d8; margin-top: 50px">
+<section class="container pb-3" style="background: radial-gradient(#0b75c7, #0a307d); margin-top: 50px; width: 60%">
   <div class="container-fluid">
     <div class="row">
 
-      <div class="col-md-6 col-sm-12 px-0 d-none d-sm-block text-center" style="margin-top: 50px">
+      <div class="col-md-6 col-sm-12 px-0 d-none d-sm-block text-center" style="margin: auto">
         <img src="/assets/images/login3.png"
-             alt="Login image" class="w-100 vh-50" style="object-fit: cover; object-position: left;">
+             alt="Login image" style="object-fit: cover; object-position: left; width: 90%">
       </div>
 
-      <div class=" col-md-6 col-sm-12 text-black">
-        <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 pt-xl-0 mt-xl-3">
-          <form style="width: 100%" [formGroup]="formGroup" (ngSubmit)="login()">
-            <h3 class="fw-normal text-center mt-3 mb-3 pb-3" >Đăng nhập</h3>
+      <div class=" col-md-6 col-sm-12 text-light">
+        <div class="d-flex justify-content-center h-custom-2 px-3 ms-xl-2 pt-xl-0 mt-xl-3">
+          <form [formGroup]="formGroup" (ngSubmit)="login()">
+            <h2 class="fw-normal text-center mt-2 pb-2" >Đăng nhập</h2>
 
             <div class="form-outline mb-5">
               <label class="form-label" for="form2Example18">Tài khoản: </label>
-              <input type="email" formControlName="username" id="form2Example18" class="form-control form-control-lg"/>
+              <input type="email" formControlName="username" id="form2Example18" class="form-control"/>
               <div style="position: absolute">
                 <p class="text-danger m-0">{{errors.username}}</p>
                 <p class="text-danger m-0"
@@ -29,7 +29,7 @@
             <div class="form-outline mb-5">
               <label class="form-label" for="form2Example28">Mật khẩu: </label>
               <input type="password" id="form2Example28" formControlName="password"
-                     class="form-control form-control-lg"/>
+                     class="form-control "/>
               <div style="position: absolute">
                 <p class="text-danger m-0">{{errors.password}}</p>
                 <p class="text-danger m-0"
@@ -41,16 +41,15 @@
               </div>
             </div>
 
-            <div class=" mb-4 text-center">
-              <button class="btn btn-warning   btn-lg btn-block" type="submit">Đăng nhập</button>
+            <div class=" mb-3 text-center">
+              <button class="btn btn-warning btn-block" style="color: #1d2e50" type="submit">Đăng nhập</button>
             </div>
             <div class=" text-left">
               <label for="remember" class="">Ghi nhớ đăng nhập
                 <input type="checkbox" id="remember" formControlName="rememberMe">
               </label>
             </div>
-            <p class="small"><a class="text-muted" href="#!">Forgot password?</a></p>
-            <p>Đăng ký tài khoản? <a href="#!" class="link-info">Tại đây</a></p>
+            <p>Đăng ký tài khoản? <a href="#!" class=" link-info">Tại đây</a></p>
           </form>
         </div>
       </div>

@@ -97,12 +97,6 @@ public class AuthRestController {
         return new ResponseEntity<>(new ResponseMessage("Đăng kí thành công"), HttpStatus.OK);
     }
 
-    /**
-     * Create by : NuongHT
-     * Date create: 28/02/2023
-     * Description: api change password
-     *
-     */
     @PatchMapping("/change-password")
     public ResponseEntity<?> changePassword(@RequestBody ChangePasswordDto changePasswordDto) throws Exception {
         iAccountService.changePassword(changePasswordDto);

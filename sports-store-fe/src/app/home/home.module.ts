@@ -7,10 +7,11 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { BodyComponent } from './body/body/body.component';
 import { DetailComponent } from './body/detail/detail.component';
 import { CartComponent } from './body/cart/cart.component';
+import { ErrorComponent } from './error/error.component';
 
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, BodyComponent, DetailComponent, CartComponent],
+  declarations: [HeaderComponent, FooterComponent, BodyComponent, DetailComponent, CartComponent, ErrorComponent],
   exports: [
     HeaderComponent,
     FooterComponent,

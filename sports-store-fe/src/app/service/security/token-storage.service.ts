@@ -25,7 +25,14 @@ export class TokenStorageService {
    */
   logout() {
     window.localStorage.clear();
-    window.sessionStorage.clear();
+    window.sessionStorage.removeItem(TOKEN_KEY);
+    window.sessionStorage.removeItem(EMAIL_KEY);
+    window.sessionStorage.removeItem(NAME_KEY);
+    window.sessionStorage.removeItem(ROLE_KEY);
+    window.sessionStorage.removeItem(USERNAME_KEY);
+    window.sessionStorage.removeItem(ID_ACCOUNT_KEY);
+    window.sessionStorage.removeItem(AVATAR_KEY);
+    window.sessionStorage.removeItem(USER_KEY);
   }
   /**
    * Create by: SyTV
@@ -198,6 +205,16 @@ export class TokenStorageService {
       if (cartList[i].id == productId) {
         // @ts-ignore
         cartList[i].quantity += 1;
+        break;
+      }
+    }
+  }
+
+  upQuantityProductPro(productId: number, cartList: Cart[], quantity1: number) {
+    for (let i = 0; i < cartList.length; i++) {
+      if (cartList[i].id == productId) {
+        // @ts-ignore
+        cartList[i].quantity += quantity1;
         break;
       }
     }

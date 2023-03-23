@@ -1,5 +1,5 @@
 <div style="margin-bottom: 50px;" class="container">
-  <div class="card" style=" background-color: #ebece9">
+  <div class="card" style="background: radial-gradient(#0b75c7, #0a307d);">
     <div class="container-fluid">
       <div class="wrapper row">
         <div class="preview col-md-6">
@@ -34,20 +34,20 @@
           </h5>
 
           <h5 class="colors" style="display: inline" >Số lượng:
-            <button class="btn btn-link px-2" style="display: inline"
+            <button class="btn btn-outline-warning px-2" style="display: inline; background: none; border: none"
                     onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
               <i class="fas fa-minus"></i>
             </button>
-            <input id="form1" min="0" style="width: 60px;display: inline" name="quantity" [value]="quantity" type="number"
+            <input id="form1" min="0" value="1" style="width: 60px;display: inline" name="quantity" #quantity1 type="number"
                    class="form-control form-control-sm" />
 
-            <button class="btn btn-link px-2"  style="display: inline"
+            <button class="btn btn-outline-warning px-2"  style="display: inline; background: none; border: none"
                     onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
               <i class="fas fa-plus"></i>
             </button>
           </h5>
-          <h5 class="colors">
-            <button class="add-to-cart btn btn-default" type="button" (click)="addToCard(product)">
+          <h5 class="colors text-center">
+            <button class="add-to-cart btn btn-default" type="button" (click)="addToCard(product, quantity1.value)">
               <img src="https://img.icons8.com/pastel-glyph/64/null/briefcase--v2.png" style="width: 15%"/>
               Thêm vào giỏ</button>
           </h5>

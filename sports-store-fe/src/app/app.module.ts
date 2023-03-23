@@ -13,6 +13,7 @@ import {ToastrModule} from 'ngx-toastr';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {environment} from '../environments/environment';
+import {ProductModule} from './product/product.module';
 
 @NgModule({
   declarations: [
@@ -22,13 +23,15 @@ import {environment} from '../environments/environment';
     BrowserModule,
     AppRoutingModule,
     HomeModule,
+    ProductModule,
     SecurityModule,
     HttpClientModule,
     ReactiveFormsModule,
     AngularFireStorageModule,
     AngularFireModule.initializeApp(environment.firebaseConfig,"myFile"),
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    
   ],
   providers: [
     {
