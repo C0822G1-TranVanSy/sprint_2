@@ -8,6 +8,7 @@ import { BodyComponent } from './body/body/body.component';
 import { DetailComponent } from './body/detail/detail.component';
 import { CartComponent } from './body/cart/cart.component';
 import { ErrorComponent } from './error/error.component';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -19,9 +20,10 @@ import { ErrorComponent } from './error/error.component';
     DetailComponent,
     CartComponent
   ],
-  imports: [
-    CommonModule,
-    HomeRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        HomeRoutingModule,
+        FormsModule
+    ]
 })
 export class HomeModule { }

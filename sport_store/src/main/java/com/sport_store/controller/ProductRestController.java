@@ -1,6 +1,5 @@
 package com.sport_store.controller;
 
-import com.sport_store.dto.product.BillDto;
 import com.sport_store.dto.product.IProductDto;
 import com.sport_store.dto.product.ProductDto;
 import com.sport_store.dto.product.ProductDtoUpdate;
@@ -12,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -35,18 +35,13 @@ public class ProductRestController {
     }
 
     @GetMapping("/page")
-    public ResponseEntity<Page<IProductDto>> getAllProduct(@PageableDefault(size = 4) Pageable pageable){
-        Page<IProductDto> productDtoPage= iProductService.getAllProduct(pageable);
+    public ResponseEntity<Page<IProductDto>> getAllProduct(@PageableDefault(size = 4) Pageable pageable, @RequestParam("name") String name){
+        Page<IProductDto> productDtoPage = null;
+        productDtoPage = iProductService.searchAllProductByName(pageable,name);
         if(productDtoPage.isEmpty()){
-            return new ResponseEntity<>(productDtoPage, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(productDtoPage,HttpStatus.OK);
-    }
-
-    @PostMapping("/order")
-    public ResponseEntity<?> order(@RequestBody BillDto billDto){
-        System.out.println(billDto);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/detail/{productId}")
@@ -59,6 +54,7 @@ public class ProductRestController {
     }
 
     @PostMapping("/create")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<?> createProduct(@Validated @RequestBody ProductDto productDto, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return new ResponseEntity<>(bindingResult.getAllErrors(),HttpStatus.BAD_REQUEST);
@@ -68,6 +64,7 @@ public class ProductRestController {
     }
 
     @PutMapping("/update")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<?> updateProduct(@Validated @RequestBody ProductDtoUpdate productDto, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return new ResponseEntity<>(bindingResult.getAllErrors(),HttpStatus.BAD_REQUEST);
@@ -77,6 +74,7 @@ public class ProductRestController {
     }
 
     @DeleteMapping("/delete/{productId}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<?> deleteProductById(@PathVariable Long productId){
         Product product = iProductService.findById(productId).orElse(null);
         if(product == null) {

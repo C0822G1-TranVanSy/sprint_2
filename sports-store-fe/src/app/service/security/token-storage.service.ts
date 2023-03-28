@@ -10,6 +10,7 @@ const EMAIL_KEY = 'Email_key';
 const AVATAR_KEY = 'Avatar_key';
 const USER_KEY = 'auth-user';
 const CART = 'cart';
+const DETAIL_ID = 'detail_id';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,7 @@ export class TokenStorageService {
     window.sessionStorage.removeItem(ID_ACCOUNT_KEY);
     window.sessionStorage.removeItem(AVATAR_KEY);
     window.sessionStorage.removeItem(USER_KEY);
+    window.sessionStorage.removeItem(DETAIL_ID);
   }
   /**
    * Create by: SyTV
@@ -182,6 +184,17 @@ export class TokenStorageService {
     return JSON.parse(<string> sessionStorage.getItem(ROLE_KEY));
   }
 
+  // public setDetailId(id: number) {
+  //   sessionStorage.removeItem(DETAIL_ID);
+  //   sessionStorage.setItem(DETAIL_ID,JSON.stringify(id));
+  // }
+  //
+  // getDetailId() {
+  //   return JSON.parse(<string> sessionStorage.getItem(DETAIL_ID));
+  // }
+
+  //lưu trên local
+
   public setCart(cart: Cart[]) {
     sessionStorage.removeItem(CART);
     sessionStorage.setItem(CART,JSON.stringify(cart));
@@ -202,8 +215,7 @@ export class TokenStorageService {
 
   upQuantityProduct(productId: number, cartList: Cart[]) {
     for (let i = 0; i < cartList.length; i++) {
-      if (cartList[i].id == productId) {
-        // @ts-ignore
+      if (cartList[i].productId == productId) {
         cartList[i].quantity += 1;
         break;
       }
@@ -212,8 +224,7 @@ export class TokenStorageService {
 
   upQuantityProductPro(productId: number, cartList: Cart[], quantity1: number) {
     for (let i = 0; i < cartList.length; i++) {
-      if (cartList[i].id == productId) {
-        // @ts-ignore
+      if (cartList[i].productId == productId) {
         cartList[i].quantity += quantity1;
         break;
       }

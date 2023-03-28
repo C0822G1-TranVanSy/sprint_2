@@ -26,14 +26,17 @@
           <p class="product-description">{{product.description}}</p>
           <h4 class="price">Giá: <span>{{product.price | currency:'VND':''}} đ</span></h4>
           <p class="vote"><strong>91%</strong> người mua thích sản phẩm này! <strong>(87 phiếu)</strong></p>
-          <h5 class="sizes">Kích cỡ:
-            <span class="size" data-toggle="tooltip" title="small">s</span>
-            <span class="size" data-toggle="tooltip" title="medium">m</span>
-            <span class="size" data-toggle="tooltip" title="large">l</span>
-            <span class="size" data-toggle="tooltip" title="xtra large">xl</span>
+          <h5 class="size d-flex">
+            <label for="size" class="me-2 col-4">KÍCH CỠ: </label>
+              <select id="size" class="select form-select col-8" #size style="width: 24%" >
+<!--                <option value="">Chọn size</option>-->
+                <option *ngFor="let s of sizeList" [value]="s.sizeId">{{s.name}}</option>
+              </select>
           </h5>
 
-          <h5 class="colors" style="display: inline" >Số lượng:
+          <h5 class="colors d-flex" style="display: inline" >
+            <div class="col-4">Số lượng: </div>
+            <div class="col-8">
             <button class="btn btn-outline-warning px-2" style="display: inline; background: none; border: none"
                     onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
               <i class="fas fa-minus"></i>
@@ -45,9 +48,10 @@
                     onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
               <i class="fas fa-plus"></i>
             </button>
+            </div>
           </h5>
           <h5 class="colors text-center">
-            <button class="add-to-cart btn btn-default" type="button" (click)="addToCard(product, quantity1.value)">
+            <button class="add-to-cart btn btn-default" type="button" [disabled]="role=='ROLE_ADMIN'" (click)="addToCart(product.productId, quantity1.value, size.value,product)">
               <img src="https://img.icons8.com/pastel-glyph/64/null/briefcase--v2.png" style="width: 15%"/>
               Thêm vào giỏ</button>
           </h5>

@@ -10,12 +10,13 @@ public class PurchaseHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "bill_id", nullable = false, referencedColumnName = "bill_id")
-    private Bill bill;
+    @JoinColumn(name = "order_id", nullable = false, referencedColumnName = "order_id")
+    private Orders order;
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false, referencedColumnName = "product_id")
     private Product product;
     private Integer quantity;
+//    private String sizeName;
 
     public Long getId() {
         return id;
@@ -25,12 +26,12 @@ public class PurchaseHistory {
         this.id = id;
     }
 
-    public Bill getBill() {
-        return bill;
+    public Orders getOrder() {
+        return order;
     }
 
-    public void setBill(Bill bill) {
-        this.bill = bill;
+    public void setOrder(Orders order) {
+        this.order = order;
     }
 
     public Product getProduct() {
@@ -48,4 +49,12 @@ public class PurchaseHistory {
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
+
+//    public String getSizeName() {
+//        return sizeName;
+//    }
+//
+//    public void setSizeName(String sizeName) {
+//        this.sizeName = sizeName;
+//    }
 }

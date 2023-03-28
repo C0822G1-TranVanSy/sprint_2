@@ -28,6 +28,11 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
+    public Page<IProductDto> searchAllProductByName(Pageable pageable, String name) {
+        return iProductRepository.searchAllProductByName(pageable, name);
+    }
+
+    @Override
     public Optional<Product> findById(Long productId) {
         return iProductRepository.findById(productId);
     }

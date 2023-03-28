@@ -4,14 +4,14 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.sport_store.entity.account.Account;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
-public class Bill {
+public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "bill_id")
-    private Long billId;
+    @Column(name = "order_id")
+    private Long orderId;
     @Column(columnDefinition = "bit default 0")
     private Boolean flagDelete;
     @Column(columnDefinition = "date")
@@ -19,16 +19,18 @@ public class Bill {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id")
     private Account account;
-    @ManyToOne
-    @JoinColumn(name = "payment_id", nullable = false, referencedColumnName = "payment_id")
-    private Payment payment;
+    @Column(columnDefinition = "bit default 0")
+    private Boolean paymentStatus;
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, mappedBy = "order")
+    @JsonBackReference
+    private List<PurchaseHistory> purchaseHistoryList;
 
-    public Long getBillId() {
-        return billId;
+    public Long getOrderId() {
+        return orderId;
     }
 
-    public void setBillId(Long billId) {
-        this.billId = billId;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
     public Boolean getFlagDelete() {
@@ -55,11 +57,19 @@ public class Bill {
         this.account = account;
     }
 
-    public Payment getPayment() {
-        return payment;
+    public Boolean getPaymentStatus() {
+        return paymentStatus;
     }
 
-    public void setPayment(Payment payment) {
-        this.payment = payment;
+    public void setPaymentStatus(Boolean paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+
+    public List<PurchaseHistory> getPurchaseHistoryList() {
+        return purchaseHistoryList;
+    }
+
+    public void setPurchaseHistoryList(List<PurchaseHistory> purchaseHistoryList) {
+        this.purchaseHistoryList = purchaseHistoryList;
     }
 }

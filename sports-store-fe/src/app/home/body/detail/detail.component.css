@@ -1,5 +1,4 @@
 body {
-  font-family: 'open sans';
   overflow-x: hidden; }
 
 img {
@@ -93,9 +92,11 @@ img {
   margin-top: 0; }
 
 .size {
-  margin-right: 10px; }
-.size:first-of-type {
-  margin-left: 40px; }
+  margin-right: 10px;
+  text-transform: UPPERCASE;
+  font-weight: bold;
+}
+
 
 .color {
   display: inline-block;

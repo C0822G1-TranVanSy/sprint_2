@@ -57,10 +57,10 @@
   </button>
 </div>
 
-
 <div class="container mt-5 mb-5">
   <div class="gallary-header text-center">
-    <h1 style="width: 100%;background-color: #f7e296;height: 20px;"><p class="spbc" style="background-color: white;width: 50%;line-height: 3px;padding: 5px 5px 13px 5px;margin: auto">
+    <h1 style="width: 100%;background-color: #f7e296;height: 20px;"><p class="spbc"
+                                                                       style="background-color: white;width: 50%;line-height: 3px;padding: 5px 5px 13px 5px;margin: auto">
       Sản phẩm bán chạy
     </p></h1>
   </div>
@@ -144,6 +144,12 @@
   </div>
 </div>
 
+<div class="d-flex offset-4 col-4 zoom mt-5">
+  <input class="form-control me-2" [(ngModel)]="productName" type="search" placeholder="Bạn cần tìm gì?"
+         aria-label="Search" style="border-color: #0076ad">
+  <button class="btn btn-primary" (click)="searchAllProductByProductName(size)" type="button"
+          style="border-radius: 50%"><i class="fa-brands fa-searchengin"></i></button>
+</div>
 
 <section id="pack" class="packages">
   <div class="container">
@@ -154,46 +160,50 @@
       </p></h1>
     </div>
     <div class="packages-content">
-      <div class="row">
+      <div class="row" *ngIf="productPage; else elseBlock">
         <div class="col-md-4 col-sm-6 col-6 col-lg-3" *ngFor="let item of productList">
-          <div class="single-package-item item1" style="background-color: #295d76; border-radius: 15%">
+          <div class="single-package-item item1" style="background-color: #295d76; border-radius: 10%">
             <div *ngIf="role=='ROLE_ADMIN'" style="position: absolute; top: 10px ; right: 15px; z-index: 1">
-              <a type="button" (click)="getItemProduct(item.productId, item.productName)" style="border-radius: 50%" class=" btn btn-danger" data-bs-toggle="modal"
+              <a type="button" (click)="getItemProduct(item.productId, item.productName)" style="border-radius: 50%"
+                 class=" btn btn-danger" data-bs-toggle="modal"
                  data-bs-target="#exampleModal"><i
                 class="fas fa-times"></i></a>
             </div>
-            <img [src]="item.avatar" class="image" style="height: 240px; border-radius: 15%"
+            <img [src]="item.avatar" class="image" style="height: 240px; border-radius: 10%"
                  alt="package-place">
             <div class="middle">
-<!--              <button class="btn btn-warning mb-3" [routerLink]="['/body/detail',item.productId]"-->
-<!--                      style="font-size: small" target="_blank"><img-->
-<!--                src="https://img.icons8.com/ios-glyphs/30/null/view-file.png" style="width: 20%"/> Chi tiết-->
-<!--              </button>-->
+              <!--              <button class="btn btn-warning mb-3" [routerLink]="['/body/detail',item.productId]"-->
+              <!--                      style="font-size: small" target="_blank"><img-->
+              <!--                src="https://img.icons8.com/ios-glyphs/30/null/view-file.png" style="width: 20%"/> Chi tiết-->
+              <!--              </button>-->
               <button class="btn btn-warning mb-2" [routerLink]="['/body/detail',item.productId]"
                       target="_blank" style="font-size: small; width: 150px"><img
-                src="https://img.icons8.com/pastel-glyph/64/null/briefcase--v2.png" style="width: 15%"/> Thêm vào giỏ
+                src="https://img.icons8.com/pastel-glyph/64/null/briefcase--v2.png"
+                style="width: 15%"/> {{role == 'ROLE_ADMIN' ? 'xem chi tiết' : 'Thêm vào giỏ'}}
               </button>
-                <button [routerLink]="['/product/update',item.productId]" *ngIf="role=='ROLE_ADMIN'" class="btn btn-warning mb-2" target="_blank" style="font-size: small"><img
-                  src="https://img.icons8.com/external-tanah-basah-glyph-tanah-basah/48/null/external-edit-social-media-ui-tanah-basah-glyph-tanah-basah.png"
-                  style="width: 15%"/> Chỉnh sửa
-                </button>
+              <button [routerLink]="['/product/update',item.productId]" *ngIf="role=='ROLE_ADMIN'"
+                      class="btn btn-warning mb-2" target="_blank" style="font-size: small"><img
+                src="https://img.icons8.com/external-tanah-basah-glyph-tanah-basah/48/null/external-edit-social-media-ui-tanah-basah-glyph-tanah-basah.png"
+                style="width: 15%"/> Chỉnh sửa
+              </button>
             </div>
             <div class="single-package-item-txt text-center">
               <h3 class="text-uppercase name" style="height: 100px;">{{item.productName}}</h3>
               <b class="pull-right" style="color: #fa8824">Giá: {{item.price | currency:'VND':''}} đ</b>
+              <b class="pull-right" style="color: #8c8c8c; text-decoration-line: line-through; display: block">{{item.price*1.1 | currency:'VND':''}} đ</b>
             </div>
           </div>
         </div>
         <div class="text-center">
           <a style="cursor: pointer; color: #0076ad; text-decoration: none; font-size: large" type="button"
-             (click)="getPageAllProduct(size+4)" *ngIf="!last">
+             (click)="searchAllProductByProductName(size+4)" *ngIf="!last">
             <img
               src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/null/external-arrow-down-web-flaticons-lineal-color-flat-icons-4.png"
               style="width: 30px"/><br>
             Xem thêm
           </a>
           <a style="cursor: pointer; color: #0076ad; text-decoration: none;font-size: large" type="button"
-             (click)="getPageAllProduct(size=4)" (change)="scrollToBlog()" *ngIf="last">
+             (click)="searchAllProductByProductName(size=4)" (change)="scrollToBlog()" *ngIf="last">
             <img
               src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/null/external-arrow-up-web-flaticons-lineal-color-flat-icons-4.png"
               style="width: 30px"/>
@@ -202,8 +212,22 @@
           </a>
         </div>
       </div>
+      <ng-template #elseBlock>
+        <div class="text-center text-danger">Không tìm thấy danh sách</div>
+      </ng-template>
     </div>
   </div>
+
+  <!--  <div class="row justify-content-center">-->
+  <!--    <div class="col-md-8 col-xs-12">-->
+  <!--      <div class="section-title"><h2>Khách hàng nói về dịch vụ<strong> đặt áo bóng đá</strong> tại YouSport</h2>-->
+  <!--        <p> YOUSPORT.vn luôn đề cao tinh thần làm việc tâm huyết, uy tín trong kinh doanh, chất lượng cao trong sản phẩm-->
+  <!--          dịch vụ, ý thức trách nhiệm trong mỗi nhân viên đã tạo được niềm tin tuyệt đối của Quý khách hàng, đối tác đại-->
+  <!--          lý gần xa. </p></div>-->
+  <!--    </div>-->
+  <!--  </div>-->
+
+
 </section>
 
 <div class="global-notification-container container">
@@ -231,7 +255,9 @@
       </div>
       <div class="modal-footer justify-content-center">
         <button type="button" class="btn btn-secondary" style="width: 20%" data-bs-dismiss="modal">Hủy</button>
-        <button type="button" (click)="removeProduct(productIdDelete)" style="width: 20%" class="btn btn-success" data-bs-dismiss="modal">Đồng ý</button>
+        <button type="button" (click)="removeProduct(productIdDelete)" style="width: 20%" class="btn btn-success"
+                data-bs-dismiss="modal">Đồng ý
+        </button>
       </div>
     </div>
   </div>

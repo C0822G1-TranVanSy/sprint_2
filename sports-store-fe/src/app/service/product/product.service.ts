@@ -23,6 +23,10 @@ export class ProductService {
     return this.httpClient.get<any>(PRODUCT_API + "/page" + '?' + 'size=' + size);
   }
 
+  searchAllProductByProductName(size: number, productName: string): Observable<any>{
+    return this.httpClient.get<any>(PRODUCT_API + "/page" + '?' + 'size=' + size + '&name=' + productName);
+  }
+
   getProduct(productId: number): Observable<Product> {
     return this.httpClient.get<Product>(PRODUCT_API + "/detail/" + productId);
   }
@@ -43,7 +47,5 @@ export class ProductService {
     return this.httpClient.get<any>(PRODUCT_API + "/searchCategory" + '?' + 'size=' + size + '&categoryId=' + categoryId);
   }
 
-  buy(cart:Cart[]):Observable<any> {
-    return this.httpClient.post<any>(PRODUCT_API + "/order",{accountId:this.token.getIdAccount(),orderDate:Date.now(),carts:cart})
-  }
+
 }

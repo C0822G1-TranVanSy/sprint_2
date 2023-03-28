@@ -14,7 +14,7 @@ import {ViewportScroller} from "@angular/common";
   styleUrls: ['./search-product.component.css']
 })
 export class SearchProductComponent implements OnInit {
-  cart: Cart = {id: 0, price: 0, quantity: 0};
+  cart: Cart = {productId: 0, price: 0, quantity: 0};
   cartList: Cart[] = [];
   productList: ProductDto[] = [];
   numberPage: number = 0;

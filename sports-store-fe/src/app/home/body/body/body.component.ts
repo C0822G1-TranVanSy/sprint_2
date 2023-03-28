@@ -7,6 +7,7 @@ import {TokenStorageService} from '../../../service/security/token-storage.servi
 import {ToastrService} from 'ngx-toastr';
 import {ShareService} from '../../../service/security/share.service';
 import Swal from "sweetalert2";
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-body',
@@ -14,8 +15,7 @@ import Swal from "sweetalert2";
   styleUrls: ['./body.component.css']
 })
 export class BodyComponent implements OnInit {
-  cart: Cart = {id: 0, price: 0, quantity: 0};
-  cartList: Cart[] = [];
+  cart: Cart = {productId: 0, price: 0, quantity: 0};
   productList: ProductDto[] = [];
   numberPage: number = 0;
   totalPages = 0;
@@ -26,12 +26,18 @@ export class BodyComponent implements OnInit {
   role = '';
   productIdDelete = 0;
   productNameDelete = '';
+  productName= '';
+  productPage: any;
 
   constructor(private productService: ProductService,
               private scroll: ViewportScroller,
               private tokenStorageService: TokenStorageService,
               private toast: ToastrService,
-              private shareService: ShareService) {
+              private shareService: ShareService,
+              private activatedRoute: ActivatedRoute) {
+    // this.shareService.getClickEvent().subscribe(next => {
+    //   this.searchAllProductByProductName(this.size);
+    // })
     if(this.tokenStorageService.getRole()){
       this.role = this.tokenStorageService.getRole()[0];
     }
@@ -47,28 +53,39 @@ export class BodyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getPageAllProduct(this.size);
-    this.shareService.getClickEvent().subscribe(next => {
-      this.cartList = this.tokenStorageService.getCart();
+    this.searchAllProductByProductName(this.size);
+  }
+
+  searchAllProductByProductName(size: number){
+    this.productService.searchAllProductByProductName(size, this.productName).subscribe(data => {
+      this.productPage = data;
+      if(data){
+        this.productList = this.productPage.content;
+        this.numberPage = data.number;
+        this.size = data.size;
+        this.totalPages = data.totalPages;
+        this.first = data.first;
+        this.last = data.last;
+      }
     })
   }
 
-  getPageAllProduct(size: number){
-    this.productService.getPageAllProduct(size).subscribe(data => {
-      this.productList = data.content;
-      this.numberPage = data.number;
-      this.size = data.size;
-      this.totalPages = data.totalPages;
-      this.first = data.first;
-      this.last = data.last;
-    })
-  }
+  // getPageAllProduct(size: number){
+  //   this.productService.getPageAllProduct(size).subscribe(data => {
+  //     this.productList = data.content;
+  //     this.numberPage = data.number;
+  //     this.size = data.size;
+  //     this.totalPages = data.totalPages;
+  //     this.first = data.first;
+  //     this.last = data.last;
+  //   })
+  // }
 
-  getAllProduct(){
-    this.productService.getAllProduct().subscribe(next => {
-      this.productList = next;
-    })
-  }
+  // getAllProduct(){
+  //   this.productService.getAllProduct().subscribe(next => {
+  //     this.productList = next;
+  //   })
+  // }
 
   // addToCard(item: ProductDto) {
   //   if (this.tokenStorageService.getCart()) {
@@ -115,7 +132,7 @@ export class BodyComponent implements OnInit {
         showConfirmButton: false,
         timer: 2000
       });
-      this.getPageAllProduct(this.size);
+      this.searchAllProductByProductName(this.size);
     }, error => {
       Swal.fire({
         position: 'center',

@@ -1,11 +1,11 @@
-package com.sport_store.dto.product;
+package com.sport_store.dto.orders;
 
-import java.util.Arrays;
+import com.sport_store.dto.orders.CartDto;
 
 public class BillDto {
     private Integer accountId;
     private String orderDate;
-    private Cart[] carts;
+    private CartDto[] carts;
 
     public Integer getAccountId() {
         return accountId;
@@ -23,20 +23,12 @@ public class BillDto {
         this.orderDate = orderDate;
     }
 
-    public Cart[] getCarts() {
+    public CartDto[] getCarts() {
         return carts;
     }
 
-    public void setCarts(Cart[] carts) {
+    public void setCarts(CartDto[] carts) {
         this.carts = carts;
     }
 
-    @Override
-    public String toString() {
-        return "BillDTO{" +
-                "accountId=" + accountId +
-                ", orderDate='" + orderDate + '\'' +
-                ", carts=" + Arrays.toString(carts) +
-                '}';
-    }
 }

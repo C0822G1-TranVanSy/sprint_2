@@ -1,9 +1,10 @@
 import {Product} from '../product/product';
-import {Bill} from './bill';
+import {Orders} from './orders';
+
 
 export interface PurchaseHistory {
   id: number;
-  bill: Bill;
+  bill: Orders;
   product: Product;
   quantity: number;
 }

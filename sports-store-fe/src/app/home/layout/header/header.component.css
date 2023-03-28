@@ -1,7 +1,7 @@
 * {
   margin: 0 auto;
   padding: 0;
-  /*font-family: 'Poppins', sans-serif;*/
+
 }
 
 .header {
@@ -212,15 +212,6 @@ nav .fa {
 }
 ul.dropdown-menu li a.dropdown {
   font-family: Arial, serif;
-}
-
-
-.zoom{
-  transform: scale(1);
-  transition: 0.5s;
-}
-.zoom:hover{
-  transform: scale(1.1);
 }
 
 /*danhmucsanpham*/

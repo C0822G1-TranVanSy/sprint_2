@@ -1,6 +1,6 @@
 export interface Cart {
-  id:number;
-  name?: string;
+  productId:number;
+  productName?: string;
   quantity:number;
   price : number;
   avatar?:string;

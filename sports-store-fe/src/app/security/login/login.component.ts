@@ -7,6 +7,8 @@ import {ToastrService} from 'ngx-toastr';
 import {ViewportScroller} from '@angular/common';
 import {ShareService} from '../../service/security/share.service';
 import Swal from "sweetalert2";
+import {OrderService} from '../../service/cart/order.service';
+import {Orders} from '../../entity/order/orders';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +22,7 @@ export class LoginComponent implements OnInit {
   returnUrl = '/';
   errors = {username: '', password: ''};
   pageYoffSet = 0;
+  order: Orders ={orderId: 0, accountId: 0};
 
   formGroup = new FormGroup({
     username: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -33,7 +36,8 @@ export class LoginComponent implements OnInit {
               private securityService: SecurityService,
               private shareService: ShareService,
               private toast: ToastrService,
-              private scroll: ViewportScroller
+              private scroll: ViewportScroller,
+              private orderService: OrderService
   ) {
   }
 
@@ -46,6 +50,7 @@ export class LoginComponent implements OnInit {
       this.roles = this.tokenStorageService.getRole();
       const username = this.tokenStorageService.getUsername();
     }
+
   }
 
   /**
@@ -73,17 +78,23 @@ export class LoginComponent implements OnInit {
           this.shareService.sendClickEvent();
           const username = this.tokenStorageService.getUsername();
           this.roles = this.tokenStorageService.getRole();
-          // if (this.roles.indexOf('ROLE_CUSTOMER') > -1) {
-          //   this.router.navigateByUrl('timetable/timetable-teacher');
+          // if(this.tokenStorageService.getDetailId()){
+          //   this.router.navigateByUrl('body/detail/' + this.tokenStorageService.getDetailId());
+          // }else {
+            this.router.navigateByUrl('body');
           // }
-          // if (this.roles.indexOf('ROLE_ADMIN') > -1) {
-          //   this.router.navigateByUrl('body');
-          // }
-          this.router.navigateByUrl('body');
           this.formGroup.reset();
-          this.toast.success('Đăng nhập thành công.', 'Thông báo', {
-            timeOut: 2000, positionClass: 'toast-top-center'
-          });
+          if(this.tokenStorageService.getRole()[0] != "ROLE_ADMIN"){
+            this.orderService.createCart(parseInt(this.tokenStorageService.getIdAccount())).subscribe();
+          }
+          this.orderService.findOrderByAccountId(parseInt(data.id)).subscribe(next =>{
+            this.order = next;
+            this.orderService.addCartLocal(this.tokenStorageService.getCart(), this.order.orderId).subscribe();
+            this.toast.success('Đăng nhập thành công.', 'Thông báo', {
+              timeOut: 2000, positionClass: 'toast-top-center'
+            });
+          })
+
           Swal.fire({
             position: 'center',
             icon: 'success',
