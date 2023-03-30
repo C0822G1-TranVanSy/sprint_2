@@ -204,9 +204,15 @@ export class TokenStorageService {
     return JSON.parse(<string> sessionStorage.getItem(CART));
   }
 
-  checkExistName(productName: string) {
+  public removeCart(){
+    // let cart:Cart[] = [];
+    sessionStorage.removeItem(CART);
+    // sessionStorage.setItem(CART,JSON.stringify(cart))
+  }
+
+  checkExistId(productId: number) {
     for (let i = 0; i < this.getCart().length; i++) {
-      if (this.getCart()[i].name == productName) {
+      if (this.getCart()[i].productId == productId) {
         return true;
       }
     }

@@ -14,6 +14,7 @@ import {AngularFireModule} from '@angular/fire';
 import {AngularFireStorageModule} from '@angular/fire/storage';
 import {environment} from '../environments/environment';
 import {ProductModule} from './product/product.module';
+import {DatePipe} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -31,14 +32,15 @@ import {ProductModule} from './product/product.module';
     AngularFireModule.initializeApp(environment.firebaseConfig,"myFile"),
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    
+
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
-      multi: true
-    }
+      multi: true,
+    },
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

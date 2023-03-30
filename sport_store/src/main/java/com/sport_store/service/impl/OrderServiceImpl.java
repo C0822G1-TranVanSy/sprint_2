@@ -20,12 +20,22 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
-    public Optional<Orders> findById(Long accountId) {
-        return iOrderRepository.findById(accountId);
+    public Optional<Orders> findByAccountId(Long accountId) {
+        return iOrderRepository.findByAccountId(accountId);
     }
 
     @Override
     public void save(Orders orders) {
         iOrderRepository.save(orders);
+    }
+
+    @Override
+    public Optional<Orders> findById(Long orderId) {
+        return iOrderRepository.findById(orderId);
+    }
+
+    @Override
+    public void payAllByOrderId(Long orderId, String orderDate) {
+        iOrderRepository.payAllByOrderId(orderId,orderDate);
     }
 }

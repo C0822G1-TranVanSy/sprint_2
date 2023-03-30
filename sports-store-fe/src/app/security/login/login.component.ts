@@ -89,10 +89,12 @@ export class LoginComponent implements OnInit {
           }
           this.orderService.findOrderByAccountId(parseInt(data.id)).subscribe(next =>{
             this.order = next;
-            this.orderService.addCartLocal(this.tokenStorageService.getCart(), this.order.orderId).subscribe();
-            this.toast.success('Đăng nhập thành công.', 'Thông báo', {
-              timeOut: 2000, positionClass: 'toast-top-center'
-            });
+            this.orderService.addCartLocal(this.tokenStorageService.getCart(), this.order.orderId).subscribe(next =>{
+              this.tokenStorageService.removeCart();
+              this.shareService.sendClickEvent();
+              }
+            );
+
           })
 
           Swal.fire({

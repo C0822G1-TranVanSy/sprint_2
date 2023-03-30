@@ -32,7 +32,7 @@ public interface IAccountRepository extends JpaRepository<Account,Long> {
      * @return account
      */
     @Query(value = "select * from account where account_id = :accountId", nativeQuery = true)
-    Account findByUserId(@Param("accountId") Long accountId);
+    Optional<Account> findByUserId(@Param("accountId") Long accountId);
 
 
     @Modifying

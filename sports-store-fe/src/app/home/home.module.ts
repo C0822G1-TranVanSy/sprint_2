@@ -9,10 +9,11 @@ import { DetailComponent } from './body/detail/detail.component';
 import { CartComponent } from './body/cart/cart.component';
 import { ErrorComponent } from './error/error.component';
 import {FormsModule} from '@angular/forms';
+import { PaymentComponent } from './body/payment/payment.component';
 
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, BodyComponent, DetailComponent, CartComponent, ErrorComponent],
+  declarations: [HeaderComponent, FooterComponent, BodyComponent, DetailComponent, CartComponent, ErrorComponent, PaymentComponent],
   exports: [
     HeaderComponent,
     FooterComponent,

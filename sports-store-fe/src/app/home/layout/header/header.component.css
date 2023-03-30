@@ -1,11 +1,10 @@
 * {
   margin: 0 auto;
   padding: 0;
-
 }
 
 .header {
-  min-height: 23vh;
+  min-height: 15vh;
   width: 100%;
   background-image: linear-gradient(rgba(102, 123, 213, 0.4), rgba(50, 76, 179, 0.4)), url(/assets/images/img-bg-01.jpg);
   background-position: center;

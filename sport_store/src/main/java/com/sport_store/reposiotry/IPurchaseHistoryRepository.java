@@ -2,7 +2,9 @@ package com.sport_store.reposiotry;
 
 import com.sport_store.dto.orders.ICartListDto;
 import com.sport_store.dto.orders.ITotalDto;
+import com.sport_store.entity.order.Orders;
 import com.sport_store.entity.order.PurchaseHistory;
+import com.sport_store.entity.product.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -36,4 +38,5 @@ public interface IPurchaseHistoryRepository extends JpaRepository<PurchaseHistor
     @Modifying
     @Query(value = "delete from purchase_history where order_id = :orderId and product_id = :productId", nativeQuery = true)
     void deleteCartItem(@Param("orderId") Long orderId, @Param("productId") Long productId);
+
 }

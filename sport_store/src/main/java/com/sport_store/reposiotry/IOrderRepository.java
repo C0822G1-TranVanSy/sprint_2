@@ -19,5 +19,13 @@ public interface IOrderRepository extends JpaRepository<Orders, Long> {
     void createOrder(@Param("accountId") Long accountId);
 
     @Query(value = "select * from orders where payment_status = false and account_id = :accountId", nativeQuery = true)
-    Optional<Orders> findById(@Param("accountId") Long accountId);
+    Optional<Orders> findByAccountId(@Param("accountId") Long accountId);
+
+//    @Query(value = "select * from orders where payment_status = false and order_id = :orderId", nativeQuery = true)
+//    Optional<Orders> findByOrderId(@Param("orderId") Long orderId);
+
+    @Modifying
+    @Query(value = "update orders set order_date = :orderDate, payment_status = true where order_id= :orderId", nativeQuery = true)
+    void payAllByOrderId(@Param("orderId") Long orderId, @Param("orderDate") String orderDate);
+
 }

@@ -1,8 +1,11 @@
 package com.sport_store.service;
 
+import com.sport_store.dto.orders.CartListDto;
 import com.sport_store.dto.orders.ICartListDto;
 import com.sport_store.dto.orders.ITotalDto;
+import com.sport_store.entity.order.Orders;
 import com.sport_store.entity.order.PurchaseHistory;
+import com.sport_store.entity.product.Product;
 
 import java.util.List;
 
@@ -19,4 +22,7 @@ public interface IPurchaseHistoryService {
     PurchaseHistory findCartItemById( Long orderId, Long productId);
 
     void deleteCartItem(Long orderId, Long productId);
+
+    void insertCartItemLocal(Long orderId, List<CartListDto> cartListDtos);
+
 }

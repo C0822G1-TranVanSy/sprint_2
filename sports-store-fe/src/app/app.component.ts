@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {TokenStorageService} from './service/security/token-storage.service';
 import {SecurityService} from './service/security/security.service';
 import {ShareService} from './service/security/share.service';
+import {render} from 'creditcardpayments/creditCardPayments';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,16 @@ export class AppComponent {
   constructor(private tokenStorageService: TokenStorageService,
               private securityService: SecurityService,
               private shareService: ShareService) {
+    // render(
+    //   {
+    //     id: "#myPayPalButtons",
+    //     currency: "USD",
+    //     value: "100.00",
+    //     onApprove: (details) => {
+    //       alert("Transaction Successful")
+    //     }
+    //   }
+    // );
   }
 
   /**

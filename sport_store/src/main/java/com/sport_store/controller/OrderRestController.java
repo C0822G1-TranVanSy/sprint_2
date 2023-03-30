@@ -11,6 +11,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -34,20 +38,20 @@ public class OrderRestController {
 
     @GetMapping("/detail/{accountId}")
     public ResponseEntity<Orders> findById(@PathVariable Long accountId) {
-        Orders order = iOrderService.findById(accountId).orElse(null);
+        Orders order = iOrderService.findByAccountId(accountId).orElse(null);
         if (order == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(order,HttpStatus.OK);
+        return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
     @GetMapping("/list/{orderId}")
     public ResponseEntity<List<ICartListDto>> getAllCart(@PathVariable Long orderId) {
         List<ICartListDto> cartListDtos = iPurchaseHistoryService.getAllProductByOrderId(orderId);
-        if (cartListDtos.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>(cartListDtos,HttpStatus.OK);
+//        if (cartListDtos.isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
+        return new ResponseEntity<>(cartListDtos, HttpStatus.OK);
     }
 
     @GetMapping("/total/{orderId}")
@@ -56,12 +60,12 @@ public class OrderRestController {
         if (totalDto == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(totalDto,HttpStatus.OK);
+        return new ResponseEntity<>(totalDto, HttpStatus.OK);
     }
 
     @PostMapping("/order")
     public ResponseEntity<?> order(@RequestBody OrderDto orderDto) {
-        Orders order = iOrderService.findById(orderDto.getAccountId()).orElse(null);
+        Orders order = iOrderService.findByAccountId(orderDto.getAccountId()).orElse(null);
         if (order == null) {
             iOrderService.createOrder(orderDto.getAccountId());
         }
@@ -81,22 +85,28 @@ public class OrderRestController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteCartItemById(@RequestParam Long productId,@RequestParam Long orderId){
-        PurchaseHistory purchaseHistory = iPurchaseHistoryService.findCartItemById(orderId,productId);
-        if(purchaseHistory == null) {
+    public ResponseEntity<?> deleteCartItemById(@RequestParam Long productId, @RequestParam Long orderId) {
+        PurchaseHistory purchaseHistory = iPurchaseHistoryService.findCartItemById(orderId, productId);
+        if (purchaseHistory == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        iPurchaseHistoryService.deleteCartItem(orderId,productId);
+        iPurchaseHistoryService.deleteCartItem(orderId, productId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/cartLocal")
-    public ResponseEntity<?> addCartLocal(@RequestParam Long orderId,@RequestBody List<CartListDto> cartListDtos) {
-        for (CartListDto c: cartListDtos) {
-//            iPurchaseHistoryService.createCartItem(c.getProductId(), c.getOrderId(), c.getQuantity());
-            System.out.println(c);
+    public ResponseEntity<?> addCartLocal(@RequestParam Long orderId, @RequestBody List<CartListDto> cartListDtos) {
+        iPurchaseHistoryService.insertCartItemLocal(orderId, cartListDtos);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/pay")
+    public ResponseEntity<?> payAllByOrderId(@RequestBody OrderPaymentDto orderPaymentDto) {
+        Orders orders = iOrderService.findById(orderPaymentDto.getOrderId()).orElse(null);
+        if (orders == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-//        iPurchaseHistoryService.createCartItem(cartDto.getProductId(), cartDto.getOrderId(), cartDto.getQuantity());
+        iOrderService.payAllByOrderId(orderPaymentDto.getOrderId(), orderPaymentDto.getOrderDate());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

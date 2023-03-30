@@ -102,4 +102,13 @@ public class AuthRestController {
         iAccountService.changePassword(changePasswordDto);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/info/{accountId}")
+    public ResponseEntity<Account> getInfoCustomer(@PathVariable Long accountId){
+        Account account = iAccountService.findByUserId(accountId).orElse(null);
+        if(account == null) {
+            return new ResponseEntity<>( HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(account, HttpStatus.OK);
+    }
 }

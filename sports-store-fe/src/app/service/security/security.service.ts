@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Account} from '../../entity/account/account';
 
 const AUTH_API = 'http://localhost:8080/api/auth/';
 
@@ -79,5 +80,9 @@ export class SecurityService {
    */
   getIsLoggedIn(): Observable<boolean> {
     return this.isLoggedInObservable.asObservable();
+  }
+
+  getInfoByAccountId(accountId: number): Observable<Account>{
+    return this.http.get<Account>(AUTH_API + 'info/' + accountId);
   }
 }

@@ -43,18 +43,19 @@ export class HeaderComponent implements OnInit {
     this.securityService.getUserLoggedIn().subscribe(next => {
       this.user = next;
     });
-
+    // if(this.tokenStorageService.getToken()){
+    //
+    // }
     this.shareService.getClickEvent().subscribe(next => {
       this.orderService.findOrderByAccountId(parseInt(this.tokenStorageService.getIdAccount())).subscribe(next => {
         this.order = next;
-        this.getTotal(this.order.orderId);
+        this.totalQuantity = this.getTotalQuantityBE(this.order.orderId);
       });
-      // this.getTotal(this.order.orderId);
-      this.shareService.getClickEvent().subscribe(next => {
-        this.cartList = this.tokenStorageService.getCart();
-        this.totalQuantity = this.getQuantity();
-      })
     });
+    this.shareService.getClickEvent().subscribe(next => {
+      this.cartList = this.tokenStorageService.getCart();
+      this.totalQuantity = this.getQuantity();
+    })
   }
 
   ngOnInit(): void {
@@ -66,7 +67,7 @@ export class HeaderComponent implements OnInit {
     if(this.isLoggedIn){
       this.orderService.findOrderByAccountId(parseInt(this.tokenStorageService.getIdAccount())).subscribe(next => {
         this.order = next;
-        this.getTotal(this.order.orderId);
+        this.totalQuantity =this.getTotalQuantityBE(this.order.orderId);
       });
     }else {
       this.totalQuantity = this.getQuantity();
@@ -76,17 +77,22 @@ export class HeaderComponent implements OnInit {
 
   getQuantity() {
     let quantity = 0;
-    this.cartList.forEach((item: any) => {
-      quantity += item.quantity
-    })
+    if (this.cartList != null) {
+      this.cartList.forEach((item: any) => {
+        quantity += item.quantity
+      })
+    }
     return quantity;
   }
 
-  getTotal(orderId: number) {
+  getTotalQuantityBE(orderId: number) {
     this.orderService.getTotal(orderId).subscribe(next => {
-      // this.totalPayment = next.totalPayment;
+      if(next){
+        // this.totalPayment = next.totalPayment;
         this.totalQuantity = next.totalQuantity;
+      }
     });
+    return this.totalQuantity;
   }
 
   getRole(){
@@ -119,6 +125,7 @@ export class HeaderComponent implements OnInit {
    */
   logout() {
     this.tokenStorageService.logout();
+    this.getQuantity();
     this.securityService.setIsLoggedIn(null, false);
     this.router.navigateByUrl('security/login');
     this.shareService.sendClickEvent();

@@ -1,0 +1,108 @@
+<body>
+<section class="h-100" style="background-color: #d2c9ff;margin-top: 30px; margin-bottom: 30px">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class=" col-11 offset-1">
+        <div class="card card-registration card-registration-2" style="border-radius: 15px; background-color: #bbab8d">
+          <div class="card-body p-0">
+            <div class="row g-0">
+              <div class="col-lg-7">
+                <div class="p-4">
+                  <div class="text-center mb-4">
+                    <h2 class="fw-bold mb-0 text-black">Thông tin giao hàng</h2>
+<!--                    <h6 class="mb-0 text-muted">{{length}} mặt hàng</h6>-->
+                  </div>
+                  <hr class="my-3">
+                  <div class="row mb-3 d-flex justify-content-between align-items-center">
+                    <div class="offset-md-1 offset-lg-1 col-md-4 col-lg-4">Tên khách hàng:</div>
+                    <div class="offset-md-1 offset-lg-1 col-md-6 col-lg-6">
+                      <h6 class="text-black">{{account.name}}</h6>
+                    </div>
+                    <hr class="my-3">
+                  </div>
+
+                  <div class="row mb-2 d-flex justify-content-between align-items-center">
+                    <div class="offset-md-1 offset-lg-1 col-md-4 col-lg-4">Địa chỉ:</div>
+                    <div class="offset-md-1 offset-lg-1 col-md-6 col-lg-6">
+                      <h6 class="text-black">{{account.address}}</h6>
+                    </div>
+                    <hr class="my-3">
+                  </div>
+
+                  <div class="row mb-2 d-flex justify-content-between align-items-center">
+                    <div class="offset-md-1 offset-lg-1 col-md-4 col-lg-4">
+                      Số điện thoại:
+                    </div>
+                    <div class="offset-md-1 offset-lg-1 col-md-6 col-lg-6">
+                      <h6 class="text-black">{{account.phoneNumber}}</h6>
+                    </div>
+                    <hr class="my-3">
+                  </div>
+
+                 <div class="row mb-2 d-flex justify-content-between align-items-center">
+                    <div class="offset-md-1 offset-lg-1 col-md-4 col-lg-4">
+                      Email:
+                    </div>
+                    <div class="offset-md-1 offset-lg-1 col-md-6 col-lg-6">
+                      <h6 class="text-black">{{account.email}}</h6>
+                    </div>
+                    <hr class="my-3">
+                  </div>
+
+                  <div class="pt-3 ps-3">
+                    <h6><a routerLink="/body/cart" class="text-body btn btn-outline-primary"><i
+                      class="fas fa-long-arrow-alt-left me-2"></i>Back to cart</a></h6>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-5 bg-grey">
+                <div class="p-4">
+                  <div class="text-center">
+                  <h3 class="fw-bold mb-4 mt-1 pt-1">Thông tin thanh toán</h3>
+                  </div>
+                  <hr class="my-3">
+
+                  <div class="d-flex justify-content-between mb-4">
+                    <h5 class="text-uppercase">số lượng: {{totalQuantity}}</h5>
+                    <h5>{{totalPayment | currency:'USD'}} </h5>
+                  </div>
+
+                  <h5 class="text-uppercase mb-1">Shipping</h5>
+
+                  <div class="mb-3 pb-2">
+                    <select class="select form-select">
+                      <option value="1">Phí ship</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                      <option value="4">Four</option>
+                    </select>
+                  </div>
+
+                  <h5 class="text-uppercase mb-1"> code</h5>
+
+                  <div class="mb-3">
+                    <div class="form-outline">
+                      <input type="text" id="form3Examplea2" class="form-control"/>
+                      <label class="form-label" for="form3Examplea2">Nhập code: </label>
+                    </div>
+                  </div>
+
+                  <hr class="my-4">
+                  <div class="d-flex justify-content-between mb-3">
+                    <h5 class="text-uppercase">Tổng giá: </h5>
+                    <h5>{{totalPayment | currency:'USD'}} </h5>
+                  </div>
+                  <div class="text-center ">
+                    <div id="myPayPalButtons" ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+

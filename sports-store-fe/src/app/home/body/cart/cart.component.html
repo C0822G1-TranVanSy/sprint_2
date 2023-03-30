@@ -1,5 +1,5 @@
 <body>
-<section class="h-100" style="background-color: #d2c9ff;margin-top: 50px">
+<section class="h-100" style="background-color: #d2c9ff;margin-top: 30px; margin-bottom: 30px">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-12">
@@ -7,7 +7,7 @@
           <div class="card-body p-0">
             <div class="row g-0">
               <div class="col-lg-8">
-                <div class="p-5">
+                <div class="p-5" style="overflow: auto; height: 600px">
                   <div class="d-flex justify-content-between align-items-center mb-5">
                     <h1 class="fw-bold mb-0 text-black">Giỏ hàng</h1>
                     <h6 class="mb-0 text-muted">{{length}} mặt hàng</h6>
@@ -15,49 +15,53 @@
 
                   <hr class="my-4">
                   <div *ngIf="cartList.length!=0; else elseBlock">
-                  <div class="row mb-4 d-flex justify-content-between align-items-center" *ngFor="let c of cartList; index as i">
-                    <div class="col-md-2 col-lg-2 col-xl-2">
-                      <a type="button" [routerLink]="['/body/detail',c.productId]">
-                      <img
-                        [src]="c.avatar"
-                        class="img-fluid rounded-3" alt="Cotton T-shirt"></a>
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-xl-3">
-                      <h6 class="text-black">{{c.productName}}</h6>
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                      <button class="btn btn-link px-2"
-                              (click)="reduceQuantity(c.productId, c.quantity - 1, i)">
-                        <i class="fas fa-minus"></i>
-                      </button>
+                    <div class="row mb-4 d-flex justify-content-between align-items-center"
+                         *ngFor="let c of cartList; index as i">
+                      <div class="col-md-2 col-lg-2 col-xl-2">
+                        <a type="button" [routerLink]="['/body/detail',c.productId]">
+                          <img
+                            [src]="c.avatar"
+                            class="img-fluid rounded-3" alt="Cotton T-shirt"></a>
+                      </div>
+                      <div class="col-md-3 col-lg-3 col-xl-3">
+                        <h6 class="text-black">{{c.productName}}</h6>
+                      </div>
+                      <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                        <button class="btn btn-link px-2"
+                                (click)="reduceQuantity(c.productId, c.quantity - 1, i)">
+                          <i class="fas fa-minus"></i>
+                        </button>
 
-                      <input id="form1" min="0" style="width: 80px" name="quantity" (change)="updateQuantity(c.productId, c.quantity, i)" [(ngModel)]="c.quantity" type="number"
-                             class="form-control form-control-sm" />
+                        <input id="form1" min="0" style="width: 80px" name="quantity"
+                               (change)="updateQuantity(c.productId, c.quantity, i)" [(ngModel)]="c.quantity"
+                               type="number"
+                               class="form-control form-control-sm"/>
 
-                      <button class="btn btn-link px-2"
-                              (click)="increaseQuantity(c.productId, c.quantity + 1, i)">
-                        <i class="fas fa-plus"></i>
-                      </button>
+                        <button class="btn btn-link px-2"
+                                (click)="increaseQuantity(c.productId, c.quantity + 1, i)">
+                          <i class="fas fa-plus"></i>
+                        </button>
+                      </div>
+                      <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                        <h6 class="mb-0">{{c.price | currency:'USD'}}</h6>
+                      </div>
+                      <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                        <a type="button" class="text-muted" (click)="removeCart(c.productId, i)"><i
+                          class="fas fa-times"></i></a>
+                      </div>
+                      <hr class="my-4">
                     </div>
-                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                      <h6 class="mb-0">{{c.price}}</h6>
-                    </div>
-                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                      <a type="button" class="text-muted" (click)="removeCart(c.productId, i)"><i class="fas fa-times"></i></a>
-                    </div>
-                    <hr class="my-4">
-                  </div>
                   </div>
 
                   <ng-template #elseBlock>
                     <div class="text-center">
-                    <img style="width: 500px" src="/assets/images/emptycart.png"/>
+                      <img style="width: 500px" src="/assets/images/emptycart.png"/>
                     </div>
                   </ng-template>
 
                 </div>
                 <div class="pt-5 ps-3">
-                  <h6 ><a routerLink="/body" class="text-body btn btn-outline-primary"><i
+                  <h6><a routerLink="/body" class="text-body btn btn-outline-primary"><i
                     class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a></h6>
                 </div>
               </div>
@@ -68,13 +72,13 @@
 
                   <div class="d-flex justify-content-between mb-4">
                     <h5 class="text-uppercase">số lượng: {{totalQuantity}}</h5>
-                    <h5>{{totalPayment | currency:'VND':''}} Đ</h5>
+                    <h5>{{totalPayment | currency:'USD'}} </h5>
                   </div>
 
                   <h5 class="text-uppercase mb-3">Shipping</h5>
 
                   <div class="mb-4 pb-2">
-                    <select class="select form-select" >
+                    <select class="select form-select">
                       <option value="1">Phí ship</option>
                       <option value="2">Two</option>
                       <option value="3">Three</option>
@@ -86,7 +90,7 @@
 
                   <div class="mb-5">
                     <div class="form-outline">
-                      <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
+                      <input type="text" id="form3Examplea2" class="form-control form-control-lg"/>
                       <label class="form-label" for="form3Examplea2">Nhập code: </label>
                     </div>
                   </div>
@@ -94,12 +98,16 @@
                   <hr class="my-4">
                   <div class="d-flex justify-content-between mb-5">
                     <h5 class="text-uppercase">Tổng giá: </h5>
-                    <h5>{{totalPayment | currency:'VND':''}} Đ</h5>
+                    <h5>{{totalPayment | currency:'USD'}} </h5>
                   </div>
-                  <div class="text-center">
-                  <button type="button" class="btn btn-warning btn-block btn-lg"
-                          data-mdb-ripple-color="dark">Thanh toán</button>
+                  <div class="text-center ">
+                    <div id="myPayPalButtons" class="mb-3" ></div>
+<!--                    (click)="payAll(totalPayment)"-->
+                    <button  type="button" (click)="moveToPayment()" class="btn btn-warning btn-block btn-lg "
+                            data-mdb-ripple-color="dark">Thanh toán
+                    </button>
                   </div>
+
                 </div>
               </div>
             </div>
@@ -110,3 +118,4 @@
   </div>
 </section>
 </body>
+

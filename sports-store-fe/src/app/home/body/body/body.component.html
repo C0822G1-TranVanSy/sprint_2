@@ -189,8 +189,9 @@
             </div>
             <div class="single-package-item-txt text-center">
               <h3 class="text-uppercase name" style="height: 100px;">{{item.productName}}</h3>
-              <b class="pull-right" style="color: #fa8824">Giá: {{item.price | currency:'VND':''}} đ</b>
-              <b class="pull-right" style="color: #8c8c8c; text-decoration-line: line-through; display: block">{{item.price*1.1 | currency:'VND':''}} đ</b>
+              <b class="pull-right" style="color: #fa8824">Giá: {{item.price | currency:'USD'}} </b>
+              <b class="pull-right"
+                 style="color: #8c8c8c; text-decoration-line: line-through; display: block">{{item.price * 1.1 | currency:'USD'}}</b>
             </div>
           </div>
         </div>
@@ -218,14 +219,6 @@
     </div>
   </div>
 
-  <!--  <div class="row justify-content-center">-->
-  <!--    <div class="col-md-8 col-xs-12">-->
-  <!--      <div class="section-title"><h2>Khách hàng nói về dịch vụ<strong> đặt áo bóng đá</strong> tại YouSport</h2>-->
-  <!--        <p> YOUSPORT.vn luôn đề cao tinh thần làm việc tâm huyết, uy tín trong kinh doanh, chất lượng cao trong sản phẩm-->
-  <!--          dịch vụ, ý thức trách nhiệm trong mỗi nhân viên đã tạo được niềm tin tuyệt đối của Quý khách hàng, đối tác đại-->
-  <!--          lý gần xa. </p></div>-->
-  <!--    </div>-->
-  <!--  </div>-->
 
 
 </section>
@@ -236,7 +229,7 @@
       class="gloab-banner__white-tag">GIẢM GIÁ</span><span
       class="istock-colored-sale-notification__content-text"> TUẦN NÀY: Tiết kiệm 20% cho mọi nội dung hình ảnh với mã <strong>SAVE20</strong>.&nbsp;</span><a
       class="istock-colored-sale-notification__content-cta" href="/">Mua ngay
-      &gt;</a></div>
+      </a></div>
     <figure class="close"></figure>
   </aside>
 </div>

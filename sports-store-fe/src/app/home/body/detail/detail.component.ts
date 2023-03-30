@@ -60,10 +60,8 @@ export class DetailComponent implements OnInit {
   }
 
   addToCart(productId: number, quantity: string, size: string, item: Product){
-    console.log(size);
+
     if(!this.tokenStorageService.getToken()){
-      // this.router.navigateByUrl("security/login");
-      // this.tokenStorageService.setDetailId(productId);
       this.addToCardLocal(item, quantity);
     }else {
     this.orderService.addToCart(this.order.orderId,productId,parseInt(quantity)).subscribe(next => {
@@ -86,13 +84,14 @@ export class DetailComponent implements OnInit {
         this.cart.productName = item.productName;
         this.cart.avatar = item.avatar;
         this.cart.price = item.price;
-      if (this.tokenStorageService.checkExistName(item.productName)) {
+      if (this.tokenStorageService.checkExistId(item.productId)) {
         this.tokenStorageService.upQuantityProductPro(item.productId, this.cartList, parseInt(quantity1));
       } else {
         this.cart.quantity = parseInt(quantity1);
         this.cartList.push(this.cart);
       }
       this.tokenStorageService.setCart(this.cartList);
+      this.shareService.sendClickEvent();
           Swal.fire({
             position: 'center',
             icon: 'success',
@@ -109,6 +108,7 @@ export class DetailComponent implements OnInit {
       this.cart.quantity = parseInt(quantity1);
       this.cartList.push(this.cart);
       this.tokenStorageService.setCart(this.cartList);
+      this.shareService.sendClickEvent();
           Swal.fire({
             position: 'center',
             icon: 'success',

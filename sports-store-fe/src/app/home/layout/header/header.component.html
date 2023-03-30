@@ -1,5 +1,5 @@
 
-<section class="header" style="position: sticky; top: 0; z-index: 99">
+<section class="header" style="position: sticky; top: 0; z-index: 999">
   <nav >
     <div class="logo">
       <a routerLink="/">
@@ -31,7 +31,7 @@
         <li class="animationTop delay-03" *ngIf="role!='ROLE_ADMIN'">
           <a routerLink="/body/cart" style="position: relative">
             <img class="img12" style="width: 50px; height: 50px" src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/null/external-cart-web-flaticons-lineal-color-flat-icons-7.png"/>
-            <span style="position: absolute; top: -15px;right: -10px;color: white;background: #f44336;font-weight: bold;padding: 7% 15% 7%;border-radius: 50%;font-size: 13px;opacity: 0.8" >{{totalQuantity}}</span>
+            <span *ngIf="totalQuantity>0" style="position: absolute; top: -15px;right: -10px;color: white;background: #f44336;font-weight: bold;padding: 7% 15% 7%;border-radius: 50%;font-size: 13px;opacity: 0.8" >{{totalQuantity}}</span>
           </a>
         </li>
         <li class="animationTop delay-03" style="z-index: 998"><a *ngIf="!isLoggedIn;else elseBlock" routerLink="/security/login">ĐĂNG NHẬP</a>

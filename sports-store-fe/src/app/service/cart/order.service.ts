@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {TokenStorageService} from '../security/token-storage.service';
 import {Orders} from '../../entity/order/orders';
 import {TotalDto} from '../../entity/order/total-dto';
+import {DatePipe} from '@angular/common';
 
 const ORDER_API = 'http://localhost:8080/api/order';
 
@@ -13,7 +14,8 @@ const ORDER_API = 'http://localhost:8080/api/order';
 })
 export class OrderService {
 
-  constructor(private httpClient: HttpClient, private tokenStorageService: TokenStorageService) {
+  constructor(private httpClient: HttpClient, private tokenStorageService: TokenStorageService,
+              private datePipe: DatePipe) {
   }
 
   addToCart(orderId: number, productId: number, quantity: number) {
@@ -40,15 +42,18 @@ export class OrderService {
     return this.httpClient.get<TotalDto>(ORDER_API + '/total/' + orderId);
   }
 
-  // buy(cart:Cart[]):Observable<any> {
-  //   return this.httpClient.post<any>(ORDER_API + "/order",{accountId:this.tokenStorageService.getIdAccount(),orderDate:Date.now(),carts:cart})
-  // }
-
   removeCart(productId: number, orderId: number) {
     return this.httpClient.delete(ORDER_API + '/delete' + '?productId=' + productId + '&orderId=' + orderId);
   }
 
   addCartLocal(cartList: Cart[], orderId: number) {
     return this.httpClient.post(ORDER_API + '/cartLocal' + '?orderId=' + orderId, cartList);
+  }
+
+  payAll(orderId: number) {
+    const date = Date.now();
+    const dateNow = this.datePipe.transform(date, 'yyyy-MM-dd');
+    console.log(dateNow);
+    return this.httpClient.post(ORDER_API + '/pay', {orderId: orderId, orderDate: dateNow});
   }
 }

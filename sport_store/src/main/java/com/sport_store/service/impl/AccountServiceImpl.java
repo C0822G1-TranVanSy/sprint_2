@@ -27,14 +27,13 @@ public class AccountServiceImpl implements IAccountService {
         return iAccountRepository.findByUsername(username);
     }
 
+    @Override
+    public Optional<Account> findByUserId(Long accountId) {
+        return iAccountRepository.findByUserId(accountId);
+    }
+
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    /**
-     * Create by : NuongHT
-     * Date create: 28/02/2023
-     * Description: create reponsitory call database and check account by method findByUserId
-     */
 
     @Override
     public void save(Long accountId) {
@@ -43,7 +42,7 @@ public class AccountServiceImpl implements IAccountService {
 
     @Override
     public void changePassword(ChangePasswordDto changePasswordDto) throws Exception {
-        Account account = iAccountRepository.findByUserId(changePasswordDto.getAccountId());
+        Account account = iAccountRepository.findByUserId(changePasswordDto.getAccountId()).orElse(null);
         if (account == null) {
             throw new Exception("Account null");
         }
