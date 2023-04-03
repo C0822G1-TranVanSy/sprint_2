@@ -111,4 +111,10 @@ public class AuthRestController {
         }
         return new ResponseEntity<>(account, HttpStatus.OK);
     }
+
+    @PatchMapping("/updateAvatar")
+    public ResponseEntity<?> changeAvatar(@RequestBody Account account) {
+        iAccountService.changeAvatar(account.getAccountId(), account.getAvatar());
+        return new ResponseEntity<>( HttpStatus.OK);
+    }
 }

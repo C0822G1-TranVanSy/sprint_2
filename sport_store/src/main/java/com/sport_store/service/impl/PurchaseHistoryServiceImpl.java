@@ -3,6 +3,7 @@ package com.sport_store.service.impl;
 import com.sport_store.dto.orders.CartListDto;
 import com.sport_store.dto.orders.ICartListDto;
 import com.sport_store.dto.orders.ITotalDto;
+import com.sport_store.dto.product.IBestProductDto;
 import com.sport_store.entity.order.Orders;
 import com.sport_store.entity.order.PurchaseHistory;
 import com.sport_store.entity.product.Product;
@@ -11,6 +12,8 @@ import com.sport_store.service.IOrderService;
 import com.sport_store.service.IProductService;
 import com.sport_store.service.IPurchaseHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -64,21 +67,14 @@ public class PurchaseHistoryServiceImpl implements IPurchaseHistoryService {
 
     @Override
     public void insertCartItemLocal(Long orderId, List<CartListDto> cartListLocal) {
-//        List<ICartListDto> cartList = iPurchaseHistoryRepository.getAllProductByOrderId(orderId);
-
-//        for (int i = 0; i < cartListLocal.size(); i++) {
-//            for (ICartListDto cart : cartList) {
-//                if (cart.getProductId().equals(cartListLocal.get(i).getProductId())) {
-//                    Integer newQuantity = cartListLocal.get(i).getQuantity() + cart.getQuantity();
-//                    iPurchaseHistoryRepository.updateCartItem(cartListLocal.get(i).getProductId(), orderId, newQuantity);
-//                    cartListLocal.remove(cartListLocal.get(i));
-//                }
-//            }
-//            iPurchaseHistoryRepository.createCartItem(cartListLocal.get(i).getProductId(), orderId, cartListLocal.get(i).getQuantity());
-//        }
-
         for (CartListDto cart : cartListLocal) {
             createCartItem(cart.getProductId(),orderId,cart.getQuantity());
         }
     }
+
+    @Override
+    public Page<IBestProductDto> getBestProduct(Pageable pageable) {
+        return iPurchaseHistoryRepository.getBestProduct(pageable);
+    }
+
 }

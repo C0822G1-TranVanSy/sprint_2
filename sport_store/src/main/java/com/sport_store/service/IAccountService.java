@@ -21,4 +21,6 @@ public interface IAccountService {
 
     void save(Account account);
 
+    void changeAvatar(Long accountId, String ava);
+
 }

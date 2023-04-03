@@ -99,7 +99,7 @@ export class UpdateProductComponent implements OnInit {
           position: 'center',
           icon: 'success',
           title: 'Thông báo!',
-          text: 'Chỉnh sửa phẩm thành công.',
+          text: 'Chỉnh sửa sản phẩm thành công.',
           showConfirmButton: false,
           timer: 2000
         });
@@ -108,7 +108,7 @@ export class UpdateProductComponent implements OnInit {
             position: 'center',
             icon: 'error',
             title: 'Thông báo!',
-            text: 'Chỉnh sửa phẩm thất bại.',
+            text: 'Chỉnh sửa sản phẩm thất bại.',
             showConfirmButton: false,
             timer: 2000
           });

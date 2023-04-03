@@ -24,6 +24,10 @@ export class TokenStorageService {
    * funtion: logout
    *
    */
+
+  isLogged():boolean {
+    return !!this.getToken()
+  }
   logout() {
     window.localStorage.clear();
     window.sessionStorage.removeItem(TOKEN_KEY);

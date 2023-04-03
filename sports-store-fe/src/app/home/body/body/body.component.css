@@ -37,29 +37,15 @@
 
 .snip1515 figcaption {
   width: 100%;
-  background-color: #F2F2F2;
-  color: #555;
+  background-color: #011634;
+  color: #fff;
   padding: 125px 25px 25px;
   margin-top: -100px;
   display: inline-block;
 }
 
-.snip1515 h3,
-.snip1515 h4,
 .snip1515 p {
   margin: 0 0 5px;
-}
-
-.snip1515 h3 {
-  font-weight: 600;
-  font-size: 1.3em;
-  font-family: 'Playfair Display', Arial, sans-serif;
-}
-
-.snip1515 h4 {
-  color: #8c8c8c;
-  font-weight: 400;
-  letter-spacing: 2px;
 }
 
 .snip1515 p {
@@ -90,7 +76,7 @@
 
 /*phuc*/
 .packages{
-  padding:120px 0 90px;
+  padding:80px 0 90px;
 }
 
 .packages-content{
@@ -309,7 +295,4 @@ z-index: 101;
 .zoom:hover{
   transform: scale(1.1);
 }
-
-
-
 

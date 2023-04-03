@@ -89,4 +89,9 @@ public class AccountServiceImpl implements IAccountService {
         iAccountRepository.save(account);
     }
 
+    @Override
+    public void changeAvatar(Long accountId, String ava) {
+        iAccountRepository.changeAvatar(accountId,ava);
+    }
+
 }

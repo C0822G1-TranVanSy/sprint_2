@@ -10,7 +10,7 @@
         <li class="animationTop delay-03" style="z-index: 999;">
           <a style="margin-left: 20px;text-decoration: none;color: #FFCE1B;" class="dropdown animationTop delay-11">
             <span style="cursor: pointer">DANH MỤC SẢN PHẨM</span>
-            <div class="dropdown-content" style="text-align: left">
+            <div class="dropdown-content" style="text-align: left; width: 150px">
               <a [routerLink]="['/product/search',0]" style="display: block" class="category-item animationTop delay-4"><i style="margin-right: 5px" class="fa-brands fa-teamspeak"></i> Tất
                 cả</a>
 
@@ -20,6 +20,8 @@
                 <i style="margin-right: 5px" class="fa-sharp fa-solid fa-volleyball"></i>Bóng chuyền</a>
               <a [routerLink]="['/product/search',3]" style="display: block" class="category-item animationTop delay-3">
                 <i style="margin-right: 5px" class="fa-sharp fa-solid fa-basketball"></i>Bóng rổ</a>
+              <a [routerLink]="['/product/search',4]" style="display: block" class="category-item animationTop delay-3">
+                <i style="margin-right: 5px" class="fa-sharp fa-solid fa-basketball"></i>Tennis</a>
 
             </div>
           </a>
@@ -39,15 +41,16 @@
             <div>
             <div class="dropdown animationTop delay-11">
               <a class="m-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="{{user?.avatar}}" class="rounded-circle" style="width: 40px; background-image: none; height: 40px" height="24" width="24"
+                <img src="{{account.avatar}}" class="rounded-circle" style="width: 40px; background-image: none; height: 40px; object-fit: cover" height="24" width="24"
                      alt="avc"/>
+                <b class="ms-2 text-uppercase">{{user.name}}</b>
               </a>
-              <ul class="dropdown-menu dropdown-menu-end" style="background: radial-gradient(#0b75c7, #0a307d); cursor: pointer; width: 180px">
-                <li class="animationTop delay-01" style="color: white">
+              <ul class="dropdown-menu dropdown-menu-end" style="background: radial-gradient(#0b75c7, #0a307d); cursor: pointer; width: 150px">
+                <li class="animationTop delay-01" style="color: white" routerLink="/security/profile">
                   <i class="fa-solid fa-user me-3" ></i><strong>{{user?.username}}</strong>
                 </li>
                 <li class="animationTop delay-02" ><a  class="dropdown" routerLink="/teacher/editInfoTeacher" (click)="scrollToTopLogin()"> <i class="fa-solid fa-gear me-1"></i>
-                  Sửa thông tin cá nhân</a></li>
+                  Sửa thông tin </a></li>
                 <li class="animationTop delay-03"><a class="dropdown" routerLink="/security/changePassword" (click)="scrollToTopLogin()"><i class="fa-sharp fa-solid fa-key me-1" ></i> Sửa mật khẩu</a></li><br>
 
                 <li class="animationTop delay-04"><a class="dropdown" data-bs-toggle="modal" data-bs-target="#logout" (click)="logout()"

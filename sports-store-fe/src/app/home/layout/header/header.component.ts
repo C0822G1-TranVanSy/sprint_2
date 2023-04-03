@@ -10,6 +10,7 @@ import {Category} from '../../../entity/product/category';
 import {OrderService} from '../../../service/cart/order.service';
 import {Orders} from '../../../entity/order/orders';
 import {Cart} from '../../../entity/order/cart';
+import {Account} from '../../../entity/account/account';
 
 @Component({
   selector: 'app-header',
@@ -26,6 +27,10 @@ export class HeaderComponent implements OnInit {
   totalQuantity = 0;
   order: Orders = {orderId: 0, accountId: 0};
   cartList: Cart[] = [];
+  account: Account = {
+    accountId: 0, username: '',
+    email: '', phoneNumber: '', address: '', name: '', avatar: ''
+  };
 
   constructor(private scroll: ViewportScroller,
               private tokenStorageService: TokenStorageService,
@@ -43,22 +48,31 @@ export class HeaderComponent implements OnInit {
     this.securityService.getUserLoggedIn().subscribe(next => {
       this.user = next;
     });
-    // if(this.tokenStorageService.getToken()){
-    //
-    // }
+
     this.shareService.getClickEvent().subscribe(next => {
-      this.orderService.findOrderByAccountId(parseInt(this.tokenStorageService.getIdAccount())).subscribe(next => {
-        this.order = next;
-        this.totalQuantity = this.getTotalQuantityBE(this.order.orderId);
-      });
+      if(this.tokenStorageService.getToken()){
+        this.orderService.findOrderByAccountId(parseInt(this.tokenStorageService.getIdAccount())).subscribe(next => {
+          this.order = next;
+          this.totalQuantity = this.getTotalQuantityBE(this.order.orderId);
+        });
+      }
     });
     this.shareService.getClickEvent().subscribe(next => {
+      this.getInfoByAccountId();
       this.cartList = this.tokenStorageService.getCart();
       this.totalQuantity = this.getQuantity();
     })
   }
 
+  getInfoByAccountId() {
+    const id = parseInt(this.tokenStorageService.getIdAccount());
+    this.securityService.getInfoByAccountId(id).subscribe(next => {
+      this.account = next;
+    });
+  }
+
   ngOnInit(): void {
+    this.getInfoByAccountId();
     this.role = this.getRole();
     this.cartList = this.tokenStorageService.getCart();
       this.shareService.getClickEvent().subscribe(next => {

@@ -27,7 +27,7 @@ public class Account {
     private String email;
     @Column(columnDefinition = "varchar(45)",unique = true)
     private String phoneNumber;
-    @Column(columnDefinition = "varchar(45)")
+    @Column(columnDefinition = "varchar(255)")
     private String address;
     private String name;
     @ManyToMany(fetch = FetchType.EAGER)

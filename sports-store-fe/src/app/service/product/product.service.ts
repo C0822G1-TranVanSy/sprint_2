@@ -47,5 +47,9 @@ export class ProductService {
     return this.httpClient.get<any>(PRODUCT_API + "/searchCategory" + '?' + 'size=' + size + '&categoryId=' + categoryId);
   }
 
+  getBestProduct(size: number): Observable<any>{
+    return this.httpClient.get<any>(PRODUCT_API + "/bestProduct" + '?' + 'page=' + size);
+  }
+
 
 }

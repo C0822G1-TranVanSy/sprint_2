@@ -85,4 +85,8 @@ export class SecurityService {
   getInfoByAccountId(accountId: number): Observable<Account>{
     return this.http.get<Account>(AUTH_API + 'info/' + accountId);
   }
+
+  updateAvatar(accountId: number, avatar: string) {
+    return this.http.patch(AUTH_API + 'updateAvatar' ,{accountId: accountId, avatar: avatar});
+  }
 }

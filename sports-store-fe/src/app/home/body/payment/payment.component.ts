@@ -9,6 +9,7 @@ import {render} from 'creditcardpayments/creditCardPayments';
 import Swal from "sweetalert2";
 import {SecurityService} from '../../../service/security/security.service';
 import {Account} from '../../../entity/account/account';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-payment',
@@ -22,13 +23,15 @@ export class PaymentComponent implements OnInit {
   totalQuantity = 0;
   order: Orders = {orderId: 0, accountId: 0};
   index = 0;
-  account: Account = {accountId: 0, username: '', email: '', phoneNumber: '', address: '', name: '', avatar: ''};
+  account: Account = {accountId: 0, username: '',
+    email: '', phoneNumber: '', address: '', name: '', avatar: ''};
 
   constructor(private tokenStorageService: TokenStorageService,
               private shareService: ShareService,
               private orderService: OrderService,
               private toast: ToastrService,
-              private securityService: SecurityService) {
+              private securityService: SecurityService,
+              private router: Router) {
     if (this.tokenStorageService.getToken()) {
       this.shareService.getClickEvent().subscribe(next => {
         this.orderService.findOrderByAccountId(parseInt(this.tokenStorageService.getIdAccount())).subscribe(next => {
@@ -60,10 +63,8 @@ export class PaymentComponent implements OnInit {
 
   getInfoByAccountId(){
     const id = parseInt(this.tokenStorageService.getIdAccount());
-    console.log(id);
     this.securityService.getInfoByAccountId(id).subscribe(next => {
       this.account = next;
-      console.log(next);
     })
   }
 
@@ -119,6 +120,7 @@ export class PaymentComponent implements OnInit {
                     }
                   );
                 }
+                this.router.navigateByUrl("/body/cart");
                 this.shareService.sendClickEvent();
               })
             }

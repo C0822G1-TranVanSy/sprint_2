@@ -15,7 +15,7 @@ export class WarehouseService {
     return this.httpClient.get<Warehouse[]>(WAREHOUSE_API + "/list");
   }
 
-  findById(): Observable<Warehouse>{
-    return this.httpClient.get<Warehouse>(WAREHOUSE_API + "/detail");
+  findByProductId(productId: number): Observable<Warehouse>{
+    return this.httpClient.get<Warehouse>(WAREHOUSE_API + "/detail/" + productId);
   }
 }

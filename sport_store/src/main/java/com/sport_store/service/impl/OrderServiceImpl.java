@@ -4,6 +4,8 @@ import com.sport_store.entity.order.Orders;
 import com.sport_store.reposiotry.IOrderRepository;
 import com.sport_store.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,12 @@ public class OrderServiceImpl implements IOrderService {
     public Optional<Orders> findByAccountId(Long accountId) {
         return iOrderRepository.findByAccountId(accountId);
     }
+
+    @Override
+    public Page<Orders> findOrderPurchaseByAccountId(Long accountId, Pageable pageable) {
+        return iOrderRepository.findOrderPurchaseByAccountId(accountId, pageable);
+    }
+
 
     @Override
     public void save(Orders orders) {

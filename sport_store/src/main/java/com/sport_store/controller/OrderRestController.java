@@ -7,6 +7,9 @@ import com.sport_store.service.IOrderService;
 import com.sport_store.service.IProductService;
 import com.sport_store.service.IPurchaseHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +46,15 @@ public class OrderRestController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(order, HttpStatus.OK);
+    }
+
+    @GetMapping("/order-purchase/{accountId}")
+    public ResponseEntity<Page<Orders>> findOrderPurchaseByAccountId(@PathVariable Long accountId, @PageableDefault(size = 4) Pageable pageable) {
+        Page<Orders> ordersList = iOrderService.findOrderPurchaseByAccountId(accountId, pageable);
+        if (ordersList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(ordersList, HttpStatus.OK);
     }
 
     @GetMapping("/list/{orderId}")

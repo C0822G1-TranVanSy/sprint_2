@@ -11,6 +11,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  box-shadow: 0 0 20px 0 #253365
 }
 
 nav {

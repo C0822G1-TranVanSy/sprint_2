@@ -1,10 +1,13 @@
 package com.sport_store.controller;
 
+import com.sport_store.dto.orders.ICartListDto;
+import com.sport_store.dto.product.IBestProductDto;
 import com.sport_store.dto.product.IProductDto;
 import com.sport_store.dto.product.ProductDto;
 import com.sport_store.dto.product.ProductDtoUpdate;
 import com.sport_store.entity.product.Product;
 import com.sport_store.service.IProductService;
+import com.sport_store.service.IPurchaseHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +27,8 @@ import java.util.List;
 public class ProductRestController {
     @Autowired
     private IProductService iProductService;
+    @Autowired
+    private IPurchaseHistoryService iPurchaseHistoryService;
 
     @GetMapping("/list")
     public ResponseEntity<List<IProductDto>> getAllProduct(){
@@ -96,6 +101,16 @@ public class ProductRestController {
             return new ResponseEntity<>(productDtoPage, HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(productDtoPage,HttpStatus.OK);
+    }
+
+    @GetMapping("/bestProduct")
+    public ResponseEntity<Page<IBestProductDto>> getAllProduct(@PageableDefault(size = 4) Pageable pageable){
+        Page<IBestProductDto> productDtos = null;
+        productDtos = iPurchaseHistoryService.getBestProduct(pageable);
+        if(productDtos.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(productDtos,HttpStatus.OK);
     }
 
 }

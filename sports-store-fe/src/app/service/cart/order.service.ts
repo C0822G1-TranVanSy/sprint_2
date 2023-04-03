@@ -34,6 +34,10 @@ export class OrderService {
     return this.httpClient.get<Orders>(ORDER_API + '/detail/' + accountId);
   }
 
+  findOrderPurchaseByAccountId(accountId: number): Observable<any> {
+    return this.httpClient.get<any>(ORDER_API + '/order-purchase/' + accountId);
+  }
+
   getAllCart(orderId: number): Observable<Cart[]> {
     return this.httpClient.get<Cart[]>(ORDER_API + '/list/' + orderId);
   }
@@ -51,9 +55,7 @@ export class OrderService {
   }
 
   payAll(orderId: number) {
-    const date = Date.now();
-    const dateNow = this.datePipe.transform(date, 'yyyy-MM-dd');
-    console.log(dateNow);
-    return this.httpClient.post(ORDER_API + '/pay', {orderId: orderId, orderDate: dateNow});
+    const cur = new Date();
+    return this.httpClient.post(ORDER_API + '/pay', {orderId: orderId, orderDate: cur.toLocaleString()});
   }
 }

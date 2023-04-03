@@ -1,0 +1,240 @@
+.gradient-custom-2 {
+  /* fallback for old browsers */
+  background: #fbc2eb;
+
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(to right, rgba(251, 194, 235, 1), rgba(166, 193, 238, 1));
+
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, rgba(251, 194, 235, 1), rgba(166, 193, 238, 1))
+}
+
+.edit:hover{
+  background-color: #b36800;
+}
+
+/*ảnh*/
+p {
+  font-family: Lato;
+}
+
+img {
+  height: 100%;
+  width: 100%;
+  /*border-radius: 50%;*/
+}
+.hoverable{
+  position: relative;
+  display: block;
+  cursor: pointer;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+}
+.hoverable .hover-text{
+  position: absolute;
+  display: none;
+  top: 50%;
+  left:  35%;
+  transform: translate(-50%,-50%);
+  z-index: 2;
+}
+.hoverable .background{
+  height: 100%;
+  width: 75%;
+  position: absolute;
+  display: none;
+  top: 0;
+  left:  0;
+  bottom: 0;
+  right: 0;
+  background-color:rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+  z-index: 1;
+}
+.hoverable:hover .hover-text{
+  color: #1d2e50;
+  display: block;
+}
+.hoverable:hover .background{
+  display: block;
+}
+
+#fileInput{
+  display: none;
+}
+
+.new-bg{
+  background-image: linear-gradient(rgba(39, 67, 189, 0.6), rgba(13, 39, 146, 0.4)), url("https://firebasestorage.googleapis.com/v0/b/sport-pro-2023.appspot.com/o/anhbia3.jpg?alt=media&token=be02c55e-14b9-4d8a-b98a-320020fca8d2");
+  background-size: cover;
+  background-position: center;
+}
+
+/*ádasdsa*/
+
+.nav {
+  width: 100%;
+  z-index: -1;
+}
+
+.nav ul {
+  display: flex;
+  justify-content: space-around;
+  list-style-type: none;
+  height: 40px;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.nav ul li {
+  padding: 10px;
+  width: 50%;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.nav ul li:hover,
+.nav ul li.active {
+  box-shadow: 0px -3px 0px rgba(288, 0, 70, 0.9) inset;
+}
+
+.profile-body {
+  width: 100%;
+  z-index: -1;
+}
+
+.tab {
+  padding: 20px;
+  width: 100%;
+}
+
+@media (max-width: 1100px) {
+  .profile-side {
+    width: 250px;
+    padding: 90px 15px 20px;
+  }
+
+  .profile-img img {
+    height: 200px;
+    width: 200px;
+    left: 50px;
+    top: 50px;
+  }
+}
+
+@media (max-width: 900px) {
+  body {
+    margin: 0 20px;
+  }
+
+  .profile-header {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    text-align: center;
+    padding-bottom: 20px;
+  }
+
+  .profile-img {
+    float: left;
+    width: 100%;
+    height: 200px;
+  }
+
+  .profile-img img {
+    position: relative;
+    height: 200px;
+    width: 200px;
+    left: 0px;
+  }
+
+  .profile-nav-info {
+    text-align: center;
+  }
+
+  .profile-option {
+    right: 20px;
+    top: 75%;
+    transform: translateY(50%);
+  }
+
+  .main-bd {
+    flex-direction: column;
+    padding-right: 0;
+  }
+
+  .profile-side {
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    margin: 5px 0;
+  }
+
+  .profile-nav-info .address {
+    justify-content: center;
+  }
+
+  .user-rating {
+    justify-content: center;
+  }
+}
+@media (max-width: 500px) {
+  .li1,.li2,.li3{
+    font-size: 13px;
+  }
+}
+@media (max-width: 400px) {
+  .li1,.li2,.li3{
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 400px) {
+  body {
+    margin: 0;
+
+  }
+
+  .profile-header h3 {
+  }
+
+  .profile-option {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 15px;
+    top: 83%;
+  }
+
+  .profile-option .notification .alert-message {
+    top: -3px;
+    right: -4px;
+    padding: 4px;
+    height: 15px;
+    width: 15px;
+    font-size: 0.7rem;
+  }
+
+  .profile-nav-info h3 {
+    font-size: 1.9rem;
+  }
+
+  .profile-nav-info .address p,
+  .profile-nav-info .address span {
+    font-size: 0.7rem;
+  }
+}
+#see-more-bio,
+#see-less-bio {
+  color: blue;
+  cursor: pointer;
+  text-transform: lowercase;
+}
+.tab h1 {
+  font-family: "Bree Serif", sans-serif;
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
+}

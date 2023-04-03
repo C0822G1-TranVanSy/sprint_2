@@ -1,0 +1,194 @@
+<section class="h-100  gradient-custom-2">
+  <div class="container-fluid py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-10 col-lg-8">
+        <div class="card">
+          <div class="rounded-top text-white d-flex flex-row new-bg" style=" height:300px;">
+            <div class="ms-4 d-flex flex-column" style="width: 150px;margin-top: 140px">
+              <label class="hoverable mt-4 mb-2" for="fileInput">
+                <img (change)="showPreview($event)" class="input img-fluid img-thumbnail "
+                     style="width: 75%;height: 165px; z-index: 1;object-fit: cover" [src]="account.avatar"
+                     alt="không có gì">
+                <input id="fileInput" type="file" class="input" (change)="showPreview($event)">
+                <div class="hover-text">Chọn file</div>
+                <div class="background"></div>
+              </label>
+              <button type="button" class="btn btn-light edit" data-mdb-ripple-color="dark"
+                      style="z-index: 1;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Edit profile
+              </button>
+            </div>
+            <div class="ms-3" style="margin-top: 240px;">
+              <h4 class="mb-0">{{account.name}}</h4>
+              <p>{{namePro}}</p>
+            </div>
+          </div>
+          <div class="p-4 text-black" style="background-color: #e8b563;">
+            <div class="d-flex justify-content-end text-center py-1">
+              <div>
+                <p class="mb-1 h5">253</p>
+                <p class="small text-muted mb-0">Photos</p>
+              </div>
+              <div class="px-3">
+                <p class="mb-1 h5">1026</p>
+                <p class="small text-muted mb-0">Followers</p>
+              </div>
+              <div>
+                <p class="mb-1 h5">478</p>
+                <p class="small text-muted mb-0">Following</p>
+              </div>
+            </div>
+          </div>
+          <div class=" text-black" style="background-color: #eeeeee">
+            <div class="m-0">
+              <div class="nav">
+                <ul>
+                  <li style="width: 80%" class="li1" (click)="changeIndex(1)" [class.w-100]="index==1"
+                      [class.active]="index==1">Thông tin cá nhân
+                  </li>
+                  <li style="width: 80%" class="li2" (click)="changeIndex(2)" [class.w-100]="index==2"
+                      [class.active]="index==2">Lịch sử mua hàng
+                  </li>
+                  <li class="li3" (click)="changeIndex(3)" [class.w-100]="index==3" [class.active]="index==3">
+                    Settings
+                  </li>
+                </ul>
+              </div>
+              <div class="profile-body ">
+                <div class="profile-posts tab" *ngIf="index==1">
+                  <h1>Thông tin cá nhân</h1>
+                  <div class="me-5 ms-5">
+                    <div class="row mb-2 align-items-center">
+                      <div class="col-md-4"><span><img style="width: 30px; height: 30px"
+                                                       src="https://img.icons8.com/ios-filled/50/null/name.png"/></span>
+                        Họ và tên:
+                      </div>
+                      <b class="font-italic mb-1 col-md-8"> {{account.name}}</b>
+                    </div>
+                    <div class="row mb-2">
+                      <div class="col-md-4">
+                        <span><img style="width: 30px; height: 30px"
+                                   src="https://img.icons8.com/ios-filled/50/null/order-delivered.png"/></span> Địa chỉ:
+                      </div>
+                      <b class="font-italic mb-1 col-md-8"> {{account.address}}</b>
+                    </div>
+                    <div class="row mb-2">
+                      <div class="col-md-4">
+                        <span><img style="width: 30px; height: 30px"
+                                   src="https://img.icons8.com/fluency-systems-filled/48/null/phone-book.png"/></span>
+                        Số điện thoại:
+                      </div>
+                      <b class="font-italic mb-1 col-md-8"> {{account.phoneNumber}}</b>
+                    </div>
+                    <div class="row mb-2">
+                      <div class="col-md-4">
+                        <span><img style="width: 30px; height: 30px"
+                                   src="https://img.icons8.com/ios-filled/50/null/apple-mail.png"/></span> Email:
+                      </div>
+                      <b class="font-italic mb-1 col-md-8"> {{account.email}}</b>
+                    </div>
+                    <div class="row mb-2" *ngIf="account.accountId == 2">
+                      <div class="col-md-4 ">
+                        <span><img style="width: 30px; height: 30px"
+                                   src="https://img.icons8.com/external-gliphyline-royyan-wijaya/32/null/external-hobby-transportation-solid-gliphyline-royyan-wijaya.png"/></span>
+                        Sở thích:
+                      </div>
+                      <b class="font-italic mb-1 col-md-8">yêu màu hồng, thích màu tím, ghét sự giả dối.</b>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="profile-reviews tab" *ngIf="index==2">
+                <h1>Lịch sử mua hàng</h1>
+                <table class="table table-bordered table-hover" style="background-color: white;
+              box-shadow: 0 0 20px 0 #253365;">
+                  <thead class="table-primary">
+                  <tr class="text-center">
+                    <th scope="col">STT</th>
+                    <th scope="col">Ngày đặt hàng</th>
+                    <th scope="col">Địa chỉ giao hàng</th>
+                    <th scope="col">Chi tiết</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+
+                  <tr class="text-center" *ngFor="let o of orderList,index as i ">
+                    <th scope="row" >{{i + 1}}</th>
+                    <td>{{o.orderDate }}</td>
+                    <td>{{account.address }}</td>
+                    <td>
+                      <a class="btn btn-outline-primary" style="text-align: center; "
+                         [routerLink]="['/student/detail',o.orderId]">
+                        <i class="fa-solid fa-circle-info"></i>
+                      </a>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="profile-settings tab" *ngIf="index==3">
+                <div class="account-setting">
+                  <h1>Acount Setting</h1>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit omnis eaque, expedita
+                    nostrum, facere libero provident laudantium. Quis, hic doloribus! Laboriosam nemo tempora
+                    praesentium. Culpa quo velit omnis, debitis maxime, sequi
+                    animi dolores commodi odio placeat, magnam, cupiditate facilis impedit veniam? Soluta aliquam
+                    excepturi illum natus adipisci ipsum quo, voluptatem, nemo, commodi, molestiae doloribus magni et.
+                    Cum, saepe enim quam voluptatum vel debitis
+                    nihil, recusandae, omnis officiis tenetur, ullam rerum.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" style="top: 10%;">
+    <div class="modal-content" style="box-shadow: 0 0 20px 0 #253365;border-radius: 3%">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">SỬA THÔNG TIN CÁ NHÂN</h3>
+        <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="container">
+            <div class="row align-items-center mb-5 mt-2">
+              <label class="col-3" for="name" style="font-weight: bold">Họ và tên:</label>
+              <div class="col-9">
+                <input class="form-control col-4" id="name" type="text" >
+              </div>
+            </div>
+            <div class="row align-items-center mb-5">
+              <label class="col-3" for="phoneNumber" style="font-weight: bold">Số điện thoại:</label>
+              <div class="col-9">
+                <input class="form-control col-4" id="phoneNumber" type="text" >
+              </div>
+            </div>
+            <div class="row align-items-center mb-5">
+              <label class="col-3" for="email" style="font-weight: bold">Email:</label>
+              <div class="col-9">
+                <input class="form-control col-4" id="email" type="text" >
+              </div>
+            </div>
+            <div class="row align-items-center mb-2">
+              <label class="col-3" for="address" style="font-weight: bold">Địa chỉ:</label>
+              <div class="col-9">
+                <input class="form-control col-4" id="address" type="text" >
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng lại</button>
+        <button type="button" class="btn btn-warning">Lưu thông tin</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -8,6 +8,7 @@ import {ToastrService} from 'ngx-toastr';
 import {ShareService} from '../../../service/security/share.service';
 import Swal from "sweetalert2";
 import {ActivatedRoute} from '@angular/router';
+import {Product} from '../../../entity/product/product';
 
 @Component({
   selector: 'app-body',
@@ -17,9 +18,12 @@ import {ActivatedRoute} from '@angular/router';
 export class BodyComponent implements OnInit {
   cart: Cart = {productId: 0, price: 0, quantity: 0};
   productList: ProductDto[] = [];
+  bestProductList: ProductDto[] = [];
+  bestPage: any;
   numberPage: number = 0;
   totalPages = 0;
   size: number = 4;
+  number: number = 0;
   pageYoffSet =0;
   last: any;
   first: any;
@@ -54,6 +58,7 @@ export class BodyComponent implements OnInit {
 
   ngOnInit(): void {
     this.searchAllProductByProductName(this.size);
+    this.getBestProduct(this.number)
   }
 
   searchAllProductByProductName(size: number){
@@ -81,47 +86,6 @@ export class BodyComponent implements OnInit {
   //   })
   // }
 
-  // getAllProduct(){
-  //   this.productService.getAllProduct().subscribe(next => {
-  //     this.productList = next;
-  //   })
-  // }
-
-  // addToCard(item: ProductDto) {
-  //   if (this.tokenStorageService.getCart()) {
-  //     this.cartList = this.tokenStorageService.getCart();
-  //     this.cart.id = item.productId;
-  //     this.cart.name = item.productName;
-  //     this.cart.avatar = item.avatar;
-  //     this.cart.price = item.price;
-  //     if (this.tokenStorageService.checkExistName(item.productName)) {
-  //       this.tokenStorageService.upQuantityProduct(item.productId, this.cartList)
-  //     } else {
-  //       this.cart.quantity = 1;
-  //       this.cartList.push(this.cart);
-  //     }
-  //     this.tokenStorageService.setCart(this.cartList);
-  //     this.toast.success('Đã thêm sản phẩm '+ this.cart.name +' vào giỏ hàng.','Thông báo')
-  //     Swal.fire({
-  //       position: 'center',
-  //       icon: 'success',
-  //       title: 'Thông báo!',
-  //       text: 'Đã thêm sản phẩm '+ this.cart.name +' vào giỏ hàng.',
-  //       showConfirmButton: false,
-  //       timer: 2000
-  //     });
-  //   } else {
-  //     this.cart.id = item.productId;
-  //     this.cart.name = item.productName;
-  //     this.cart.avatar = item.avatar;
-  //     this.cart.price = item.price;
-  //     this.cart.quantity = 1;
-  //     this.cartList.push(this.cart);
-  //     this.tokenStorageService.setCart(this.cartList);
-  //     this.toast.success('Đã thêm sản phẩm '+ this.cart.name +' vào giỏ hàng.','Thông báo')
-  //   }
-  // }
-
   removeProduct(productId: number) {
     this.productService.deleteProduct(productId).subscribe(next => {
       Swal.fire({
@@ -145,6 +109,17 @@ export class BodyComponent implements OnInit {
     })
   }
 
+  getBestProduct(size: number){
+      this.productService.getBestProduct(size).subscribe(data => {
+        console.log(data);
+        if(data){
+          this.bestPage = data;
+          this.first = data.first;
+          this.last = data.last;
+          this.bestProductList = data.content;
+        }
+      })
+  }
 
   getItemProduct(productId: number, productName: string) {
       this.productIdDelete = productId;
