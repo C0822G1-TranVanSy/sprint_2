@@ -14,10 +14,7 @@ public interface IOrderService {
 
     Page<Orders> findOrderPurchaseByAccountId(Long accountId, Pageable pageable);
 
-    void save(Orders orders);
-
     Optional<Orders> findById(Long orderId);
 
-
-    void payAllByOrderId(Long orderId, String orderDate);
+    void payAllByOrderId(Long orderId, String orderDate, String address, String phoneNumber, String note);
 }

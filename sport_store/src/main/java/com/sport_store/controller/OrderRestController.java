@@ -13,11 +13,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -56,6 +51,16 @@ public class OrderRestController {
         }
         return new ResponseEntity<>(ordersList, HttpStatus.OK);
     }
+
+    @GetMapping("/purchase-history/{orderId}")
+    public ResponseEntity<List<ICartListDto>> getAllPurchaseHistory(@PathVariable Long orderId) {
+        List<ICartListDto> purchaseHistoryList = iPurchaseHistoryService.getPurchaseHistoriesByOrderId(orderId);
+        if (purchaseHistoryList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(purchaseHistoryList, HttpStatus.OK);
+    }
+
 
     @GetMapping("/list/{orderId}")
     public ResponseEntity<List<ICartListDto>> getAllCart(@PathVariable Long orderId) {
@@ -112,14 +117,25 @@ public class OrderRestController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/pay")
+    @PutMapping("/pay")
     public ResponseEntity<?> payAllByOrderId(@RequestBody OrderPaymentDto orderPaymentDto) {
         Orders orders = iOrderService.findById(orderPaymentDto.getOrderId()).orElse(null);
         if (orders == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        iOrderService.payAllByOrderId(orderPaymentDto.getOrderId(), orderPaymentDto.getOrderDate());
+        iOrderService.payAllByOrderId(orderPaymentDto.getOrderId(), orderPaymentDto.getOrderDate(),
+                orderPaymentDto.getAddress(), orderPaymentDto.getPhoneNumber(), orderPaymentDto.getNote());
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+//    @PostMapping("/updateInfo")
+//    public ResponseEntity<?> updateInfoOrder(@RequestBody OrderPaymentDto orderPaymentDto) {
+//        Orders orders = iOrderService.findById(orderPaymentDto.getOrderId()).orElse(null);
+//        if (orders == null) {
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
+//        iOrderService.payAllByOrderId(orderPaymentDto.getOrderId(), orderPaymentDto.getOrderDate());
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 
 }

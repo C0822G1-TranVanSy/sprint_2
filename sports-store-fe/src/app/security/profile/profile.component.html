@@ -1,9 +1,9 @@
-<section class="h-100  gradient-custom-2">
-  <div class="container-fluid py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-12 col-md-10 col-lg-8">
-        <div class="card">
-          <div class="rounded-top text-white d-flex flex-row new-bg" style=" height:300px;">
+<section class="h-100 gradient-custom-2" >
+  <div class="container-fluid py-5 h-100" >
+    <div class="row d-flex justify-content-center align-items-center h-100" >
+      <div class="col-12 col-md-9" >
+        <div class="card" style="box-shadow: 0 0 20px 0 #253365" >
+          <div class="rounded-top text-white d-flex flex-row new-bg" style=" height:300px">
             <div class="ms-4 d-flex flex-column" style="width: 150px;margin-top: 140px">
               <label class="hoverable mt-4 mb-2" for="fileInput">
                 <img (change)="showPreview($event)" class="input img-fluid img-thumbnail "
@@ -39,8 +39,8 @@
               </div>
             </div>
           </div>
-          <div class=" text-black" style="background-color: #eeeeee">
-            <div class="m-0">
+          <div class=" text-black" style="background-color: #eeeeee" >
+            <div class="m-0" >
               <div class="nav">
                 <ul>
                   <li style="width: 80%" class="li1" (click)="changeIndex(1)" [class.w-100]="index==1"
@@ -50,11 +50,11 @@
                       [class.active]="index==2">Lịch sử mua hàng
                   </li>
                   <li class="li3" (click)="changeIndex(3)" [class.w-100]="index==3" [class.active]="index==3">
-                    Settings
+                    Cài đặt
                   </li>
                 </ul>
               </div>
-              <div class="profile-body ">
+              <div class="profile-body " >
                 <div class="profile-posts tab" *ngIf="index==1">
                   <h1>Thông tin cá nhân</h1>
                   <div class="me-5 ms-5">
@@ -98,44 +98,99 @@
                   </div>
                 </div>
               </div>
-              <div class="profile-reviews tab" *ngIf="index==2">
+              <div class="profile-reviews tab" *ngIf="index==2" >
                 <h1>Lịch sử mua hàng</h1>
-                <table class="table table-bordered table-hover" style="background-color: white;
-              box-shadow: 0 0 20px 0 #253365;">
+                <table *ngIf="orderPage" class="table table-bordered table-hover" style="background-color: white">
                   <thead class="table-primary">
                   <tr class="text-center">
                     <th scope="col">STT</th>
                     <th scope="col">Ngày đặt hàng</th>
                     <th scope="col">Địa chỉ giao hàng</th>
+                    <th scope="col">Số điện thoại</th>
+                    <th scope="col">Ghi chú</th>
                     <th scope="col">Chi tiết</th>
                   </tr>
                   </thead>
                   <tbody>
-
-                  <tr class="text-center" *ngFor="let o of orderList,index as i ">
+                  <tr class="text-center align-middle" *ngFor="let o of orderList,index as i ">
                     <th scope="row" >{{i + 1}}</th>
                     <td>{{o.orderDate }}</td>
-                    <td>{{account.address }}</td>
+                    <td>{{o.address }}</td>
+                    <td>{{o.phoneNumber }}</td>
+                    <td>{{o.note }}</td>
                     <td>
-                      <a class="btn btn-outline-primary" style="text-align: center; "
-                         [routerLink]="['/student/detail',o.orderId]">
-                        <i class="fa-solid fa-circle-info"></i>
+                      <a class="btn btn-outline-primary" style="text-align: center; width: 50px"  data-bs-toggle="modal" data-bs-target="#exampleModal1"
+                         (click)="getPurchaseHistory(o.orderId)">
+                        <img src="https://img.icons8.com/external-others-inmotus-design/67/null/external-I-mobile-keyboard-others-inmotus-design.png"/>
                       </a>
                     </td>
                   </tr>
                   </tbody>
                 </table>
+
+                <!--        Phân trang-->
+                <div>
+                  <div *ngIf="orderPage" class="d-flex justify-content-center" id="last-row">
+                    <nav aria-label="Page navigation example">
+                      <ul class="pagination">
+                        <li class="page-item" [ngClass]="orderPage.first ? 'disabled': ''">
+                          <a role="button" class="page-link" (click)="getOrderPurchase(0)">Trang đầu</a>
+                        </li>
+                        <li class="page-item" [ngClass]="orderPage.first ? 'disabled': ''">
+                          <a role="button" class="page-link" (click)="getOrderPurchase(orderPage.number - 1)"><</a>
+                        </li>
+                        <li class="page-item" *ngIf="orderPage.number - 3 > 0">
+                          <a role="button" class="page-link"
+                             (click)="getOrderPurchase(orderPage.number - 4)">{{orderPage.number - 3}}</a>
+                        </li>
+                        <li class="page-item" *ngIf="orderPage.number - 2 > 0">
+                          <a role="button" class="page-link"
+                             (click)="getOrderPurchase(orderPage.number - 3)">{{orderPage.number - 2}}</a>
+                        </li>
+                        <li class="page-item" *ngIf="orderPage.number - 1 > 0">
+                          <a role="button" class="page-link"
+                             (click)="getOrderPurchase(orderPage.number - 2)">{{orderPage.number - 1}}</a>
+                        </li>
+                        <li class="page-item" *ngIf="orderPage.number > 0">
+                          <a role="button" class="page-link"
+                             (click)="getOrderPurchase(orderPage.number - 1)">{{orderPage.number}}</a>
+                        </li>
+                        <li class="page-item active"><a class="page-link">{{orderPage.number + 1}}</a></li>
+                        <li class="page-item" *ngIf="orderPage.number + 2 <= orderPage.totalPages">
+                          <a role="button" class="page-link"
+                             (click)="getOrderPurchase(orderPage.number + 1)">{{orderPage.number + 2}}</a>
+                        </li>
+                        <li class="page-item" *ngIf="orderPage.number + 3 <= orderPage.totalPages">
+                          <a role="button" class="page-link"
+                             (click)="getOrderPurchase(orderPage.number + 2)">{{orderPage.number + 3}}</a>
+                        </li>
+                        <li class="page-item" *ngIf="orderPage.number + 4 <= orderPage.totalPages">
+                          <a role="button" class="page-link"
+                             (click)="getOrderPurchase(orderPage.number + 3)">{{orderPage.number + 4}}</a>
+                        </li>
+                        <li class="page-item" *ngIf="orderPage.number + 5 <= orderPage.totalPages">
+                          <a role="button" class="page-link"
+                             (click)="getOrderPurchase(orderPage.number + 4)">{{orderPage.number + 5}}</a>
+                        </li>
+                        <li class="page-item" [ngClass]="orderPage.last ? 'disabled': ''">
+                          <a role="button" class="page-link"
+                             (click)="getOrderPurchase(orderPage.number + 1)">></a>
+                        </li>
+                        <li class="page-item" [ngClass]="orderPage.last ? 'disabled': ''">
+                          <a role="button" class="page-link"
+                             (click)="getOrderPurchase(orderPage.totalPages - 1)">
+                            Trang cuối
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
               </div>
               <div class="profile-settings tab" *ngIf="index==3">
-                <div class="account-setting">
-                  <h1>Acount Setting</h1>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit omnis eaque, expedita
-                    nostrum, facere libero provident laudantium. Quis, hic doloribus! Laboriosam nemo tempora
-                    praesentium. Culpa quo velit omnis, debitis maxime, sequi
-                    animi dolores commodi odio placeat, magnam, cupiditate facilis impedit veniam? Soluta aliquam
-                    excepturi illum natus adipisci ipsum quo, voluptatem, nemo, commodi, molestiae doloribus magni et.
-                    Cum, saepe enim quam voluptatum vel debitis
-                    nihil, recusandae, omnis officiis tenetur, ullam rerum.</p>
+                <div class="account-setting text-center">
+                  <h1>Cài đặt tài khoản</h1>
+                  <p>Tính năng này đang phát triển. Vui lòng thử lại sau! </p>
                 </div>
               </div>
             </div>
@@ -188,6 +243,43 @@
       <div class="modal-footer justify-content-center">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng lại</button>
         <button type="button" class="btn btn-warning">Lưu thông tin</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Purchase History-->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="example1l" aria-hidden="true">
+  <div class="modal-dialog modal-lg" style="top: 10%;">
+    <div class="modal-content" style="box-shadow: 0 0 20px 0 #253365;border-radius: 2%">
+      <div class="modal-header">
+        <h3 class="modal-title" id="example1">Chi tiết đơn hàng</h3>
+        <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered table-hover" style="background-color: white">
+          <thead class="table-primary">
+          <tr class="text-center">
+            <th scope="col">STT</th>
+            <th scope="col">Tên sản phẩm</th>
+            <th scope="col">Hình ảnh</th>
+            <th scope="col">Giá mua</th>
+            <th scope="col">Số lượng</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr class="text-center align-middle" *ngFor="let c of cartList,index as i ">
+            <th scope="row" >{{i + 1}}</th>
+            <td>{{c.productName }}</td>
+            <td style="width: 40%"><img [src]="c.avatar" style="width: 20%"></td>
+            <td>{{c.price | currency:'USD'}}</td>
+            <td>{{c.quantity }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng lại</button>
       </div>
     </div>
   </div>

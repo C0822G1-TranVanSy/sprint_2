@@ -88,95 +88,100 @@
 
 <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
   <div class="carousel-inner">
-    <div  class="carousel-item active" >
-      <div  class="d-flex">
-        <figure *ngFor="let b of bestProductList;index as i" class="snip1515 card1 card2">
-          <div class="profile-image"><a type="button" [routerLink]="['/body/detail',b.productId]">
-            <img [src]="b.avatar" style="width: 228px; height: 228px" alt="sample47"/></a>
-          </div>
-          <figcaption>
-            <h5 class="text-uppercase">{{b.productName}}</h5>
-            <b style="color: #fa8824">Giá: {{b.price | currency:'USD'}}</b>
-            <b class="pull-right mb-2"
-               style="color: #8c8c8c; text-decoration-line: line-through; display: block">{{b.price * 1.1 | currency:'USD'}}</b>
-            <button class="btn btn-warning mb-1" [routerLink]="['/body/detail',b.productId]"
-                    target="_blank" style="font-size: small; width: 150px"><img
-              src="https://img.icons8.com/pastel-glyph/64/null/briefcase--v2.png"
-              style="width: 15%"/> {{role == 'ROLE_ADMIN' ? 'xem chi tiết' : 'Thêm vào giỏ'}}
-            </button>
-          </figcaption>
-        </figure>
+    <div class="carousel-item active ">
+      <div class="row m-0">
+        <div class="col-md-3 col-sm-6 col-6 d-flex justify-content-center"
+             *ngFor="let b of bestProductList;index as i">
+          <figure class="snip1515 card1 card2">
+            <div class="profile-image"><a type="button" [routerLink]="['/body/detail',b.productId]">
+              <img [src]="b.avatar" style="width: 228px; height: 228px" alt="sample47"/></a>
+            </div>
+            <figcaption>
+              <h6 class="text-uppercase">{{b.productName | slice : 0: 20}}...</h6>
+              <b style="color: #fa8824">Giá: {{b.price | currency:'USD'}} </b>
+              <b class="pull-right mb-2 small"
+                 style="color: #8c8c8c; text-decoration-line: line-through; display: block"> {{b.price * 1.1 | currency:'USD'}}</b>
+              <button class="btn btn-warning mb-1" [routerLink]="['/body/detail',b.productId]"
+                      target="_blank" style="font-size: small; width: 150px">
+                <img src="https://img.icons8.com/pastel-glyph/64/null/briefcase--v2.png"
+                     style="width: 15%"/> {{role == 'ROLE_ADMIN' ? 'xem chi tiết' : 'Thêm vào giỏ'}}
+              </button>
+            </figcaption>
+          </figure>
+        </div>
       </div>
     </div>
   </div>
-  <button (click)="getBestProduct(bestPage.number - 1)"  class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span  class="visually-hidden">Previous</span>
+  <button *ngIf="!first" (click)="getBestProduct(bestPage.number - 1)" class="carousel-control-prev" type="button"
+          data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" style="background-color: #000000; padding: 20px" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
   </button>
-  <button (click)="getBestProduct(bestPage.number + 1)"  class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+  <button *ngIf="!last" (click)="getBestProduct(bestPage.number + 1)" class="carousel-control-next" type="button"
+          data-bs-target="#carouselExampleFade" data-bs-slide="next">
+    <span class="carousel-control-next-icon" style="background-color: #000000; padding: 20px" aria-hidden="true"></span>
     <span class="visually-hidden">Next</span>
   </button>
 </div>
 
 <!--        Phân trang-->
-  <div >
-    <div *ngIf="bestProductList" class="d-flex justify-content-center" id="last-row">
-      <nav aria-label="Page navigation example">
-        <ul class="pagination">
-          <li class="page-item" [ngClass]="first ? 'disabled': ''">
-            <a role="button" class="page-link" (click)="getBestProduct(0)">Trang đầu</a>
-          </li>
-          <li class="page-item" [ngClass]="first ? 'disabled': ''">
-            <a role="button" class="page-link" (click)="getBestProduct(bestPage.number - 1)"><</a>
-          </li>
-          <li class="page-item" *ngIf="bestPage.number - 3 > 0">
-            <a role="button" class="page-link"
-               (click)="getBestProduct(bestPage.number - 4)">{{bestPage.number - 3}}</a>
-          </li>
-          <li class="page-item" *ngIf="bestPage.number - 2 > 0">
-            <a role="button" class="page-link"
-               (click)="getBestProduct(bestPage.number - 3)">{{bestPage.number - 2}}</a>
-          </li>
-          <li class="page-item" *ngIf="bestPage.number - 1 > 0">
-            <a role="button" class="page-link"
-               (click)="getBestProduct(bestPage.number - 2)">{{bestPage.number - 1}}</a>
-          </li>
-          <li class="page-item" *ngIf="bestPage.number > 0">
-            <a role="button" class="page-link"
-               (click)="getBestProduct(bestPage.number - 1)">{{bestPage.number}}</a>
-          </li>
-          <li class="page-item active"><a class="page-link">{{bestPage.number + 1}}</a></li>
-          <li class="page-item" *ngIf="bestPage.number + 2 <= bestPage.totalPages">
-            <a role="button" class="page-link"
-               (click)="getBestProduct(bestPage.number + 1)">{{bestPage.number + 2}}</a>
-          </li>
-          <li class="page-item" *ngIf="bestPage.number + 3 <= bestPage.totalPages">
-            <a role="button" class="page-link"
-               (click)="getBestProduct(bestPage.number + 2)">{{bestPage.number + 3}}</a>
-          </li>
-          <li class="page-item" *ngIf="bestPage.number + 4 <= bestPage.totalPages">
-            <a role="button" class="page-link"
-               (click)="getBestProduct(bestPage.number + 3)">{{bestPage.number + 4}}</a>
-          </li>
-          <li class="page-item" *ngIf="bestPage.number + 5 <= bestPage.totalPages">
-            <a role="button" class="page-link"
-               (click)="getBestProduct(bestPage.number + 4)">{{bestPage.number + 5}}</a>
-          </li>
-          <li class="page-item" [ngClass]="bestPage.last ? 'disabled': ''">
-            <a role="button" class="page-link"
-               (click)="getBestProduct(bestPage.number + 1)">></a>
-          </li>
-          <li class="page-item" [ngClass]="bestPage.last ? 'disabled': ''">
-            <a role="button" class="page-link"
-               (click)="getBestProduct(bestPage.totalPages - 1)">
-              Trang cuối
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </div>
+<!--  <div >-->
+<!--    <div *ngIf="bestProductList" class="d-flex justify-content-center" id="last-row">-->
+<!--      <nav aria-label="Page navigation example">-->
+<!--        <ul class="pagination">-->
+<!--          <li class="page-item" [ngClass]="first ? 'disabled': ''">-->
+<!--            <a role="button" class="page-link" (click)="getBestProduct(0)">Trang đầu</a>-->
+<!--          </li>-->
+<!--          <li class="page-item" [ngClass]="first ? 'disabled': ''">-->
+<!--            <a role="button" class="page-link" (click)="getBestProduct(bestPage.number - 1)"><</a>-->
+<!--          </li>-->
+<!--          <li class="page-item" *ngIf="bestPage.number - 3 > 0">-->
+<!--            <a role="button" class="page-link"-->
+<!--               (click)="getBestProduct(bestPage.number - 4)">{{bestPage.number - 3}}</a>-->
+<!--          </li>-->
+<!--          <li class="page-item" *ngIf="bestPage.number - 2 > 0">-->
+<!--            <a role="button" class="page-link"-->
+<!--               (click)="getBestProduct(bestPage.number - 3)">{{bestPage.number - 2}}</a>-->
+<!--          </li>-->
+<!--          <li class="page-item" *ngIf="bestPage.number - 1 > 0">-->
+<!--            <a role="button" class="page-link"-->
+<!--               (click)="getBestProduct(bestPage.number - 2)">{{bestPage.number - 1}}</a>-->
+<!--          </li>-->
+<!--          <li class="page-item" *ngIf="bestPage.number > 0">-->
+<!--            <a role="button" class="page-link"-->
+<!--               (click)="getBestProduct(bestPage.number - 1)">{{bestPage.number}}</a>-->
+<!--          </li>-->
+<!--          <li class="page-item active"><a class="page-link">{{bestPage.number + 1}}</a></li>-->
+<!--          <li class="page-item" *ngIf="bestPage.number + 2 <= bestPage.totalPages">-->
+<!--            <a role="button" class="page-link"-->
+<!--               (click)="getBestProduct(bestPage.number + 1)">{{bestPage.number + 2}}</a>-->
+<!--          </li>-->
+<!--          <li class="page-item" *ngIf="bestPage.number + 3 <= bestPage.totalPages">-->
+<!--            <a role="button" class="page-link"-->
+<!--               (click)="getBestProduct(bestPage.number + 2)">{{bestPage.number + 3}}</a>-->
+<!--          </li>-->
+<!--          <li class="page-item" *ngIf="bestPage.number + 4 <= bestPage.totalPages">-->
+<!--            <a role="button" class="page-link"-->
+<!--               (click)="getBestProduct(bestPage.number + 3)">{{bestPage.number + 4}}</a>-->
+<!--          </li>-->
+<!--          <li class="page-item" *ngIf="bestPage.number + 5 <= bestPage.totalPages">-->
+<!--            <a role="button" class="page-link"-->
+<!--               (click)="getBestProduct(bestPage.number + 4)">{{bestPage.number + 5}}</a>-->
+<!--          </li>-->
+<!--          <li class="page-item" [ngClass]="bestPage.last ? 'disabled': ''">-->
+<!--            <a role="button" class="page-link"-->
+<!--               (click)="getBestProduct(bestPage.number + 1)">></a>-->
+<!--          </li>-->
+<!--          <li class="page-item" [ngClass]="bestPage.last ? 'disabled': ''">-->
+<!--            <a role="button" class="page-link"-->
+<!--               (click)="getBestProduct(bestPage.totalPages - 1)">-->
+<!--              Trang cuối-->
+<!--            </a>-->
+<!--          </li>-->
+<!--        </ul>-->
+<!--      </nav>-->
+<!--    </div>-->
+<!--  </div>-->
 
 
 <div class="container mt-5 mb-5">
@@ -193,7 +198,7 @@
     <a routerLink="product/search/-1"><img src="/assets/images/mon1.png" class="card-img-top" alt="..."></a>
   </div>
   <div class="col-md-3 col-sm-6 filtr-item">
-    <a routerLink="product/search/2"><img src="/assets/images/mon2.png" class="card-img-top" alt="..."></a>
+    <a routerLink="product/search/1"><img src="/assets/images/mon2.png" class="card-img-top" alt="..."></a>
   </div>
   <div class="col-md-3 col-sm-6 filtr-item">
     <a routerLink="product/search/4"><img src="/assets/images/mon3.png" class="card-img-top" alt="..."></a>
@@ -276,9 +281,31 @@
         <div class="text-center text-danger">Không tìm thấy danh sách</div>
       </ng-template>
     </div>
+
+
+    <div class="row">
+      <div class="border-bottom border-top col-md-3 col-12">
+        <h5 class="mb-4 text-center">Danh mục sản phẩm</h5>
+        <div class="custom-control custom-radio row mb-3">
+          <div class="col-2">
+            <input type="checkbox" checked name="category" class="custom-control-input" id="all">
+          </div>
+          <label class="custom-control-label col-6" for="all">Tất cả</label>
+          <div class="col-4">
+            <span class=" badge border font-weight-normal text-black"> sản phẩm</span>
+          </div>
+        </div>
+        <div class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv">
+          <div class="col-2">
+            <input type="checkbox" name="category" class="custom-control-input" id="category">
+          </div>
+          <label class="custom-control-label col-6 " for="category">10000-20000</label>
+          <div class="offset-4">
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-
-
 
 </section>
 
@@ -288,7 +315,7 @@
       class="gloab-banner__white-tag">GIẢM GIÁ</span><span
       class="istock-colored-sale-notification__content-text"> TUẦN NÀY: Tiết kiệm 20% cho mọi nội dung hình ảnh với mã <strong>SAVE20</strong>.&nbsp;</span><a
       class="istock-colored-sale-notification__content-cta" href="/">Mua ngay
-      </a></div>
+    </a></div>
     <figure class="close"></figure>
   </aside>
 </div>

@@ -11,6 +11,7 @@ import {Observable} from 'rxjs';
 import {AngularFireStorage} from '@angular/fire/storage';
 import Swal from 'sweetalert2';
 import {Orders} from '../../entity/order/orders';
+import {Cart} from '../../entity/order/cart';
 
 @Component({
   selector: 'app-profile',
@@ -31,6 +32,10 @@ export class ProfileComponent implements OnInit {
   src: string ='';
   index = 1;
   orderList: Orders[] = [];
+  orderPage: any;
+  page = 0;
+  cartList: Cart[] = [];
+  orderId = 0;
 
   constructor(@Inject(AngularFireStorage) private storage: AngularFireStorage,
               private tokenStorageService: TokenStorageService,
@@ -43,17 +48,24 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.getInfoByAccountId();
-    this.getOrderPurchase();
+    this.getOrderPurchase(this.page);
     window.scrollTo(0, 10);
   }
 
-  getOrderPurchase() {
+  getOrderPurchase(page: number) {
     const id = parseInt(this.tokenStorageService.getIdAccount());
-    this.orderService.findOrderPurchaseByAccountId(id).subscribe(next => {
+    this.orderService.findOrderPurchaseByAccountId(id, page).subscribe(next => {
       if(next){
+        console.log(next);
         this.orderList = next.content;
-        console.log(this.orderList);
+        this.orderPage = next;
       }
+    })
+  }
+
+  getPurchaseHistory(idOrder: number){
+    this.orderService.getAllPurchaseHistory(idOrder).subscribe(next => {
+      this.cartList = next;
     })
   }
 
@@ -128,4 +140,8 @@ export class ProfileComponent implements OnInit {
   changeIndex(number: number) {
     this.index = number;
   }
+
+  // getOrderId(orderId: number) {
+  //   this.orderId = orderId;
+  // }
 }

@@ -31,19 +31,13 @@ public class OrderServiceImpl implements IOrderService {
         return iOrderRepository.findOrderPurchaseByAccountId(accountId, pageable);
     }
 
-
-    @Override
-    public void save(Orders orders) {
-        iOrderRepository.save(orders);
-    }
-
     @Override
     public Optional<Orders> findById(Long orderId) {
         return iOrderRepository.findById(orderId);
     }
 
     @Override
-    public void payAllByOrderId(Long orderId, String orderDate) {
-        iOrderRepository.payAllByOrderId(orderId,orderDate);
+    public void payAllByOrderId(Long orderId, String orderDate,  String address, String phoneNumber, String note) {
+        iOrderRepository.payAllByOrderId(orderId,orderDate, address, phoneNumber, note);
     }
 }

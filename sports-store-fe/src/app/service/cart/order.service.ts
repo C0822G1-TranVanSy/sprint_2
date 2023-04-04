@@ -34,12 +34,16 @@ export class OrderService {
     return this.httpClient.get<Orders>(ORDER_API + '/detail/' + accountId);
   }
 
-  findOrderPurchaseByAccountId(accountId: number): Observable<any> {
-    return this.httpClient.get<any>(ORDER_API + '/order-purchase/' + accountId);
+  findOrderPurchaseByAccountId(accountId: number, page: number): Observable<any> {
+    return this.httpClient.get<any>(ORDER_API + '/order-purchase/' + accountId + '?page=' + page);
   }
 
   getAllCart(orderId: number): Observable<Cart[]> {
     return this.httpClient.get<Cart[]>(ORDER_API + '/list/' + orderId);
+  }
+
+  getAllPurchaseHistory(orderId: number): Observable<Cart[]> {
+    return this.httpClient.get<Cart[]>(ORDER_API + '/purchase-history/' + orderId);
   }
 
   getTotal(orderId: number): Observable<TotalDto> {
@@ -54,8 +58,9 @@ export class OrderService {
     return this.httpClient.post(ORDER_API + '/cartLocal' + '?orderId=' + orderId, cartList);
   }
 
-  payAll(orderId: number) {
+  payAll(orderId: number, address: string, phone: string, note: string) {
     const cur = new Date();
-    return this.httpClient.post(ORDER_API + '/pay', {orderId: orderId, orderDate: cur.toLocaleString()});
+    return this.httpClient.put(ORDER_API + '/pay',
+      {orderId: orderId, orderDate: cur.toLocaleString(), address: address, phoneNumber: phone, note: note});
   }
 }

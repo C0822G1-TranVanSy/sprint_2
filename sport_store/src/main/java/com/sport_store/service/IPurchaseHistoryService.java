@@ -9,6 +9,7 @@ import com.sport_store.entity.order.PurchaseHistory;
 import com.sport_store.entity.product.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -19,6 +20,8 @@ public interface IPurchaseHistoryService {
     void updateQuantityCartItem(Long productId, Long orderId, Integer quantity);
 
     List<ICartListDto> getAllProductByOrderId(Long orderId);
+
+    List<ICartListDto> getPurchaseHistoriesByOrderId( Long orderId);
 
     ITotalDto getTotal( Long orderId);
 

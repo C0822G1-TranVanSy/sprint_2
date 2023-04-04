@@ -9,46 +9,76 @@
               <div class="col-lg-7">
                 <div class="p-4">
                   <div class="text-center mb-4">
-                    <h2 class="fw-bold mb-0 text-black">Thông tin giao hàng</h2>
+                    <h2 class="fw-bold mb-0 text-black">Thông tin khách hàng</h2>
 <!--                    <h6 class="mb-0 text-muted">{{length}} mặt hàng</h6>-->
                   </div>
                   <hr class="my-3">
+                  <div class="row mb-1 d-flex justify-content-between align-items-center">
+                    <div class=" col-md-4 col-lg-4" style="font-weight: bold"><i class="fa-solid fa-user-tie"></i> Tên khách hàng: </div>
+                    <div class="col-md-8 col-lg-8">
+                      <span class="text-black">{{account.name}}</span>
+                    </div>
+                    <hr class="my-3">
+                  </div>
+
+                  <div class="row mb-1 d-flex justify-content-between align-items-center">
+                    <div class=" col-md-4 col-lg-4" style="font-weight: bold"><i class="fa-solid fa-location-arrow"></i> Địa chỉ:</div>
+                    <div class="col-md-8 col-lg-8">
+                      <span class="text-black">{{account.address}}</span>
+                    </div>
+                    <hr class="my-3">
+                  </div>
+
+                  <div class="row mb-1 d-flex justify-content-between align-items-center">
+                    <div class=" col-md-4 col-lg-4" style="font-weight: bold"><i class="fa-solid fa-mobile-retro"></i>
+                       Số điện thoại:
+                    </div>
+                    <div class="col-md-8 col-lg-8">
+                      <span class="text-black">{{account.phoneNumber}}</span>
+                    </div>
+                    <hr class="my-3">
+                  </div>
+
+                 <div class="row mb-1 d-flex justify-content-between align-items-center">
+                    <div class=" col-md-4 col-lg-4" style="font-weight: bold"><i class="fa-solid fa-paper-plane"></i>
+                       Email:
+                    </div>
+                   <div class="col-md-8 col-lg-8">
+                      <span class="text-black">{{account.email}}</span>
+                    </div>
+                    <hr class="my-3">
+                  </div>
+                  <div class="text-center mb-4">
+                    <h2 class="fw-bold mb-0 text-black">Thông tin giao hàng</h2>
+                  </div>
+                  <form [formGroup]="form" >
                   <div class="row mb-3 d-flex justify-content-between align-items-center">
-                    <div class="offset-md-1 offset-lg-1 col-md-4 col-lg-4">Tên khách hàng:</div>
-                    <div class="col-md-7 col-lg-7">
-                      <h6 class="text-black">{{account.name}}</h6>
+                    <label for="address" class=" col-md-3 col-lg-3" style="font-weight: bold"><i class="fa-solid fa-location-dot"></i> Địa chỉ:</label>
+                    <div class="col-md-9 col-lg-9 mb-2">
+                      <input type="text" id="address" placeholder="Thay đổi địa chỉ" formControlName="address" class="form-control"/>
+                      <div style="position: absolute">
+                        <p class="text-danger small" *ngIf="form.controls.address.hasError('minlength') && form.controls.address.touched">Địa chỉ nhập vào phải hơn 5 ký tự.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-3 d-flex justify-content-between align-items-center">
+                    <label for="phone" class=" col-md-3 col-lg-3" style="font-weight: bold"><i class="fa-solid fa-phone-volume"></i> Điện thoại:</label>
+                    <div class="col-md-9 col-lg-9 mb-2">
+                      <input type="text" id="phone" placeholder="Thay đổi số điện thoại" formControlName="phoneNumber" class="form-control"/>
+                      <div style="position: absolute">
+                        <p class="text-danger small" *ngIf="form.controls.phoneNumber.hasError('pattern')
+                         && form.controls.phoneNumber.touched">Số điện thoại phải 10 chữ số.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-3 d-flex justify-content-between align-items-center">
+                    <label for="note" class=" col-md-3 col-lg-3" style="font-weight: bold"><i class="fa-solid fa-clipboard"></i> Ghi chú:</label>
+                    <div class="col-md-9 col-lg-9 mb-2">
+                      <textarea id="note" placeholder="Nhập ghi chú" formControlName="note" class="form-control"></textarea>
                     </div>
                     <hr class="my-3">
                   </div>
-
-                  <div class="row mb-2 d-flex justify-content-between align-items-center">
-                    <div class="offset-md-1 offset-lg-1 col-md-4 col-lg-4">Địa chỉ:</div>
-                    <div class="col-md-7 col-lg-7">
-                      <h6 class="text-black">{{account.address}}</h6>
-                    </div>
-                    <hr class="my-3">
-                  </div>
-
-                  <div class="row mb-2 d-flex justify-content-between align-items-center">
-                    <div class="offset-md-1 offset-lg-1 col-md-4 col-lg-4">
-                      Số điện thoại:
-                    </div>
-                    <div class="col-md-7 col-lg-7">
-                      <h6 class="text-black">{{account.phoneNumber}}</h6>
-                    </div>
-                    <hr class="my-3">
-                  </div>
-
-                 <div class="row mb-2 d-flex justify-content-between align-items-center">
-                    <div class="offset-md-1 offset-lg-1 col-md-4 col-lg-4">
-                      Email:
-                    </div>
-                   <div class="col-md-7 col-lg-7">
-                      <h6 class="text-black">{{account.email}}</h6>
-                    </div>
-                    <hr class="my-3">
-                  </div>
-
+                  </form>
                   <div class="pt-3 ps-3">
                     <h6><a routerLink="/body/cart" class="text-body btn btn-outline-primary"><i
                       class="fas fa-long-arrow-alt-left me-2"></i>Back to cart</a></h6>
@@ -61,29 +91,23 @@
                   <h3 class="fw-bold mb-4 mt-1 pt-1">Thông tin thanh toán</h3>
                   </div>
                   <hr class="my-3">
-
                   <div class="d-flex justify-content-between mb-4">
                     <h5 class="text-uppercase">số lượng: {{totalQuantity}}</h5>
                     <h5>{{totalPayment | currency:'USD'}} </h5>
                   </div>
-
-                  <h5 class="text-uppercase mb-1">Shipping</h5>
-
                   <div class="mb-3 pb-2">
-                    <select class="select form-select">
+                    <label for="ship" style="font-weight: bold" class="text-uppercase mb-1">Shipping</label>
+                    <select id="ship" class="select form-select">
                       <option value="1">Phí ship</option>
                       <option value="2">Two</option>
                       <option value="3">Three</option>
                       <option value="4">Four</option>
                     </select>
                   </div>
-
-                  <h5 class="text-uppercase mb-1"> code</h5>
-
                   <div class="mb-3">
+                    <label for="form3Examplea2" style="font-weight: bold" class="text-uppercase mb-1"> code</label>
                     <div class="form-outline">
                       <input type="text" id="form3Examplea2" class="form-control"/>
-                      <label class="form-label" for="form3Examplea2">Nhập code: </label>
                     </div>
                   </div>
 
@@ -93,7 +117,8 @@
                     <h5>{{totalPayment | currency:'USD'}} </h5>
                   </div>
                   <div class="text-center ">
-                    <div id="myPayPalButtons" ></div>
+                    <p><sup class="text-danger">(*)</sup> Nếu không nhập thông tin địa chỉ và số điện thoại giao hàng thì chúng tôi sẽ gửi hàng về theo thông tin mặc định của bạn.</p>
+                    <div id="myPayPalButtons" [hidden]="!form.valid"></div>
                   </div>
                 </div>
               </div>

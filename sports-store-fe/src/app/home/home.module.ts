@@ -8,7 +8,7 @@ import { BodyComponent } from './body/body/body.component';
 import { DetailComponent } from './body/detail/detail.component';
 import { CartComponent } from './body/cart/cart.component';
 import { ErrorComponent } from './error/error.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { PaymentComponent } from './body/payment/payment.component';
 
 
@@ -24,7 +24,8 @@ import { PaymentComponent } from './body/payment/payment.component';
     imports: [
         CommonModule,
         HomeRoutingModule,
-        FormsModule
+        FormsModule,
+        ReactiveFormsModule
     ]
 })
 export class HomeModule { }

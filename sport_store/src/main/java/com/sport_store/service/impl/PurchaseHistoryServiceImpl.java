@@ -51,6 +51,11 @@ public class PurchaseHistoryServiceImpl implements IPurchaseHistoryService {
     }
 
     @Override
+    public List<ICartListDto> getPurchaseHistoriesByOrderId(Long orderId) {
+        return iPurchaseHistoryRepository.getPurchaseHistoriesByOrderId(orderId);
+    }
+
+    @Override
     public ITotalDto getTotal(Long orderId) {
         return iPurchaseHistoryRepository.getTotal(orderId);
     }

@@ -31,6 +31,10 @@ public interface IPurchaseHistoryRepository extends JpaRepository<PurchaseHistor
             , nativeQuery = true)
     List<ICartListDto> getAllProductByOrderId(@Param("orderId") Long orderId);
 
+    @Query(value = "select ph.product_id as productId, p.product_name as productName, p.price, p.avatar, ph.quantity from purchase_history ph join product p on p.product_id = ph.product_id join orders o on ph.order_id = o.order_id where o.payment_status = true and ph.order_id = :orderId"
+            , nativeQuery = true)
+    List<ICartListDto> getPurchaseHistoriesByOrderId(@Param("orderId") Long orderId);
+
     @Query(value = "select sum(quantity) as totalQuantity, sum(quantity*price) as totalPayment from product p join purchase_history ph on p.product_id = ph.product_id join orders o on ph.order_id = o.order_id where o.payment_status = false and ph.order_id = :orderId"
             , nativeQuery = true)
     ITotalDto getTotal(@Param("orderId") Long orderId);

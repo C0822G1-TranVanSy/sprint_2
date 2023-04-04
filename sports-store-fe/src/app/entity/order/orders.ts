@@ -4,4 +4,7 @@ export interface Orders {
   orderDate?: string;
   accountId: number;
   paymentStatus?: boolean;
+  address?: string;
+  phoneNumber?: string;
+  note?: string;
 }

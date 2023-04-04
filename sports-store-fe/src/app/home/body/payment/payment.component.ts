@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 import {SecurityService} from '../../../service/security/security.service';
 import {Account} from '../../../entity/account/account';
 import {Router} from '@angular/router';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-payment',
@@ -25,6 +26,8 @@ export class PaymentComponent implements OnInit {
   index = 0;
   account: Account = {accountId: 0, username: '',
     email: '', phoneNumber: '', address: '', name: '', avatar: ''};
+  address = ''; phone = ''; note = '';
+  form: FormGroup;
 
   constructor(private tokenStorageService: TokenStorageService,
               private shareService: ShareService,
@@ -32,6 +35,11 @@ export class PaymentComponent implements OnInit {
               private toast: ToastrService,
               private securityService: SecurityService,
               private router: Router) {
+    this.form = new FormGroup({
+      address: new FormControl('',[Validators.minLength(5)]),
+      phoneNumber: new FormControl('', [Validators.pattern('[\\d]{10}')]),
+      note: new FormControl()
+    })
     if (this.tokenStorageService.getToken()) {
       this.shareService.getClickEvent().subscribe(next => {
         this.orderService.findOrderByAccountId(parseInt(this.tokenStorageService.getIdAccount())).subscribe(next => {
@@ -106,7 +114,18 @@ export class PaymentComponent implements OnInit {
             currency: 'USD',
             value: totalPayment.toString(),
             onApprove: (details) => {
-              this.orderService.payAll(this.order.orderId).subscribe(next => {
+              if(this.form.valid){
+              const formValue = this.form.value;
+              this.address = formValue.address;
+              this.phone = formValue.phoneNumber;
+              if (this.address == '') {
+                this.address = this.account.address;
+              }
+              if (this.phone == '') {
+                this.phone = this.account.phoneNumber;
+              }
+              this.note = formValue.note;
+              this.orderService.payAll(this.order.orderId, this.address, this.phone, this.note).subscribe(next => {
                 Swal.fire({
                   position: 'center',
                   icon: 'success',
@@ -115,7 +134,7 @@ export class PaymentComponent implements OnInit {
                   showConfirmButton: false,
                   timer: 2000
                 });
-                if(this.tokenStorageService.getRole()[0] != "ROLE_ADMIN"){
+                if (this.tokenStorageService.getRole()[0] != "ROLE_ADMIN") {
                   this.orderService.createCart(parseInt(this.tokenStorageService.getIdAccount())).subscribe(next => {
                     }
                   );
@@ -123,6 +142,7 @@ export class PaymentComponent implements OnInit {
                 this.router.navigateByUrl("/body/cart");
                 this.shareService.sendClickEvent();
               })
+              }
             }
           }
         );

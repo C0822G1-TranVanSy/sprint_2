@@ -30,7 +30,10 @@ public interface IOrderRepository extends JpaRepository<Orders, Long> {
 //    Optional<Orders> findByOrderId(@Param("orderId") Long orderId);
 
     @Modifying
-    @Query(value = "update orders set order_date = :orderDate, payment_status = true where order_id= :orderId", nativeQuery = true)
-    void payAllByOrderId(@Param("orderId") Long orderId, @Param("orderDate") String orderDate);
+    @Query(value = "update orders set order_date = :orderDate,address = :address, phone_number = :phoneNumber, note = :note, payment_status = true where order_id= :orderId", nativeQuery = true)
+    void payAllByOrderId(@Param("orderId") Long orderId, @Param("orderDate") String orderDate, @Param("address") String address, @Param("phoneNumber") String phoneNumber, @Param("note") String note);
 
+//    @Modifying
+//    @Query(value = "update orders set address = :address, phone_number = :phoneNumber, note = :note where order_id= :orderId", nativeQuery = true)
+//    void updateInfoOrders(@Param("orderId") Long orderId,@Param("address") String address, @Param("phoneNumber") String phoneNumber, @Param("note") String note);
 }

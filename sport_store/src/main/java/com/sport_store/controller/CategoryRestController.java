@@ -1,6 +1,5 @@
 package com.sport_store.controller;
 
-import com.sport_store.dto.product.IProductDto;
 import com.sport_store.entity.product.Category;
 import com.sport_store.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;

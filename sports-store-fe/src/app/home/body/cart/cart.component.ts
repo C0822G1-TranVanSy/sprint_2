@@ -231,7 +231,7 @@ export class CartComponent implements OnInit {
 
 
   moveToPayment() {
-    if(this.cartList.length == 0){
+    if(this.cartList.length == 0 || this.totalQuantity == 0){
       Swal.fire({
         position: 'center',
         icon: 'error',

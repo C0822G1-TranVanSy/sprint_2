@@ -14,8 +14,14 @@ public class Orders {
     private Long orderId;
     @Column(columnDefinition = "bit default 0")
     private Boolean flagDelete;
-    @Column(columnDefinition = "date")
+//    @Column(columnDefinition = "date")
     private String orderDate;
+    @Column(columnDefinition = "TEXT")
+    private String address;
+    @Column(columnDefinition = "varchar(45)")
+    private String phoneNumber;
+    @Column(columnDefinition = "LONGTEXT")
+    private String note;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id")
     private Account account;
@@ -71,5 +77,29 @@ public class Orders {
 
     public void setPurchaseHistoryList(List<PurchaseHistory> purchaseHistoryList) {
         this.purchaseHistoryList = purchaseHistoryList;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }
