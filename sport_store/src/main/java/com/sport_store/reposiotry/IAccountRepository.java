@@ -42,4 +42,9 @@ public interface IAccountRepository extends JpaRepository<Account,Long> {
     @Modifying
     @Query(value = "update account set avatar = :ava where account_id = :accountId",nativeQuery = true)
     void changeAvatar(@Param("accountId") Long accountId,@Param("ava") String ava);
+
+    @Modifying
+    @Query(value = "update account set name = :name, phone_number= :phoneNumber, address = :address, email = :email where account_id = :accountId",nativeQuery = true)
+    void changeInfo(@Param("accountId") Long accountId,@Param("name") String name,
+                    @Param("phoneNumber") String phoneNumber,@Param("address") String address,@Param("email") String email);
 }

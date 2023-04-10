@@ -7,4 +7,5 @@ export interface ProductDto {
   price: number;
   avatar: string;
   categoryId: number;
+  total: number;
 }

@@ -11,6 +11,7 @@ import {SecurityService} from '../../../service/security/security.service';
 import {Account} from '../../../entity/account/account';
 import {Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-payment',
@@ -34,7 +35,9 @@ export class PaymentComponent implements OnInit {
               private orderService: OrderService,
               private toast: ToastrService,
               private securityService: SecurityService,
-              private router: Router) {
+              private router: Router,
+              private title: Title) {
+    this.title.setTitle('Thanh toán');
     this.form = new FormGroup({
       address: new FormControl('',[Validators.minLength(5)]),
       phoneNumber: new FormControl('', [Validators.pattern('[\\d]{10}')]),

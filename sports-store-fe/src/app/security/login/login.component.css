@@ -14,3 +14,64 @@
     height: 100%;
   }
 }
+
+/*register*/
+
+:root {
+  --input-padding-x: 1.5rem;
+  --input-padding-y: .75rem;
+}
+
+.form-signin {
+  width: 100%;
+}
+
+.form-signin .btn {
+  margin-top: 10px;
+  font-size: 80%;
+  letter-spacing: .1rem;
+  font-weight: bold;
+  padding: 1rem;
+  transition: all 0.2s;
+  width: 100%;
+}
+
+.form-label-group {
+  position: relative;
+  margin-bottom: 1px;
+}
+
+.form-label-group input {
+  height: 50px;
+}
+
+.error-place{
+  height: 15px;
+}
+
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 320px) {
+  .map{
+    width: 300px;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .map{
+    width: 600px;
+  }
+}

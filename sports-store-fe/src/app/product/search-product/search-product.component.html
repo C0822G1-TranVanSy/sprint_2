@@ -28,7 +28,7 @@
                       target="_blank" style="font-size: small; width: 150px"><img
                 src="https://img.icons8.com/pastel-glyph/64/null/briefcase--v2.png" style="width: 15%"/> Thêm vào giỏ
               </button>
-              <button *ngIf="role=='ROLE_ADMIN'" class="btn btn-warning mb-2" target="_blank" style="font-size: small">
+              <button [routerLink]="['/product/update',item.productId]" *ngIf="role=='ROLE_ADMIN'" class="btn btn-warning mb-2" target="_blank" style="font-size: small">
                 <img
                   src="https://img.icons8.com/external-tanah-basah-glyph-tanah-basah/48/null/external-edit-social-media-ui-tanah-basah-glyph-tanah-basah.png"
                   style="width: 15%"/> Chỉnh sửa

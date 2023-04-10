@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import {ProductDto} from '../../entity/product/product-dto';
 import {Product} from '../../entity/product/product';
 import {Observable} from 'rxjs';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-update-product',
@@ -31,7 +32,9 @@ export class UpdateProductComponent implements OnInit {
               private router: Router,
               private activatedRoute: ActivatedRoute,
               private categoryService: CategoryService,
-              private productService: ProductService,) {
+              private productService: ProductService,
+              private title: Title) {
+    this.title.setTitle('Chỉnh sửa sản phẩm');
     this.activatedRoute.paramMap.subscribe(next => {
       const id = parseInt(<string> next.get("id"));
       this.productService.getProduct(id).subscribe(next => {

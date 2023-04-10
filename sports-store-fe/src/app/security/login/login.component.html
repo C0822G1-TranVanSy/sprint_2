@@ -1,4 +1,5 @@
-<section class="container pb-3" style="background: radial-gradient(#0b75c7, #0a307d); margin-top: 50px; margin-bottom: 50px; width: 60%">
+<section class="container pb-3"
+         style="background: radial-gradient(#0b75c7, #0a307d); margin-top: 50px; margin-bottom: 50px; width: 60%">
   <div class="container-fluid">
     <div class="row">
 
@@ -9,20 +10,20 @@
 
       <div class=" col-md-6 col-sm-12 text-light">
         <div class="d-flex justify-content-center h-custom-2 px-3 ms-xl-2 pt-xl-0 mt-xl-3">
-          <form [formGroup]="formGroup" (ngSubmit)="login()">
-            <h2 class="fw-normal text-center mt-2 pb-2" >Đăng nhập</h2>
+          <form class="form-signin" [formGroup]="formLogin" (ngSubmit)="login()">
+            <h2 class="fw-normal text-center mt-2 pb-2" style="color: #fa8824">Đăng nhập</h2>
 
-            <div class="form-outline mb-5">
+            <div class="form-outline mb-4">
               <label class="form-label" for="form2Example18">Tài khoản: </label>
               <input type="email" formControlName="username" id="form2Example18" class="form-control"/>
               <div style="position: absolute">
-                <p class="text-danger m-0">{{errors.username}}</p>
-                <p class="text-danger m-0"
-                   *ngIf="formGroup.controls.username.hasError('required')&&formGroup.controls.username.touched">Yêu
-                  cầu phải nhập tài khoản.</p>
-                <p class="text-danger m-0"
-                   *ngIf="formGroup.controls.username.hasError('minlength')&&formGroup. controls.username.dirty">Tài
-                  khoản phải lớn hơn 3 ký tự.</p>
+                <small class="m-0" style="color: red">{{errors.username}}</small>
+                <small class="m-0" style="color: red"
+                       *ngIf="formLogin.controls.username.hasError('required')&&formLogin.controls.username.touched">Yêu
+                  cầu phải nhập tài khoản.</small>
+                <small class=" m-0" style="color: red"
+                       *ngIf="formLogin.controls.username.hasError('minlength')&&formLogin. controls.username.dirty">Tài
+                  khoản phải lớn hơn 3 ký tự.</small>
               </div>
             </div>
 
@@ -31,25 +32,28 @@
               <input type="password" id="form2Example28" formControlName="password"
                      class="form-control "/>
               <div style="position: absolute">
-                <p class="text-danger m-0">{{errors.password}}</p>
-                <p class="text-danger m-0"
-                   *ngIf="formGroup.controls.password.hasError('required')&&formGroup.controls.username.touched">Yêu
-                  cầu phải nhập mật khẩu.</p>
-                <p class="text-danger m-0"
-                   *ngIf="formGroup.controls.password.hasError('minlength')&&formGroup. controls.username.dirty">Mật
-                  khẩu phải lớn hơn 3 ký tự.</p>
+                <small class=" m-0" style="color: red">{{errors.password}}</small>
+                <small class=" m-0" style="color: red"
+                       *ngIf="formLogin.controls.password.hasError('required')&&formLogin.controls.username.touched">Yêu
+                  cầu phải nhập mật khẩu.</small>
+                <small class=" m-0" style="color: red"
+                       *ngIf="formLogin.controls.password.hasError('minlength')&&formLogin. controls.username.dirty">Mật
+                  khẩu phải lớn hơn 3 ký tự.</small>
               </div>
             </div>
 
             <div class=" mb-3 text-center">
-              <button class="btn btn-warning btn-block" style="color: #1d2e50" type="submit">Đăng nhập</button>
+              <button class="btn btn-block w-100" style="color: #1d2e50; background-color: #ea7217" type="submit">Đăng
+                nhập
+              </button>
             </div>
             <div class=" text-left">
               <label for="remember" class="">Ghi nhớ đăng nhập
                 <input type="checkbox" id="remember" formControlName="rememberMe">
               </label>
             </div>
-            <p>Đăng ký tài khoản? <a href="#!" class=" link-info">Tại đây</a></p>
+            <p>Đăng ký tài khoản? <a data-bs-toggle="modal"
+                                     data-bs-target="#exampleModal" href="" class=" link-info">Tại đây</a></p>
           </form>
         </div>
       </div>
@@ -58,3 +62,100 @@
   </div>
 </section>
 
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" style="color: #eeeeee">
+    <div class="modal-content container"
+         style="background-image: linear-gradient(rgba(102, 123, 213, 0.3), rgba(50, 76, 179, 0.2)), url('https://cdn.sforum.vn/sforum/wp-content/uploads/2022/05/Hinh-nen-cung-hoang-dao-6.jpg'); background-position: bottom">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" style="color: #fa8824">Đăng ký!!!</h5>
+        <button type="button" id="alo" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form class="form-signin" [formGroup]="formRegister" (ngSubmit)="register()">
+        <div class="modal-body">
+          <div class="align-items-center">
+            <div class="mb-4 row align-items-center">
+              <label for="name" class="col-md-3">Tên: </label>
+              <div class="col-md-9 form-label-group">
+                <input autofocus id="name" formControlName="name" type="text" class="form-control ">
+                <div class="error-place" style="position: absolute">
+                  <small style="; color: red"
+                         *ngIf="formRegister.controls.name.hasError('required') && formRegister.controls.name.touched">Yêu
+                    cầu phải nhập.
+                  </small>
+                </div>
+              </div>
+            </div>
+            <div class=" mb-4 row align-items-center">
+              <label for="username" class="col-md-3">Tài khoản: </label>
+              <div class="col-md-9 form-label-group">
+                <input autofocus id="username" formControlName="username" type="text" class="form-control">
+                <div class="error-place" style="position: absolute">
+                  <small style=" color: red"
+                         *ngIf="formRegister.controls.username.hasError('required') && formRegister.controls.username.touched">Yêu
+                    cầu phải nhập.
+                  </small>
+                </div>
+              </div>
+            </div>
+            <div class=" mb-4 row align-items-center" formGroupName="pwGroup">
+              <label for="pass" class="col-md-3">Mật khẩu: </label>
+              <div class="col-md-9 form-label-group">
+                <input id=pass formControlName="password" type="password" class="form-control" required>
+                <div class="error-place" style="position: absolute">
+                  <small style="color: red"
+                         *ngIf="formRegister.get('pwGroup').get('password').hasError('required') ">Yêu cầu phải nhập.
+                  </small>
+                  <small style="color: red"
+                         *ngIf="formRegister.get('pwGroup').get('password').hasError('minlength')">Độ dài phải hơn 3 ký
+                    tự.
+                  </small>
+                  <small style="color: red"
+                         *ngIf="formRegister.get('pwGroup').get('password').hasError('maxlength')">Độ dài phải nhỏ hơn
+                    32 ký tự.
+                  </small>
+                </div>
+              </div>
+
+            </div>
+            <div class=" mb-4 row align-items-center" formGroupName="pwGroup">
+              <label for="pass2" class="col-md-3">Xác nhận mật khẩu: </label>
+              <div class="col-md-9 form-label-group">
+                <input id=pass2 formControlName="confirmPassword" type="password" class="form-control"
+                       required>
+                <div class="error-place" style="position: absolute">
+                  <small style="color: red" *ngIf="formRegister.controls.pwGroup.hasError('passwordNotMatch')
+                && formRegister.controls.pwGroup.dirty">Không khớp mật khẩu</small>
+                </div>
+              </div>
+            </div>
+            <div class=" mb-4 row align-items-center">
+              <label for="email" class="col-md-3">Email: </label>
+              <div class="col-md-9 form-label-group">
+                <input id="email" formControlName="email" type="email" class="form-control"
+                       required>
+                <div class="error-place" style="position: absolute">
+                  <small style="color: red"
+                         *ngIf="formRegister.controls.email.hasError('required') && formRegister.controls.email.touched">Yêu
+                    cầu phải nhập.
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <div *ngIf="isSubmited then submited else notSubmited"></div>
+          <ng-template #notSubmited>
+            <button class="btn w-50" style="background: #ea7217" type="submit">Đăng ký</button>
+          </ng-template>
+          <ng-template #submited>
+            <button class="btn btn-primary text-uppercase" type="button" disabled>
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              Loading...
+            </button>
+          </ng-template>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

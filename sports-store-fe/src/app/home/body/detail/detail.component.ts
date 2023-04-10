@@ -15,8 +15,7 @@ import {SizeService} from '../../../service/size/size.service';
 import {Size} from '../../../entity/product/size';
 import {Warehouse} from '../../../entity/warehouse/warehouse';
 import {WarehouseService} from '../../../service/warehouse/warehouse.service';
-import {forEachComment} from 'tslint';
-import {collectExternalReferences} from '@angular/compiler';
+
 
 @Component({
   selector: 'app-detail',
@@ -87,21 +86,21 @@ export class DetailComponent implements OnInit {
 
 
   checkQuantity(carts: Cart[], productId:number, qty: number){
-    let sum = 0;
+    let sum = qty;
     for (let i = 0; i <carts.length ; i++) {
       if(carts[i].productId == productId){
-        sum = carts[i].quantity + qty
+        sum += carts[i].quantity
       }
     }
     return sum;
   }
 
-  addToCart(productId: number, quantity: string, size: string, item: Product){
+  addToCart(productId: number, quantity: string, item: Product){
     let qty = this.checkQuantity(this.cartList,item.productId,Number(quantity));
     if(qty > this.warehouse.quantity){
       Swal.fire({
         position: 'center',
-        icon: 'success',
+        icon: 'error',
         title: 'Thông báo!',
         text: 'Mặt hàng này đã hết',
         showConfirmButton: false,

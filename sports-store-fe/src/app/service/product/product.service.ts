@@ -23,8 +23,8 @@ export class ProductService {
     return this.httpClient.get<any>(PRODUCT_API + "/page" + '?' + 'size=' + size);
   }
 
-  searchAllProductByProductName(size: number, productName: string): Observable<any>{
-    return this.httpClient.get<any>(PRODUCT_API + "/page" + '?' + 'size=' + size + '&name=' + productName);
+  searchAllProductByProductName(size: number, productName: string, value: string[]): Observable<any>{
+    return this.httpClient.post<any>(PRODUCT_API + "/page1" + '?' + 'size=' + size + '&name=' + productName, value);
   }
 
   getProduct(productId: number): Observable<Product> {
@@ -47,9 +47,12 @@ export class ProductService {
     return this.httpClient.get<any>(PRODUCT_API + "/searchCategory" + '?' + 'size=' + size + '&categoryId=' + categoryId);
   }
 
-  getBestProduct(size: number): Observable<any>{
-    return this.httpClient.get<any>(PRODUCT_API + "/bestProduct" + '?' + 'page=' + size);
+  getBestProduct(page: number): Observable<any>{
+    return this.httpClient.get<any>(PRODUCT_API + "/bestProduct" + '?' + 'page=' + page);
   }
 
+  searchAllProductByProductNameAndPrice(size: number, productName: string): Observable<any>{
+    return this.httpClient.get<any>(PRODUCT_API + "/page" + '?' + 'size=' + size + '&name=' + productName);
+  }
 
 }

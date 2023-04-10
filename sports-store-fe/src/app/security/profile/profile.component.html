@@ -7,13 +7,12 @@
             <div class="ms-4 d-flex flex-column" style="width: 150px;margin-top: 140px">
               <label class="hoverable mt-4 mb-2" for="fileInput">
                 <img (change)="showPreview($event)" class="input img-fluid img-thumbnail "
-                     style="width: 75%;height: 165px; z-index: 1;object-fit: cover" [src]="account.avatar"
-                     alt="không có gì">
+                     style="width: 150px;height: 165px; z-index: 1;object-fit: cover" [src]="account.avatar">
                 <input id="fileInput" type="file" class="input" (change)="showPreview($event)">
                 <div class="hover-text">Chọn file</div>
                 <div class="background"></div>
               </label>
-              <button type="button" class="btn btn-light edit" data-mdb-ripple-color="dark"
+              <button type="button" class="btn btn-light edit" (click)="patchValue()" data-mdb-ripple-color="dark"
                       style="z-index: 1;" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Edit profile
               </button>
@@ -127,6 +126,8 @@
                   </tr>
                   </tbody>
                 </table>
+                  <p *ngIf="!orderPage" class="text-danger text-center">Chưa có thông tin mua hàng.</p>
+
 
                 <!--        Phân trang-->
                 <div>
@@ -210,40 +211,42 @@
         <h3 class="modal-title" id="exampleModalLabel">SỬA THÔNG TIN CÁ NHÂN</h3>
         <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <form [formGroup]="formUpdate" (ngSubmit)="updateInfo()">
       <div class="modal-body">
-        <form>
           <div class="container">
+            <input formControlName="accountId" type="hidden">
             <div class="row align-items-center mb-5 mt-2">
               <label class="col-3" for="name" style="font-weight: bold">Họ và tên:</label>
               <div class="col-9">
-                <input class="form-control col-4" id="name" type="text" >
+                <input class="form-control col-4" id="name" formControlName="name" type="text" >
               </div>
             </div>
             <div class="row align-items-center mb-5">
               <label class="col-3" for="phoneNumber" style="font-weight: bold">Số điện thoại:</label>
               <div class="col-9">
-                <input class="form-control col-4" id="phoneNumber" type="text" >
+                <input class="form-control col-4" id="phoneNumber" formControlName="phoneNumber" type="text" >
               </div>
             </div>
             <div class="row align-items-center mb-5">
               <label class="col-3" for="email" style="font-weight: bold">Email:</label>
               <div class="col-9">
-                <input class="form-control col-4" id="email" type="text" >
+                <input class="form-control col-4" id="email" formControlName="email" type="text" >
               </div>
             </div>
             <div class="row align-items-center mb-2">
               <label class="col-3" for="address" style="font-weight: bold">Địa chỉ:</label>
               <div class="col-9">
-                <input class="form-control col-4" id="address" type="text" >
+                <input class="form-control col-4" id="address" formControlName="address" type="text" >
               </div>
             </div>
           </div>
-        </form>
+
       </div>
       <div class="modal-footer justify-content-center">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng lại</button>
-        <button type="button" class="btn btn-warning">Lưu thông tin</button>
+        <button id="close" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng lại</button>
+        <button type="submit" class="btn btn-warning">Lưu thông tin</button>
       </div>
+      </form>
     </div>
   </div>
 </div>
@@ -257,7 +260,7 @@
         <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <table class="table table-bordered table-hover" style="background-color: white">
+        <table *ngIf="cartList" class="table table-bordered table-hover" style="background-color: white">
           <thead class="table-primary">
           <tr class="text-center">
             <th scope="col">STT</th>

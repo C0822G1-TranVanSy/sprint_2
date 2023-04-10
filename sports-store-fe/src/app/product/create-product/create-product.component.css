@@ -140,7 +140,23 @@ body{
   display: block;
 }
 
-.wrapper .form .inputfield .btn{
+.wrapper .form .inputfield .back .btn{
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 15px;
+  border: 0px;
+  background: #7d7a6e;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 3px;
+  outline: none;
+}
+
+.wrapper .form .inputfield .back .btn:hover{
+  background: #896860;
+}
+
+.wrapper .form .inputfield .ok .btn{
   width: 100%;
   padding: 8px 10px;
   font-size: 15px;
@@ -152,7 +168,7 @@ body{
   outline: none;
 }
 
-.wrapper .form .inputfield .btn:hover{
+.wrapper .form .inputfield .ok .btn:hover{
   background: #FF523b;
 }
 

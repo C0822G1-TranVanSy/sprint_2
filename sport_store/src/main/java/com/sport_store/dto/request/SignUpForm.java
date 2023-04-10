@@ -7,6 +7,7 @@ public class SignUpForm {
     private String username;
     private String email;
     private String password;
+    private String confirmPassword;
     private Set<String> roles;
 
     public SignUpForm() {
@@ -58,5 +59,13 @@ public class SignUpForm {
 
     public void setRoles(Set<String> roles) {
         this.roles = roles;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 }

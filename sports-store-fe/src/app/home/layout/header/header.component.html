@@ -1,7 +1,7 @@
 
 <section class="header" style="position: sticky; top: 0; z-index: 999">
   <nav >
-    <div class="logo">
+    <div class="logo ms-4">
       <a routerLink="/">
       <img class="animationTop delay-01" src="/assets/images/logo.png" style=" background-size: cover"/></a>
     </div>
@@ -26,7 +26,7 @@
             </div>
           </a>
         </li>
-        <li class="animationTop delay-03"><a>QUẢN LÝ ĐẶT SÂN</a>
+        <li class="animationTop delay-03" ><a routerLink="/body/introduce">GIỚI THIỆU</a>
         </li>
         <li class="animationTop delay-03" *ngIf="role=='ROLE_ADMIN'"><a routerLink="product/create">THÊM SẢN PHẨM</a>
         </li>
@@ -64,5 +64,9 @@
       </ul>
     </div>
   </nav>
-
+  <div class="scroll-to-top zoom" *ngIf="pageYoffSet > 0">
+    <a class="btn ga" (click)="scrollToTop()" style="background-color: rgba(245,52,18,0.48)">
+      <i class="fas fa-angle-double-up" style="width: 30px; height: 40px; color: #eeeeee; padding-top: 10px"></i>
+    </a>
+  </div>
 </section>

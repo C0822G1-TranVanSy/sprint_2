@@ -19,6 +19,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -39,15 +41,38 @@ public class ProductRestController {
         return new ResponseEntity<>(productDtoList,HttpStatus.OK);
     }
 
-    @GetMapping("/page")
-    public ResponseEntity<Page<IProductDto>> getAllProduct(@PageableDefault(size = 4) Pageable pageable, @RequestParam("name") String name){
+    @PostMapping("/page1")
+    public ResponseEntity<Page<IProductDto>> getAllProduct(@PageableDefault(size = 4) Pageable pageable,
+                                                           @RequestParam("name") String name,
+                                                           @RequestBody String[] list){
         Page<IProductDto> productDtoPage = null;
-        productDtoPage = iProductService.searchAllProductByName(pageable,name);
-        if(productDtoPage.isEmpty()){
+        List<Integer> list1 = new ArrayList<>();
+        for (String s: list) {
+            list1.add(Integer.valueOf(s.split("-")[0]));
+            list1.add(Integer.valueOf(s.split("-")[1]));
+        }
+        if(list1.size() == 0){
+            productDtoPage = iProductService.searchAllProductByName(pageable,name);
+        }else {
+            productDtoPage = iProductService.searchAllProductByNameAndPrice(pageable, name, Collections.min(list1).toString(), Collections.max(list1).toString());
+        }
+        if(productDtoPage.getContent().isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(productDtoPage,HttpStatus.OK);
     }
+
+//    @GetMapping("/page")
+//    public ResponseEntity<Page<IProductDto>> getAllProduct(@PageableDefault(size = 4) Pageable pageable,
+//                                                           @RequestParam("name") String name
+//                                                        ){
+//        Page<IProductDto> productDtoPage = null;
+//        productDtoPage = iProductService.searchAllProductByName(pageable,name);
+//        if(productDtoPage.isEmpty()){
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        }
+//        return new ResponseEntity<>(productDtoPage,HttpStatus.OK);
+//    }
 
     @GetMapping("/detail/{productId}")
     public ResponseEntity<?> findProductById(@PathVariable Long productId){

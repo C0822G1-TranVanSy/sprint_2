@@ -7,6 +7,7 @@ import {CategoryService} from '../../service/product/category.service';
 import {TokenStorageService} from '../../service/security/token-storage.service';
 import Swal from "sweetalert2";
 import {ViewportScroller} from "@angular/common";
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-search-product',
@@ -32,7 +33,9 @@ export class SearchProductComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private categoryService: CategoryService,
               private tokenStorageService: TokenStorageService,
-              private scroll: ViewportScroller) {
+              private scroll: ViewportScroller,
+              private title: Title) {
+    this.title.setTitle('Tìm kiếm');
     if(this.tokenStorageService.getRole()){
       this.role = this.tokenStorageService.getRole()[0];
     }

@@ -6,4 +6,5 @@ public interface IBestProductDto {
     String getDescription();
     Double getPrice();
     String getAvatar();
+    Integer getTotal();
 }

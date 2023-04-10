@@ -110,9 +110,10 @@ nav .fa {
   }
 }
 .scroll-to-top{
+  top: 50%;
   position: fixed;
   z-index: 1;
-  margin-left: 98%;
+  margin-left: 95%;
 }
 
 @keyframes showtop{
@@ -248,3 +249,13 @@ ul.dropdown-menu li a.dropdown {
   text-align: center;
 }
 
+/*search*/
+.zoom{
+  transform: scale(1);
+  transition: 0.4s;
+}
+.zoom:hover{
+  transform: scale(1.2);
+  background-color: rgba(239, 2, 2, 0.9);
+  border-radius: 5px;
+}

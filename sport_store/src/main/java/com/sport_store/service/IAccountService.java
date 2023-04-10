@@ -23,4 +23,7 @@ public interface IAccountService {
 
     void changeAvatar(Long accountId, String ava);
 
+    void changeInfo(Long accountId,String name,
+                    String phoneNumber,String address,String email);
+
 }

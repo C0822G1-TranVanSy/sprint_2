@@ -1,8 +1,6 @@
 package com.sport_store.controller;
 
-import com.sport_store.dto.product.IProductDto;
 import com.sport_store.dto.warehouse.IWareHouseDto;
-import com.sport_store.entity.warehouse.Warehouse;
 import com.sport_store.service.IWareHouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

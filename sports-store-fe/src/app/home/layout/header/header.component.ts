@@ -55,10 +55,10 @@ export class HeaderComponent implements OnInit {
           this.order = next;
           this.totalQuantity = this.getTotalQuantityBE(this.order.orderId);
         });
+        this.getInfoByAccountId();
       }
     });
     this.shareService.getClickEvent().subscribe(next => {
-      this.getInfoByAccountId();
       this.cartList = this.tokenStorageService.getCart();
       this.totalQuantity = this.getQuantity();
     })
@@ -72,13 +72,13 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getInfoByAccountId();
     this.role = this.getRole();
     this.cartList = this.tokenStorageService.getCart();
       this.shareService.getClickEvent().subscribe(next => {
         this.role = this.getRole();
       })
-    if(this.isLoggedIn){
+    if(this.tokenStorageService.getToken()){
+      this.getInfoByAccountId();
       this.orderService.findOrderByAccountId(parseInt(this.tokenStorageService.getIdAccount())).subscribe(next => {
         this.order = next;
         this.totalQuantity =this.getTotalQuantityBE(this.order.orderId);

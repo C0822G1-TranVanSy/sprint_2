@@ -7,6 +7,7 @@ import {Category} from '../../entity/product/category';
 import {finalize} from 'rxjs/operators';
 import {ProductService} from '../../service/product/product.service';
 import Swal from "sweetalert2";
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-create-product',
@@ -24,7 +25,9 @@ export class CreateProductComponent implements OnInit {
               private router: Router,
               private activatedRoute: ActivatedRoute,
               private categoryService: CategoryService,
-              private productService: ProductService) {
+              private productService: ProductService,
+              private title: Title) {
+    this.title.setTitle('Thêm sản phẩm')
     this.categoryService.getAllCategory().subscribe(next => {
       this.categoryList = next;
     })

@@ -83,10 +83,10 @@ public class AuthRestController {
     public ResponseEntity<?> register(@Valid @RequestBody SignUpForm signUpForm) {
         if (iAccountService.existsAccountByUsername(signUpForm.getUsername())) {
             return new ResponseEntity<>(new ResponseMessage("Tên đăng nhập " + signUpForm.getUsername() +
-                    " đã được sử dụng, vui lòng chọn tên khác"), HttpStatus.BAD_REQUEST);
+                    " đã được sử dụng, vui lòng chọn tên khác."), HttpStatus.BAD_REQUEST);
         }
         if (iAccountService.existsAccountByEmail(signUpForm.getEmail())) {
-            return new ResponseEntity<>(new ResponseMessage("Email đã tồn tại"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ResponseMessage("Email đã tồn tại."), HttpStatus.BAD_REQUEST);
         }
         Account account = new Account(signUpForm.getUsername(), passwordEncoder.encode(signUpForm.getPassword()), signUpForm.getName(), signUpForm.getEmail());
         Set<Role> roles = new HashSet<>();
@@ -94,7 +94,7 @@ public class AuthRestController {
         roles.add(role);
         account.setRoles(roles);
         iAccountService.save(account);
-        return new ResponseEntity<>(new ResponseMessage("Đăng kí thành công"), HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseMessage("Đăng kí thành công."), HttpStatus.OK);
     }
 
     @PatchMapping("/change-password")
@@ -115,6 +115,16 @@ public class AuthRestController {
     @PatchMapping("/updateAvatar")
     public ResponseEntity<?> changeAvatar(@RequestBody Account account) {
         iAccountService.changeAvatar(account.getAccountId(), account.getAvatar());
+        return new ResponseEntity<>( HttpStatus.OK);
+    }
+
+    @PutMapping("/updateInfo")
+    public ResponseEntity<?> changeInfo(@RequestBody Account account) {
+        Account account1 = iAccountService.findByUserId(account.getAccountId()).orElse(null);
+        if(account1 == null) {
+            return new ResponseEntity<>( HttpStatus.NOT_FOUND);
+        }
+        iAccountService.changeInfo(account.getAccountId(), account.getName(),account.getPhoneNumber(),account.getAddress(),account.getEmail());
         return new ResponseEntity<>( HttpStatus.OK);
     }
 }

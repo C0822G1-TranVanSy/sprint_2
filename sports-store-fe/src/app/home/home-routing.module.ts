@@ -6,6 +6,7 @@ import {CartComponent} from './body/cart/cart.component';
 import {ErrorComponent} from './error/error.component';
 import {PaymentComponent} from './body/payment/payment.component';
 import {CustomerGuard} from '../authguard/customer.guard';
+import {IntroduceComponent} from './layout/introduce/introduce.component';
 
 const routes: Routes = [
   {path: '', component: BodyComponent},
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'cart', component: CartComponent},
   {path: 'error', component: ErrorComponent},
   {path: 'payment', component: PaymentComponent, canActivate:[CustomerGuard]},
+  {path: 'introduce', component: IntroduceComponent},
 ];
 
 @NgModule({

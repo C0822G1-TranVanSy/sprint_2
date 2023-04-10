@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -27,12 +28,6 @@ public class OrderRestController {
 
     @Autowired
     private IPurchaseHistoryService iPurchaseHistoryService;
-
-//    @PostMapping("/order")
-//    public ResponseEntity<?> order(@RequestBody BillDto billDto){
-//        System.out.println(billDto);
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
 
     @GetMapping("/detail/{accountId}")
     public ResponseEntity<Orders> findById(@PathVariable Long accountId) {
@@ -118,6 +113,7 @@ public class OrderRestController {
     }
 
     @PutMapping("/pay")
+    @PreAuthorize("hasAuthority('ROLE_CUSTOMER')")
     public ResponseEntity<?> payAllByOrderId(@RequestBody OrderPaymentDto orderPaymentDto) {
         Orders orders = iOrderService.findById(orderPaymentDto.getOrderId()).orElse(null);
         if (orders == null) {

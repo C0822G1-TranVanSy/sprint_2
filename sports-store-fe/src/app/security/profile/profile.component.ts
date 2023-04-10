@@ -12,6 +12,8 @@ import {AngularFireStorage} from '@angular/fire/storage';
 import Swal from 'sweetalert2';
 import {Orders} from '../../entity/order/orders';
 import {Cart} from '../../entity/order/cart';
+import {FormControl, FormGroup} from '@angular/forms';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-profile',
@@ -20,11 +22,10 @@ import {Cart} from '../../entity/order/cart';
 })
 export class ProfileComponent implements OnInit {
   account: Account = {
-    accountId: 0, username: '',
+    accountId: parseInt(this.tokenStorageService.getIdAccount()), username: '',
     email: '', phoneNumber: '', address: '', name: '', avatar: ''
   };
   namePro = '';
-
   selectedImage: any = null;
   categoryId = '';
   selectedFileUrl: any;
@@ -35,7 +36,7 @@ export class ProfileComponent implements OnInit {
   orderPage: any;
   page = 0;
   cartList: Cart[] = [];
-  orderId = 0;
+  formUpdate: FormGroup;
 
   constructor(@Inject(AngularFireStorage) private storage: AngularFireStorage,
               private tokenStorageService: TokenStorageService,
@@ -43,7 +44,23 @@ export class ProfileComponent implements OnInit {
               private orderService: OrderService,
               private toast: ToastrService,
               private securityService: SecurityService,
-              private router: Router) {
+              private router: Router,
+              private title: Title) {
+    this.title.setTitle('Trang cá nhân')
+    this.formUpdate = new FormGroup({
+      accountId: new FormControl(''),
+      name: new FormControl(''),
+      phoneNumber: new FormControl(''),
+      address: new FormControl(''),
+      email: new FormControl('')
+    })
+    this.securityService.getInfoByAccountId(parseInt(this.tokenStorageService.getIdAccount())).subscribe(next => {
+      this.account = next;
+      this.formUpdate.patchValue(next);
+    })
+    this.shareService.getClickEvent().subscribe(next => {
+      this.getInfoByAccountId();
+    })
   }
 
   ngOnInit(): void {
@@ -56,7 +73,6 @@ export class ProfileComponent implements OnInit {
     const id = parseInt(this.tokenStorageService.getIdAccount());
     this.orderService.findOrderPurchaseByAccountId(id, page).subscribe(next => {
       if(next){
-        console.log(next);
         this.orderList = next.content;
         this.orderPage = next;
       }
@@ -105,26 +121,29 @@ export class ProfileComponent implements OnInit {
             }
             this.src = url;
             console.log(this.src);
-            this.securityService.updateAvatar( this.account.accountId, this.src).subscribe(() => {
-              this.shareService.sendClickEvent();
-              Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Thông báo!',
-                text: 'Chỉnh sửa ảnh thành công.',
-                showConfirmButton: false,
-                timer: 2000
+            if(url){
+              this.securityService.updateAvatar( this.account.accountId, this.src).subscribe(() => {
+                this.shareService.sendClickEvent();
+                Swal.fire({
+                  position: 'center',
+                  icon: 'success',
+                  title: 'Thông báo!',
+                  text: 'Chỉnh sửa ảnh thành công.',
+                  showConfirmButton: false,
+                  timer: 2000
+                });
+              }, error => {
+                Swal.fire({
+                  position: 'center',
+                  icon: 'error',
+                  title: 'Thông báo!',
+                  text: 'Chỉnh sửa ảnh thất bại.',
+                  showConfirmButton: false,
+                  timer: 2000
+                });
               });
-            }, error => {
-              Swal.fire({
-                position: 'center',
-                icon: 'error',
-                title: 'Thông báo!',
-                text: 'Chỉnh sửa ảnh thất bại.',
-                showConfirmButton: false,
-                timer: 2000
-              });
-            });
+            }
+
           });
         })
       )
@@ -141,7 +160,34 @@ export class ProfileComponent implements OnInit {
     this.index = number;
   }
 
-  // getOrderId(orderId: number) {
-  //   this.orderId = orderId;
-  // }
+  updateInfo() {
+    if(this.formUpdate.valid){
+      this.securityService.updateInfo(this.formUpdate.value).subscribe(next => {
+        this.shareService.sendClickEvent();
+        // @ts-ignore
+        document.getElementById('close').click();
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Thông báo!',
+          text: 'Chỉnh sửa thông tin thành công.',
+          showConfirmButton: false,
+          timer: 2000
+        });
+      }, error => {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Thông báo!',
+          text: 'Chỉnh sửa thông tin thất bại.',
+          showConfirmButton: false,
+          timer: 2000
+        });
+      })
+    }
+  }
+
+  patchValue() {
+    this.formUpdate.patchValue(this.account);
+  }
 }

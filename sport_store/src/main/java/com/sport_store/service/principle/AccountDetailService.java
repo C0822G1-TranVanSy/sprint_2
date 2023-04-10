@@ -13,7 +13,6 @@ public class AccountDetailService implements UserDetailsService {
     @Autowired
     private IAccountRepository iAccountRepository;
 
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Account account = iAccountRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found " + username));

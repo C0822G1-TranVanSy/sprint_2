@@ -10,7 +10,6 @@ const EMAIL_KEY = 'Email_key';
 const AVATAR_KEY = 'Avatar_key';
 const USER_KEY = 'auth-user';
 const CART = 'cart';
-const DETAIL_ID = 'detail_id';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +19,6 @@ export class TokenStorageService {
   constructor() { }
   /**
    * Create by: SyTV
-   * Date create: 02/03/2023
    * funtion: logout
    *
    */
@@ -28,6 +26,7 @@ export class TokenStorageService {
   isLogged():boolean {
     return !!this.getToken()
   }
+
   logout() {
     window.localStorage.clear();
     window.sessionStorage.removeItem(TOKEN_KEY);
@@ -38,11 +37,9 @@ export class TokenStorageService {
     window.sessionStorage.removeItem(ID_ACCOUNT_KEY);
     window.sessionStorage.removeItem(AVATAR_KEY);
     window.sessionStorage.removeItem(USER_KEY);
-    window.sessionStorage.removeItem(DETAIL_ID);
   }
   /**
    * Create by: SyTV
-   * Date create: 02/03/2023
    * funtion: savetokenlocal
    *
    */
@@ -52,7 +49,6 @@ export class TokenStorageService {
   }
   /**
    * Create by: SyTV
-   * Date create: 02/03/2023
    * funtion: savetokensession
    *
    */
@@ -62,7 +58,6 @@ export class TokenStorageService {
   }
   /**
    * Create by: SyTV
-   * Date create: 02/03/2023
    * funtion: get token
    *
    */
@@ -75,7 +70,6 @@ export class TokenStorageService {
   }
   /**
    * Create by: SyTV
-   * Date create: 02/03/2023
    * funtion: saveUserLocal
    *
    */
@@ -97,7 +91,6 @@ export class TokenStorageService {
   }
   /**
    * Create by: SyTV
-   * Date create: 02/03/2023
    * funtion: saveUserSession
    *
    */
@@ -119,7 +112,6 @@ export class TokenStorageService {
   }
   /**
    * Create by: SyTV
-   * Date create: 02/03/2023
    * funtion:
    *
    */
@@ -131,7 +123,6 @@ export class TokenStorageService {
   }
   /**
    * Create by: SyTV
-   * Date create: 02/03/2023
    * funtion:
    *
    */
@@ -150,7 +141,6 @@ export class TokenStorageService {
   }
   /**
    * Create by: SyTV
-   * Date create: 02/03/2023
    * funtion:
    *
    */
@@ -162,7 +152,6 @@ export class TokenStorageService {
   }
   /**
    * Create by: SyTV
-   * Date create: 02/03/2023
    * funtion: getUser
    *
    */

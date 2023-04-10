@@ -59,49 +59,76 @@
 
 <div class="container mt-5 mb-5">
   <div class="gallary-header text-center">
-    <h1 style="width: 100%;background-color: #f7e296;height: 20px;"><p class="spbc"
+    <h1 style="width: 100%;background-color: #0076ad;height: 20px;"><p class="spbc"
                                                                        style="background-color: white;width: 50%;line-height: 3px;padding: 5px 5px 13px 5px;margin: auto">
-      Sản phẩm bán chạy
+      Top 12 sản phẩm bán chạy
     </p></h1>
   </div>
 </div>
-<!--<div class="row container-fluid">-->
-<!--  <div class="col-md-3 col-sm-6 col-12" *ngFor="let b of bestProductList">-->
-<!--    <figure class="snip1515 card1 card2">-->
-<!--      <div class="profile-image"><a type="button" [routerLink]="['/body/detail',b.productId]">-->
-<!--        <img [src]="b.avatar" style="width: 228px; height: 228px" alt="sample47"/></a>-->
-<!--      </div>-->
-<!--      <figcaption>-->
-<!--        <h5 class="text-uppercase">{{b.productName}}</h5>-->
-<!--        <b style="color: #fa8824">Giá: {{b.price | currency:'USD'}}</b>-->
-<!--        <b class="pull-right mb-2"-->
-<!--           style="color: #8c8c8c; text-decoration-line: line-through; display: block">{{b.price * 1.1 | currency:'USD'}}</b>-->
-<!--        <button class="btn btn-warning mb-1" [routerLink]="['/body/detail',b.productId]"-->
-<!--                target="_blank" style="font-size: small; width: 150px"><img-->
-<!--          src="https://img.icons8.com/pastel-glyph/64/null/briefcase&#45;&#45;v2.png"-->
-<!--          style="width: 15%"/> {{role == 'ROLE_ADMIN' ? 'xem chi tiết' : 'Thêm vào giỏ'}}-->
-<!--        </button>-->
-<!--      </figcaption>-->
-<!--    </figure>-->
-<!--  </div>-->
-<!--</div>-->
 
-<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+<div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
-    <div class="carousel-item active ">
+    <div class="carousel-item active" data-bs-interval="3000">
       <div class="row m-0">
-        <div class="col-md-3 col-sm-6 col-6 d-flex justify-content-center"
-             *ngFor="let b of bestProductList;index as i">
+        <div class="col-md-3 col-sm-6 col-6 d-flex justify-content-center" *ngFor="let list1 of bestProductList1">
           <figure class="snip1515 card1 card2">
-            <div class="profile-image"><a type="button" [routerLink]="['/body/detail',b.productId]">
-              <img [src]="b.avatar" style="width: 228px; height: 228px" alt="sample47"/></a>
+            <div class="profile-image" style="box-shadow: 0 0 5px 0 #2879d0"><a type="button" [routerLink]="['/body/detail',list1.productId]">
+              <img [src]="list1.avatar" style="width: 220px; height: 210px; box-shadow: 0 0 5px 0 #2879d0" alt="sample47"/></a>
             </div>
             <figcaption>
-              <h6 class="text-uppercase">{{b.productName | slice : 0: 20}}...</h6>
-              <b style="color: #fa8824">Giá: {{b.price | currency:'USD'}} </b>
+              <h6 class="text-uppercase">{{list1.productName | slice : 0: 20}}...</h6>
+              <b style="color: #fa8824; display: inline">Giá: {{list1.price | currency:'USD'}} </b>
               <b class="pull-right mb-2 small"
-                 style="color: #8c8c8c; text-decoration-line: line-through; display: block"> {{b.price * 1.1 | currency:'USD'}}</b>
-              <button class="btn btn-warning mb-1" [routerLink]="['/body/detail',b.productId]"
+                 style="color: #8c8c8c; text-decoration-line: line-through; display: inline"> {{list1.price * 1.1 | currency:'USD'}}</b>
+              <b class="mb-1" style="display: block; color: #aaaaaa">Số lượng đã bán: {{list1.total}}</b>
+              <button class="btn btn-warning mb-1" [routerLink]="['/body/detail',list1.productId]"
+                      target="_blank" style="font-size: small; width: 150px">
+                <img src="https://img.icons8.com/pastel-glyph/64/null/briefcase--v2.png"
+                     style="width: 15%"/> {{role == 'ROLE_ADMIN' ? 'xem chi tiết' : 'Thêm vào giỏ'}}
+              </button>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item" data-bs-interval="3000">
+      <div class="row m-0">
+        <div class="col-md-3 col-sm-6 col-6 d-flex justify-content-center" *ngFor="let list1 of bestProductList2">
+          <figure class="snip1515 card1 card2">
+            <div class="profile-image" style="box-shadow: 0 0 5px 0 #2879d0"><a type="button" [routerLink]="['/body/detail',list1.productId]">
+              <img [src]="list1.avatar" style="width: 220px; height: 210px; box-shadow: 0 0 5px 0 #2879d0" alt="sample47"/></a>
+            </div>
+            <figcaption>
+              <h6 class="text-uppercase">{{list1.productName | slice : 0: 20}}...</h6>
+              <b style="color: #fa8824; display: inline">Giá: {{list1.price | currency:'USD'}} </b>
+              <b class="pull-right mb-2 small"
+                 style="color: #8c8c8c; text-decoration-line: line-through; display: inline"> {{list1.price * 1.1 | currency:'USD'}}</b>
+              <b class="mb-1" style="display: block; color: #aaaaaa">Số lượng đã bán: {{list1.total}}</b>
+              <button class="btn btn-warning mb-1" [routerLink]="['/body/detail',list1.productId]"
+                      target="_blank" style="font-size: small; width: 150px">
+                <img src="https://img.icons8.com/pastel-glyph/64/null/briefcase--v2.png"
+                     style="width: 15%"/> {{role == 'ROLE_ADMIN' ? 'xem chi tiết' : 'Thêm vào giỏ'}}
+              </button>
+            </figcaption>
+          </figure>
+        </div>
+
+      </div>
+    </div>
+    <div class="carousel-item" data-bs-interval="3000">
+      <div class="row m-0">
+        <div class="col-md-3 col-sm-6 col-6 d-flex justify-content-center" *ngFor="let list1 of bestProductList3">
+          <figure class="snip1515 card1 card2">
+            <div class="profile-image" style="box-shadow: 0 0 5px 0 #2879d0"><a type="button" [routerLink]="['/body/detail',list1.productId]">
+              <img [src]="list1.avatar" style="width: 220px; height: 210px; box-shadow: 0 0 5px 0 #2879d0" alt="sample47"/></a>
+            </div>
+            <figcaption>
+              <h6 class="text-uppercase">{{list1.productName | slice : 0: 20}}...</h6>
+              <b style="color: #fa8824; display: inline">Giá: {{list1.price | currency:'USD'}} </b>
+              <b class="pull-right mb-2 small"
+                 style="color: #8c8c8c; text-decoration-line: line-through; display: inline"> {{list1.price * 1.1 | currency:'USD'}}</b>
+              <b class="mb-1" style="display: block; color: #aaaaaa">Số lượng đã bán: {{list1.total}}</b>
+              <button class="btn btn-warning mb-1" [routerLink]="['/body/detail',list1.productId]"
                       target="_blank" style="font-size: small; width: 150px">
                 <img src="https://img.icons8.com/pastel-glyph/64/null/briefcase--v2.png"
                      style="width: 15%"/> {{role == 'ROLE_ADMIN' ? 'xem chi tiết' : 'Thêm vào giỏ'}}
@@ -112,81 +139,21 @@
       </div>
     </div>
   </div>
-  <button *ngIf="!first" (click)="getBestProduct(bestPage.number - 1)" class="carousel-control-prev" type="button"
-          data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" style="background-color: #000000; padding: 20px" aria-hidden="true"></span>
+  <button class="carousel-control-prev " type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+    <span style="background-color: #16cfe0; width: 30px;height: 50px; border-radius: 15%"
+          class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Previous</span>
   </button>
-  <button *ngIf="!last" (click)="getBestProduct(bestPage.number + 1)" class="carousel-control-next" type="button"
-          data-bs-target="#carouselExampleFade" data-bs-slide="next">
-    <span class="carousel-control-next-icon" style="background-color: #000000; padding: 20px" aria-hidden="true"></span>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+    <span style="background-color: #16cfe0; width: 30px;height: 50px; border-radius: 15%"
+          class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Next</span>
   </button>
 </div>
 
-<!--        Phân trang-->
-<!--  <div >-->
-<!--    <div *ngIf="bestProductList" class="d-flex justify-content-center" id="last-row">-->
-<!--      <nav aria-label="Page navigation example">-->
-<!--        <ul class="pagination">-->
-<!--          <li class="page-item" [ngClass]="first ? 'disabled': ''">-->
-<!--            <a role="button" class="page-link" (click)="getBestProduct(0)">Trang đầu</a>-->
-<!--          </li>-->
-<!--          <li class="page-item" [ngClass]="first ? 'disabled': ''">-->
-<!--            <a role="button" class="page-link" (click)="getBestProduct(bestPage.number - 1)"><</a>-->
-<!--          </li>-->
-<!--          <li class="page-item" *ngIf="bestPage.number - 3 > 0">-->
-<!--            <a role="button" class="page-link"-->
-<!--               (click)="getBestProduct(bestPage.number - 4)">{{bestPage.number - 3}}</a>-->
-<!--          </li>-->
-<!--          <li class="page-item" *ngIf="bestPage.number - 2 > 0">-->
-<!--            <a role="button" class="page-link"-->
-<!--               (click)="getBestProduct(bestPage.number - 3)">{{bestPage.number - 2}}</a>-->
-<!--          </li>-->
-<!--          <li class="page-item" *ngIf="bestPage.number - 1 > 0">-->
-<!--            <a role="button" class="page-link"-->
-<!--               (click)="getBestProduct(bestPage.number - 2)">{{bestPage.number - 1}}</a>-->
-<!--          </li>-->
-<!--          <li class="page-item" *ngIf="bestPage.number > 0">-->
-<!--            <a role="button" class="page-link"-->
-<!--               (click)="getBestProduct(bestPage.number - 1)">{{bestPage.number}}</a>-->
-<!--          </li>-->
-<!--          <li class="page-item active"><a class="page-link">{{bestPage.number + 1}}</a></li>-->
-<!--          <li class="page-item" *ngIf="bestPage.number + 2 <= bestPage.totalPages">-->
-<!--            <a role="button" class="page-link"-->
-<!--               (click)="getBestProduct(bestPage.number + 1)">{{bestPage.number + 2}}</a>-->
-<!--          </li>-->
-<!--          <li class="page-item" *ngIf="bestPage.number + 3 <= bestPage.totalPages">-->
-<!--            <a role="button" class="page-link"-->
-<!--               (click)="getBestProduct(bestPage.number + 2)">{{bestPage.number + 3}}</a>-->
-<!--          </li>-->
-<!--          <li class="page-item" *ngIf="bestPage.number + 4 <= bestPage.totalPages">-->
-<!--            <a role="button" class="page-link"-->
-<!--               (click)="getBestProduct(bestPage.number + 3)">{{bestPage.number + 4}}</a>-->
-<!--          </li>-->
-<!--          <li class="page-item" *ngIf="bestPage.number + 5 <= bestPage.totalPages">-->
-<!--            <a role="button" class="page-link"-->
-<!--               (click)="getBestProduct(bestPage.number + 4)">{{bestPage.number + 5}}</a>-->
-<!--          </li>-->
-<!--          <li class="page-item" [ngClass]="bestPage.last ? 'disabled': ''">-->
-<!--            <a role="button" class="page-link"-->
-<!--               (click)="getBestProduct(bestPage.number + 1)">></a>-->
-<!--          </li>-->
-<!--          <li class="page-item" [ngClass]="bestPage.last ? 'disabled': ''">-->
-<!--            <a role="button" class="page-link"-->
-<!--               (click)="getBestProduct(bestPage.totalPages - 1)">-->
-<!--              Trang cuối-->
-<!--            </a>-->
-<!--          </li>-->
-<!--        </ul>-->
-<!--      </nav>-->
-<!--    </div>-->
-<!--  </div>-->
-
-
 <div class="container mt-5 mb-5">
   <div class="gallary-header text-center">
-    <h1 style="width: 100%;background-color: #f7e296;height: 20px;"><p class="cmtt"
+    <h1 style="width: 100%;background-color: #0076ad;height: 20px;"><p class="cmtt"
                                                                        style="background-color: white;width: 50%;line-height: 2px;padding: 5px 5px 13px 5px;margin: auto">
       Các môn thể thao
     </p></h1>
@@ -195,119 +162,162 @@
 
 <div class="row m-2 filtr-container">
   <div class="col-md-3 col-sm-6 filtr-item">
-    <a routerLink="product/search/-1"><img src="/assets/images/mon1.png" class="card-img-top" alt="..."></a>
+    <a routerLink="product/search/-1"><img src="/assets/images/mon1.png" style="box-shadow: 0 0 10px 0 #b36800" class="card-img-top" alt="..."></a>
   </div>
   <div class="col-md-3 col-sm-6 filtr-item">
-    <a routerLink="product/search/1"><img src="/assets/images/mon2.png" class="card-img-top" alt="..."></a>
+    <a routerLink="product/search/1"><img src="/assets/images/mon2.png" style="box-shadow: 0 0 10px 0 #b36800" class="card-img-top" alt="..."></a>
   </div>
   <div class="col-md-3 col-sm-6 filtr-item">
-    <a routerLink="product/search/4"><img src="/assets/images/mon3.png" class="card-img-top" alt="..."></a>
+    <a routerLink="product/search/4"><img src="/assets/images/mon3.png" style="box-shadow: 0 0 10px 0 #b36800" class="card-img-top" alt="..."></a>
   </div>
   <div class="col-md-3 col-sm-6 filtr-item">
-    <a routerLink="product/search/3"><img src="/assets/images/mon4.png" class="card-img-top" alt="..."></a>
+    <a routerLink="product/search/3"><img src="/assets/images/mon4.png" style="box-shadow: 0 0 10px 0 #b36800" class="card-img-top" alt="..."></a>
   </div>
 </div>
 
-<div class="d-flex offset-3 col-6 zoom mt-5">
-  <input class="form-control me-2" [(ngModel)]="productName" type="search" placeholder="Bạn cần tìm gì?"
-         aria-label="Search" style="border-color: #0076ad">
-  <button class="btn btn-primary" (click)="searchAllProductByProductName(size)" type="button"
-          style="border-radius: 50%"><i class="fa-brands fa-searchengin"></i></button>
-</div>
 
 <section id="pack" class="packages">
-  <div class="container">
+  <div class="container-fluid">
     <div class="gallary-header text-center">
-      <h1 style="width: 100%;background-color: #f7e296;height: 20px;"><p class="phukien"
+      <h1 style="width: 100%;background-color: #0076ad;height: 20px;"><p class="phukien"
                                                                          style="background-color: white;width: 50%;line-height: 3px;padding: 5px 5px 13px 5px;margin: auto">
         Phụ kiện thể thao
       </p></h1>
     </div>
+    <div class="d-flex offset-3 col-6 zoom mt-5">
+      <input class="form-control me-2" [(ngModel)]="productName" (change)="searchPrice($event, size)" type="search"
+             placeholder="Bạn cần tìm gì?"
+             aria-label="Search" style="border-color: #0076ad">
+      <button class="btn btn-primary" (click)="searchPrice($event, size)" type="button"
+              style="border-radius: 50%"><i class="fa-brands fa-searchengin"></i></button>
+    </div>
     <div class="packages-content">
-      <div class="row" *ngIf="productPage; else elseBlock">
-        <div class="col-md-3 col-sm-6 col-6 col-lg-3" *ngFor="let item of productList">
-          <div class="single-package-item item1" style="background-color: #295d76; border-radius: 10%">
-            <div *ngIf="role=='ROLE_ADMIN'" style="position: absolute; top: 10px ; right: 15px; z-index: 1">
-              <a type="button" (click)="getItemProduct(item.productId, item.productName)" style="border-radius: 50%"
-                 class=" btn btn-danger" data-bs-toggle="modal"
-                 data-bs-target="#exampleModal"><i
-                class="fas fa-times"></i></a>
+      <div class="row">
+        <div class="border-bottom border-top col-md-2 col-12"
+             style="background-color: #f1eeeb; opacity: 0.8; color: #ee7307">
+          <h5 class="mb-4 text-center p-2">Tìm kiếm theo giá</h5>
+          <form [formGroup]="formPrice">
+            <div>
+              <div class="custom-control custom-radio row mb-3">
+                <div class="col-1">
+                  <input type="checkbox" value="0-2000000" (change)="searchPrice($event, size)"
+                         class="custom-control-input" id="all">
+                </div>
+                <label class="custom-control-label col-5" for="all">Tất cả</label>
+                <div class="col-5">
+                  <span class=" badge border font-weight-normal" style="color: #b36800"> {{search}} sản phẩm</span>
+                </div>
+              </div>
+              <div class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv">
+                <div class="col-1">
+                  <input type="checkbox" value="0-500" (change)="searchPrice($event, size)" class="custom-control-input"
+                         id="price1">
+                </div>
+                <label class="custom-control-label col-5" for="price1">0-500</label>
+                <div class="offset-5">
+                </div>
+              </div>
+              <div class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv">
+                <div class="col-1">
+                  <input type="checkbox" value="500-1000" (change)="searchPrice($event, size)"
+                         class="custom-control-input"
+                         id="price3">
+                </div>
+                <label class="custom-control-label col-5" for="price3">500-1000</label>
+                <div class="offset-5">
+                </div>
+              </div>
+              <div class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv">
+                <div class="col-1">
+                  <input type="checkbox" value="1000-2000" (change)="searchPrice($event, size)"
+                         class="custom-control-input"
+                         id="price2">
+                </div>
+                <label class="custom-control-label col-5" for="price2">1000-2000</label>
+                <div class="offset-5">
+                </div>
+              </div>
+              <div class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv">
+                <div class="col-1">
+                  <input type="checkbox" value="2000-2000000" (change)="searchPrice($event, size)"
+                         class="custom-control-input"
+                         id="price4">
+                </div>
+                <label class="custom-control-label col-5" for="price4">Trên 2000</label>
+                <div class="offset-5">
+                </div>
+              </div>
             </div>
-            <img [src]="item.avatar" class="image" style="height: 240px; border-radius: 10%"
-                 alt="package-place">
-            <div class="middle">
-              <!--              <button class="btn btn-warning mb-3" [routerLink]="['/body/detail',item.productId]"-->
-              <!--                      style="font-size: small" target="_blank"><img-->
-              <!--                src="https://img.icons8.com/ios-glyphs/30/null/view-file.png" style="width: 20%"/> Chi tiết-->
-              <!--              </button>-->
-              <button class="btn btn-warning mb-2" [routerLink]="['/body/detail',item.productId]"
-                      target="_blank" style="font-size: small; width: 150px"><img
-                src="https://img.icons8.com/pastel-glyph/64/null/briefcase--v2.png"
-                style="width: 15%"/> {{role == 'ROLE_ADMIN' ? 'xem chi tiết' : 'Thêm vào giỏ'}}
-              </button>
-              <button [routerLink]="['/product/update',item.productId]" *ngIf="role=='ROLE_ADMIN'"
-                      class="btn btn-warning mb-2" target="_blank" style="font-size: small"><img
-                src="https://img.icons8.com/external-tanah-basah-glyph-tanah-basah/48/null/external-edit-social-media-ui-tanah-basah-glyph-tanah-basah.png"
-                style="width: 15%"/> Chỉnh sửa
-              </button>
-            </div>
-            <div class="single-package-item-txt text-center">
-              <h3 class="text-uppercase name" style="height: 100px;">{{item.productName}}</h3>
-              <b class="pull-right" style="color: #fa8824">Giá: {{item.price | currency:'USD'}} </b>
-              <b class="pull-right"
-                 style="color: #8c8c8c; text-decoration-line: line-through; display: block">{{item.price * 1.1 | currency:'USD'}}</b>
+          </form>
+        </div>
+        <div class="col-md-10">
+          <div class="row" *ngIf="productPage; else elseBlock">
+            <div class="col-md-3 col-sm-6 col-6" *ngFor="let item of productList">
+              <div class="single-package-item item1"
+                   style="background-color: #295d76; border-radius: 10%; box-shadow: 0 0 5px 0 #2879d0 ">
+                <div *ngIf="role=='ROLE_ADMIN'" style="position: absolute; top: 10px ; right: 15px; z-index: 1">
+                  <a type="button" (click)="getItemProduct(item.productId, item.productName)" style="border-radius: 50%"
+                     class=" btn btn-danger" data-bs-toggle="modal"
+                     data-bs-target="#exampleModal"><i
+                    class="fas fa-times"></i></a>
+                </div>
+                <img [src]="item.avatar" class="image" style="height: 240px; border-radius: 10%"
+                     alt="package-place">
+                <div class="middle">
+                  <!--              <button class="btn btn-warning mb-3" [routerLink]="['/body/detail',item.productId]"-->
+                  <!--                      style="font-size: small" target="_blank"><img-->
+                  <!--                src="https://img.icons8.com/ios-glyphs/30/null/view-file.png" style="width: 20%"/> Chi tiết-->
+                  <!--              </button>-->
+                  <button class="btn btn-warning mb-2" [routerLink]="['/body/detail',item.productId]"
+                          target="_blank" style="font-size: small; width: 150px"><img
+                    src="https://img.icons8.com/pastel-glyph/64/null/briefcase--v2.png"
+                    style="width: 15%"/> {{role == 'ROLE_ADMIN' ? 'Xem chi tiết' : 'Thêm vào giỏ'}}
+                  </button>
+                  <button [routerLink]="['/product/update',item.productId]" *ngIf="role=='ROLE_ADMIN'"
+                          class="btn btn-warning mb-2" target="_blank" style="font-size: small"><img
+                    src="https://img.icons8.com/external-tanah-basah-glyph-tanah-basah/48/null/external-edit-social-media-ui-tanah-basah-glyph-tanah-basah.png"
+                    style="width: 15%"/> Chỉnh sửa
+                  </button>
+                </div>
+                <div class="single-package-item-txt text-center">
+                  <h3 class="text-uppercase name" style="height: 70px;">{{item.productName | slice : 0 : 35}}...</h3>
+                  <b class="pull-right" style="color: #fa8824">Giá: {{item.price | currency:'USD'}} </b>
+                  <b class="pull-right small"
+                     style="color: #8c8c8c; text-decoration-line: line-through; display: block">{{item.price * 1.1 | currency:'USD'}}</b>
+                </div>
+              </div>
             </div>
           </div>
+          <div class="text-center" *ngIf="productPage">
+            <a style="cursor: pointer; color: #0076ad; text-decoration: none; font-size: large" type="button"
+               (click)="searchPrice($event, size+4)" *ngIf="!last">
+              <img
+                src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/null/external-arrow-down-web-flaticons-lineal-color-flat-icons-4.png"
+                style="width: 30px"/><br>
+              Xem thêm
+            </a>
+            <a style="cursor: pointer; color: #0076ad; text-decoration: none;font-size: large" type="button"
+               (click)="searchPrice($event, 4)" (change)="scrollToBlog()" *ngIf="last">
+              <img
+                src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/null/external-arrow-up-web-flaticons-lineal-color-flat-icons-4.png"
+                style="width: 30px"/>
+              <br>
+              Ẩn bớt
+            </a>
+          </div>
         </div>
-        <div class="text-center">
-          <a style="cursor: pointer; color: #0076ad; text-decoration: none; font-size: large" type="button"
-             (click)="searchAllProductByProductName(size+4)" *ngIf="!last">
-            <img
-              src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/null/external-arrow-down-web-flaticons-lineal-color-flat-icons-4.png"
-              style="width: 30px"/><br>
-            Xem thêm
-          </a>
-          <a style="cursor: pointer; color: #0076ad; text-decoration: none;font-size: large" type="button"
-             (click)="searchAllProductByProductName(size=4)" (change)="scrollToBlog()" *ngIf="last">
-            <img
-              src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/null/external-arrow-up-web-flaticons-lineal-color-flat-icons-4.png"
-              style="width: 30px"/>
-            <br>
-            Ẩn bớt
-          </a>
-        </div>
+
       </div>
       <ng-template #elseBlock>
         <div class="text-center text-danger">Không tìm thấy danh sách</div>
       </ng-template>
     </div>
-
-
-    <div class="row">
-      <div class="border-bottom border-top col-md-3 col-12">
-        <h5 class="mb-4 text-center">Danh mục sản phẩm</h5>
-        <div class="custom-control custom-radio row mb-3">
-          <div class="col-2">
-            <input type="checkbox" checked name="category" class="custom-control-input" id="all">
-          </div>
-          <label class="custom-control-label col-6" for="all">Tất cả</label>
-          <div class="col-4">
-            <span class=" badge border font-weight-normal text-black"> sản phẩm</span>
-          </div>
-        </div>
-        <div class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3 acv">
-          <div class="col-2">
-            <input type="checkbox" name="category" class="custom-control-input" id="category">
-          </div>
-          <label class="custom-control-label col-6 " for="category">10000-20000</label>
-          <div class="offset-4">
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
-
+  <div class=" text-center mt-5">
+    <img src="https://vieclam123.vn/ckfinder/userfiles/images/images/phieu-danh-gia-su-hai-long-cua-khach(1).jpg">
+  </div>
 </section>
+
 
 <div class="global-notification-container container">
   <aside class="istock-colored-sale-notification-banner info">

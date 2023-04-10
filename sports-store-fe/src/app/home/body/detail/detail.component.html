@@ -26,13 +26,13 @@
           <p class="product-description">{{product.description}}</p>
           <h4 class="price">Giá: <span>{{product.price | currency:'USD'}} </span></h4>
           <p class="vote"><strong>91%</strong> người mua thích sản phẩm này! <strong>(87 phiếu)</strong></p>
-          <h5 class="size d-flex">
-            <label for="size" class="me-2 col-4">KÍCH CỠ: </label>
-              <select id="size" class="select form-select col-8" #size style="width: 24%" >
-<!--                <option value="">Chọn size</option>-->
-                <option *ngFor="let s of sizeList" [value]="s.sizeId">{{s.name}}</option>
-              </select>
-          </h5>
+<!--          <h5 class="size d-flex">-->
+<!--            <label for="size" class="me-2 col-4">KÍCH CỠ: </label>-->
+<!--              <select id="size" class="select form-select col-8" #size style="width: 24%" >-->
+<!--&lt;!&ndash;                <option value="">Chọn size</option>&ndash;&gt;-->
+<!--                <option *ngFor="let s of sizeList" [value]="s.sizeId">{{s.name}}</option>-->
+<!--              </select>-->
+<!--          </h5>-->
 
           <h5 class="colors d-flex" style="display: inline" >
             <div class="col-4">Số lượng: </div>
@@ -51,7 +51,7 @@
             </div>
           </h5>
           <h5 class="colors text-center">
-            <button class="add-to-cart btn btn-default" type="button" [disabled]="role=='ROLE_ADMIN'" (click)="addToCart(product.productId, quantity1.value, size.value,product)">
+            <button class="add-to-cart btn btn-default" type="button" [disabled]="role=='ROLE_ADMIN'" (click)="addToCart(product.productId, quantity1.value,product)">
               <img src="https://img.icons8.com/pastel-glyph/64/null/briefcase--v2.png" style="width: 15%"/>
               Thêm vào giỏ</button>
           </h5>

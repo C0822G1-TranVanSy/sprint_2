@@ -49,7 +49,8 @@ export class SecurityService {
       name: obj.name,
       username: obj.username,
       email: obj.email,
-      password: obj.password,
+      password: obj.pwGroup.password,
+      confirmPassword: obj.pwGroup.confirmPassword
     }, this.httpOptions);
   }
 
@@ -88,5 +89,9 @@ export class SecurityService {
 
   updateAvatar(accountId: number, avatar: string) {
     return this.http.patch(AUTH_API + 'updateAvatar' ,{accountId: accountId, avatar: avatar});
+  }
+
+  updateInfo(account: Account) {
+    return this.http.put(AUTH_API + 'updateInfo' ,account);
   }
 }

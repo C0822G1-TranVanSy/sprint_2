@@ -16,6 +16,8 @@ public interface IProductService {
 
     Page<IProductDto> searchAllProductByName(Pageable pageable, String name);
 
+    Page<IProductDto> searchAllProductByNameAndPrice(Pageable pageable, String name, String sm, String bg);
+
     Optional<Product> findById( Long productId);
 
     void createProduct(String productName, String description,

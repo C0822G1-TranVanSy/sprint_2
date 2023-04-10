@@ -10,6 +10,9 @@ import {ToastrService} from 'ngx-toastr';
 import {SecurityService} from '../../../service/security/security.service';
 import {Account} from '../../../entity/account/account';
 import {Router} from '@angular/router';
+import {WarehouseService} from '../../../service/warehouse/warehouse.service';
+import {Warehouse} from '../../../entity/warehouse/warehouse';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-cart',
@@ -23,33 +26,33 @@ export class CartComponent implements OnInit {
   totalQuantity = 0;
   order: Orders = {orderId: 0, accountId: 0};
   index = 0;
+  warehouse: Warehouse = {id: 0, quantity: 0, productId: 0}
+  qtyWare = 0;
 
   constructor(private tokenStorageService: TokenStorageService,
               private shareService: ShareService,
               private orderService: OrderService,
               private toast: ToastrService,
-              private router: Router) {
-    if (this.tokenStorageService.getToken()) {
+              private router: Router,
+              private warehouseService: WarehouseService,
+              private title: Title) {
+    this.title.setTitle('Giỏ hàng')
       this.shareService.getClickEvent().subscribe(next => {
-        this.orderService.findOrderByAccountId(parseInt(this.tokenStorageService.getIdAccount())).subscribe(next => {
-          this.order = next;
-          this.cartList = this.getAllCart(this.order.orderId);
-          // this.getTotal(this.order.orderId);
-          this.totalPayment = this.getTotalPaymentBE(this.order.orderId);
-          this.totalQuantity = this.getTotalQuantityBE(this.order.orderId);
+        if (this.tokenStorageService.getToken()){
+          this.orderService.findOrderByAccountId(parseInt(this.tokenStorageService.getIdAccount())).subscribe(next => {
+            this.order = next;
+            this.cartList = this.getAllCart(this.order.orderId);
+            this.totalPayment = this.getTotalPaymentBE(this.order.orderId);
+            this.totalQuantity = this.getTotalQuantityBE(this.order.orderId);
+            this.length = this.cartList.length;
+          });
+        }else {
+          this.cartList = this.tokenStorageService.getCart();
+          this.totalPayment = this.getTotalPayment();
           this.length = this.cartList.length;
-        });
-
+          this.totalQuantity = this.getQuantity();
+        }
       });
-    } else {
-      this.shareService.getClickEvent().subscribe(next => {
-        this.cartList = this.tokenStorageService.getCart();
-        this.totalPayment = this.getTotalPayment();
-        this.length = this.cartList.length;
-        this.totalQuantity = this.getQuantity();
-      });
-    }
-
   }
 
 
@@ -135,21 +138,22 @@ export class CartComponent implements OnInit {
   reduceQuantityLocal(i: number, quantity: number) {
     if (quantity == 0) {
       Swal.fire({
-        title: 'Are you sure?',
-        text: 'You won\'t be able to revert this!',
+        title: 'Bạn có chắc chắn muốn xóa?',
+        text: 'Bạn sẽ không thể khôi phục!',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        cancelButtonText: 'Hủy!',
+        confirmButtonText: 'Xóa!',
       }).then((result) => {
         if (result.isConfirmed) {
           this.cartList.splice(i, 1);
           this.tokenStorageService.setCart(this.cartList);
           this.shareService.sendClickEvent();
           Swal.fire(
-            'Deleted!',
-            'Your file has been deleted.',
+            'Đã xóa!',
+            'Sản phẩm của bạn đã được xóa khỏi giỏ.',
             'success'
           );
         }
@@ -168,13 +172,30 @@ export class CartComponent implements OnInit {
   }
 
   increaseQuantity(productId: number, qty: number, index: number) {
-    if (!this.tokenStorageService.getToken()) {
-      this.increaseQuantityLocal(index, qty);
-    } else {
-      this.orderService.updateQuantity(this.order.orderId, productId, qty).subscribe(next => {
-        this.shareService.sendClickEvent();
-      });
-    }
+    let qty2 = 0;
+    this.warehouseService.findByProductId(productId).subscribe(next => {
+     qty2= next.quantity;
+      if(qty > qty2){
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Thông báo!',
+          text: 'Mặt hàng này đã hết',
+          showConfirmButton: false,
+          timer: 2000
+        });
+      }else {
+        if (!this.tokenStorageService.getToken()) {
+          this.increaseQuantityLocal(index, qty);
+        } else {
+          this.orderService.updateQuantity(this.order.orderId, productId, qty).subscribe(next => {
+            this.shareService.sendClickEvent();
+          });
+        }
+      }
+    })
+    console.log(qty2);
+
   }
 
   reduceQuantity(productId: number, qty: number, index: number) {
@@ -192,24 +213,46 @@ export class CartComponent implements OnInit {
   }
 
   updateQuantity(productId: number, qty: number, index: number) {
-    if (!this.tokenStorageService.getToken()) {
-      this.updateQuantityLocal(index, qty);
-    } else {
-      this.orderService.updateQuantity(this.order.orderId, productId, qty).subscribe(next => {
-        this.shareService.sendClickEvent();
+    if(qty > this.getWareHouse(productId)){
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Thông báo!',
+        text: 'Mặt hàng này đã hết',
+        showConfirmButton: false,
+        timer: 2000
       });
+    }else {
+      if (!this.tokenStorageService.getToken()) {
+        this.updateQuantityLocal(index, qty);
+      } else {
+        this.orderService.updateQuantity(this.order.orderId, productId, qty).subscribe(next => {
+          this.shareService.sendClickEvent();
+        });
+      }
     }
+  }
+
+  getWareHouse(productId: number){
+    this.warehouseService.findByProductId(productId).subscribe(next => {
+      this.warehouse = next;
+      this.qtyWare = next.quantity;
+      console.log(next.quantity + ' cái này là next');
+      return next.quantity;
+    })
+    return this.qtyWare;
   }
 
   removeCart(productId: number, index: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: 'You won\'t be able to revert this!',
+      title: 'Bạn có chắc chắn muốn xóa?',
+      text: 'Bạn sẽ không thể khôi phục!',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      cancelButtonText: 'Hủy!',
+      confirmButtonText: 'Xóa!',
     }).then((result) => {
       if (result.isConfirmed) {
         if (this.tokenStorageService.getToken()) {
@@ -220,8 +263,8 @@ export class CartComponent implements OnInit {
           this.removeCartLocal(index);
         }
         Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
+          'Đã xóa!',
+          'Sản phẩm của bạn đã được xóa khỏi giỏ.',
           'success'
         );
       }
@@ -236,7 +279,7 @@ export class CartComponent implements OnInit {
         position: 'center',
         icon: 'error',
         title: 'Thông báo!',
-        text: 'Chưa có gì trong giỏ',
+        text: 'Chưa có mặt hàng để thanh toán.',
         showConfirmButton: false,
         timer: 2000
       });

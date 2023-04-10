@@ -27,6 +27,10 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
             countQuery = "select product_id as productId, product_name as productName, description, price, avatar, category_id as categoryId from product where flag_delete = false and product_name like concat('%',:name,'%') order by product_id desc", nativeQuery = true)
     Page<IProductDto> searchAllProductByName(Pageable pageable,@Param("name") String name);
 
+    @Query(value = "select product_id as productId, product_name as productName, description, price, avatar, category_id as categoryId from product where flag_delete = false and product_name like concat('%',:name,'%') and (price >= :sm and price <= :bg) order by product_id desc",
+            countQuery = "select product_id as productId, product_name as productName, description, price, avatar, category_id as categoryId from product where flag_delete = false and product_name like concat('%',:name,'%') and (price >= :sm and price <= :bg) order by product_id desc", nativeQuery = true)
+    Page<IProductDto> searchAllProductByNameAndPrice(Pageable pageable,@Param("name") String name,@Param("sm") String sm,@Param("bg") String bg);
+
     @Query(value = "select * from product where flag_delete = false and product_id = :productId", nativeQuery = true)
     Optional<Product> findById(@Param("productId") Long productId);
 

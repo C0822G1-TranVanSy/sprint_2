@@ -10,10 +10,11 @@ import { CartComponent } from './body/cart/cart.component';
 import { ErrorComponent } from './error/error.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { PaymentComponent } from './body/payment/payment.component';
+import { IntroduceComponent } from './layout/introduce/introduce.component';
 
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, BodyComponent, DetailComponent, CartComponent, ErrorComponent, PaymentComponent],
+  declarations: [HeaderComponent, FooterComponent, BodyComponent, DetailComponent, CartComponent, ErrorComponent, PaymentComponent, IntroduceComponent],
   exports: [
     HeaderComponent,
     FooterComponent,

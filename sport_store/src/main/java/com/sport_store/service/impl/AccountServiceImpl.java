@@ -94,4 +94,9 @@ public class AccountServiceImpl implements IAccountService {
         iAccountRepository.changeAvatar(accountId,ava);
     }
 
+    @Override
+    public void changeInfo(Long accountId, String name, String phoneNumber, String address, String email) {
+        iAccountRepository.changeInfo(accountId,name,phoneNumber,address,email);
+    }
+
 }
